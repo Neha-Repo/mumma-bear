@@ -1,2 +1,12 @@
-// For information on how to create your own theme, please refer to:
-// https://ionicframework.com/docs/theming/
+:root {
+  --mumma-bg: #fffaf7;
+  --mumma-surface: #fdf3ef;
+  --mumma-primary: #b77b84;
+  --mumma-primary-soft: #c98f97;
+
+  --mumma-text: #4f3f42;
+  --mumma-text-soft: #6c5a5d;
+  --mumma-line: rgba(201, 143, 151, 0.45);
+
+  --mumma-shadow: rgba(125, 78, 87, 0.16);
+}
