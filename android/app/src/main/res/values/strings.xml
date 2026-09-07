@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Mumma Bear</string>
+    <string name="title_activity_main">Mumma Bear</string>
+    <string name="package_name">com.mummabear.app</string>
+    <string name="custom_url_scheme">com.mummabear.app</string>
+</resources>
