@@ -1,0 +1,131 @@
+:host {
+  display: block;
+  height: 100%;
+}
+
+.onboarding-screen {
+  min-height: 100vh;
+  box-sizing: border-box;
+  padding:
+    calc(24px + env(safe-area-inset-top))
+    24px
+    calc(28px + env(safe-area-inset-bottom));
+
+  display: flex;
+  flex-direction: column;
+
+  background: var(--mumma-bg);
+  color: var(--mumma-text);
+}
+
+.progress {
+  width: 100%;
+  max-width: 390px;
+  height: 4px;
+  margin: 0 auto;
+
+  overflow: hidden;
+  border-radius: 999px;
+
+  background: var(--mumma-surface);
+}
+
+.progress-fill {
+  display: block;
+  width: 100%;
+  height: 100%;
+
+  border-radius: inherit;
+  background: var(--mumma-primary-soft);
+}
+
+.onboarding-content {
+  width: 100%;
+  max-width: 390px;
+  margin: 0 auto;
+
+  flex: 1;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+}
+
+.completion-mark {
+  width: 82px;
+  height: 82px;
+  margin-bottom: 28px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: var(--mumma-surface);
+  color: var(--mumma-primary);
+
+  font-size: 2rem;
+  font-weight: 700;
+
+  box-shadow: 0 10px 28px rgba(125, 78, 87, 0.08);
+}
+
+h1 {
+  margin: 0;
+
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(2.4rem, 10vw, 3.2rem);
+  font-weight: 500;
+  line-height: 1.08;
+  letter-spacing: -0.035em;
+
+  color: var(--mumma-text);
+}
+
+.supporting-text {
+  max-width: 340px;
+  margin: 18px 0 0;
+
+  font-size: 1rem;
+  line-height: 1.6;
+
+  color: var(--mumma-text-soft);
+}
+
+.reassurance {
+  margin: 18px 0 0;
+
+  font-size: 0.88rem;
+
+  color: var(--mumma-text-soft);
+}
+
+.continue-button {
+  width: min(100%, 350px);
+  min-height: 60px;
+  margin: 24px auto 0;
+  padding: 0 26px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+
+  border: 0;
+  border-radius: 20px;
+
+  background: var(--mumma-primary);
+  color: #ffffff;
+
+  font: inherit;
+  font-size: 1.04rem;
+  font-weight: 600;
+
+  box-shadow: 0 10px 24px var(--mumma-shadow);
+
+  cursor: pointer;
+}

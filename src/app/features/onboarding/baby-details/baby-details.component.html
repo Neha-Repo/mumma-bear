@@ -1,0 +1,36 @@
+<div class="onboarding-screen">
+  <div class="progress" aria-label="Onboarding progress">
+    <span class="progress-fill"></span>
+  </div>
+
+  <main class="onboarding-content">
+    <h1>What’s your baby’s name?</h1>
+
+    <p class="supporting-text">
+      We’ll use their name to make Mumma Bear feel more personal.
+    </p>
+
+    <label for="baby-name">Baby’s name</label>
+
+    <input
+      id="baby-name"
+      type="text"
+      autocomplete="off"
+      inputmode="text"
+      maxlength="50"
+      placeholder="e.g. Ava"
+      [(ngModel)]="babyName"
+      (keyup.enter)="continue()"
+    />
+  </main>
+
+  <button
+    type="button"
+    class="continue-button"
+    [disabled]="!babyName.trim()"
+    (click)="continue()"
+  >
+    <span>Continue</span>
+    <span aria-hidden="true">→</span>
+  </button>
+</div>

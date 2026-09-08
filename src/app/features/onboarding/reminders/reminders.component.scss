@@ -1,0 +1,148 @@
+:host {
+  display: block;
+  height: 100%;
+}
+
+.onboarding-screen {
+  min-height: 100vh;
+  box-sizing: border-box;
+  padding:
+    calc(24px + env(safe-area-inset-top))
+    24px
+    calc(28px + env(safe-area-inset-bottom));
+
+  display: flex;
+  flex-direction: column;
+
+  background: var(--mumma-bg);
+  color: var(--mumma-text);
+}
+
+.progress {
+  width: 100%;
+  max-width: 390px;
+  height: 4px;
+  margin: 0 auto;
+
+  overflow: hidden;
+  border-radius: 999px;
+
+  background: var(--mumma-surface);
+}
+
+.progress-fill {
+  display: block;
+  width: 92%;
+  height: 100%;
+
+  border-radius: inherit;
+  background: var(--mumma-primary-soft);
+}
+
+.onboarding-content {
+  width: 100%;
+  max-width: 390px;
+  margin: 0 auto;
+
+  flex: 1;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+h1 {
+  margin: 0;
+
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(2.2rem, 9vw, 3rem);
+  font-weight: 500;
+  line-height: 1.08;
+  letter-spacing: -0.035em;
+
+  color: var(--mumma-text);
+}
+
+.supporting-text {
+  margin: 16px 0 28px;
+
+  font-size: 1rem;
+  line-height: 1.55;
+
+  color: var(--mumma-text-soft);
+}
+
+.option-list {
+  display: grid;
+  gap: 12px;
+}
+
+.option-card {
+  width: 100%;
+  min-height: 64px;
+  padding: 0 20px;
+
+  display: flex;
+  align-items: center;
+
+  border: 1px solid var(--mumma-line);
+  border-radius: 18px;
+
+  background: #ffffff;
+  color: var(--mumma-text);
+
+  font: inherit;
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: left;
+
+  cursor: pointer;
+}
+
+.option-card.selected {
+  border-color: var(--mumma-primary);
+  background: var(--mumma-surface);
+
+  box-shadow: 0 0 0 2px rgba(183, 123, 132, 0.08);
+}
+
+.privacy-note {
+  margin: 18px 0 0;
+
+  text-align: center;
+
+  font-size: 0.88rem;
+  color: var(--mumma-text-soft);
+}
+
+.continue-button {
+  width: min(100%, 350px);
+  min-height: 60px;
+  margin: 24px auto 0;
+  padding: 0 26px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+
+  border: 0;
+  border-radius: 20px;
+
+  background: var(--mumma-primary);
+  color: #ffffff;
+
+  font: inherit;
+  font-size: 1.04rem;
+  font-weight: 600;
+
+  box-shadow: 0 10px 24px var(--mumma-shadow);
+
+  cursor: pointer;
+}
+
+.continue-button:disabled {
+  opacity: 0.45;
+  box-shadow: none;
+  cursor: default;
+}

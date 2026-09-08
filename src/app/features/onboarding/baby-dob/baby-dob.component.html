@@ -1,0 +1,86 @@
+<div class="onboarding-screen">
+  <div class="progress" aria-label="Onboarding progress">
+    <span class="progress-fill"></span>
+  </div>
+
+  <main class="onboarding-content">
+    <h1>When was your baby born?</h1>
+
+    <p class="supporting-text">
+      Scroll to choose the date.
+    </p>
+
+    <div class="date-picker">
+      <div class="selection-band" aria-hidden="true"></div>
+
+      <div
+        #wheel
+        class="wheel"
+        aria-label="Day"
+        (scroll)="onWheelScroll('day', wheel)"
+      >
+        <div class="wheel-spacer"></div>
+
+        @for (day of days; track day) {
+          <div
+            class="wheel-item"
+            [class.selected]="selectedDay === day"
+          >
+            {{ day }}
+          </div>
+        }
+
+        <div class="wheel-spacer"></div>
+      </div>
+
+      <div
+        #wheel
+        class="wheel month-wheel"
+        aria-label="Month"
+        (scroll)="onWheelScroll('month', wheel)"
+      >
+        <div class="wheel-spacer"></div>
+
+        @for (monthIndex of availableMonths; track monthIndex) {
+  <div
+    class="wheel-item"
+    [class.selected]="selectedMonth === monthIndex"
+  >
+    {{ months[monthIndex] }}
+  </div>
+}
+
+        <div class="wheel-spacer"></div>
+      </div>
+
+      <div
+        #wheel
+        class="wheel"
+        aria-label="Year"
+        (scroll)="onWheelScroll('year', wheel)"
+      >
+        <div class="wheel-spacer"></div>
+
+        @for (year of years; track year) {
+          <div
+            class="wheel-item"
+            [class.selected]="selectedYear === year"
+          >
+            {{ year }}
+          </div>
+        }
+
+        <div class="wheel-spacer"></div>
+      </div>
+    </div>
+  </main>
+
+  <button
+    type="button"
+    class="continue-button"
+    (click)="continue()"
+  >
+    <span>Continue</span>
+    <span aria-hidden="true">→</span>
+  </button>
+</div>

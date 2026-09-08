@@ -1,0 +1,48 @@
+<div class="onboarding-screen">
+  <div class="progress" aria-label="Onboarding progress">
+    <span class="progress-fill"></span>
+  </div>
+
+  <main class="onboarding-content">
+    <h1>Would reminders be helpful?</h1>
+
+    <p class="supporting-text">
+      Mumma Bear can help you remember things like feeds, pumping, and other
+      baby-care tasks.
+    </p>
+
+    <div class="option-list">
+      <button
+        type="button"
+        class="option-card"
+        [class.selected]="selected === true"
+        (click)="select(true)"
+      >
+        Yes, remind me
+      </button>
+
+      <button
+        type="button"
+        class="option-card"
+        [class.selected]="selected === false"
+        (click)="select(false)"
+      >
+        Not right now
+      </button>
+    </div>
+
+    <p class="privacy-note">
+      You can change this later.
+    </p>
+  </main>
+
+  <button
+    type="button"
+    class="continue-button"
+    [disabled]="selected === null"
+    (click)="continue()"
+  >
+    <span>Continue</span>
+    <span aria-hidden="true">→</span>
+  </button>
+</div>

@@ -1,0 +1,61 @@
+<div class="onboarding-screen">
+  <div class="progress" aria-label="Onboarding progress">
+    <span class="progress-fill"></span>
+  </div>
+
+  <main class="onboarding-content">
+    <h1>How are you feeding your baby?</h1>
+
+    <p class="supporting-text">
+      Choose what best matches things right now.
+    </p>
+
+    <div class="option-list">
+      <button
+        type="button"
+        class="option-card"
+        [class.selected]="selected === 'breastfeeding'"
+        (click)="select('breastfeeding')"
+      >
+        <span class="option-title">Breastfeeding</span>
+      </button>
+
+      <button
+        type="button"
+        class="option-card"
+        [class.selected]="selected === 'expressed-milk'"
+        (click)="select('expressed-milk')"
+      >
+        <span class="option-title">Expressed breast milk</span>
+      </button>
+
+      <button
+        type="button"
+        class="option-card"
+        [class.selected]="selected === 'formula'"
+        (click)="select('formula')"
+      >
+        <span class="option-title">Formula</span>
+      </button>
+
+      <button
+        type="button"
+        class="option-card"
+        [class.selected]="selected === 'combination'"
+        (click)="select('combination')"
+      >
+        <span class="option-title">Combination feeding</span>
+      </button>
+    </div>
+  </main>
+
+  <button
+    type="button"
+    class="continue-button"
+    [disabled]="selected === null"
+    (click)="continue()"
+  >
+    <span>Continue</span>
+    <span aria-hidden="true">→</span>
+  </button>
+</div>

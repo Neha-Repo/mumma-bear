@@ -1,0 +1,31 @@
+<div class="onboarding-screen">
+  <div class="progress" aria-label="Onboarding progress">
+    <span class="progress-fill"></span>
+  </div>
+
+  <main class="onboarding-content">
+    <div class="completion-mark" aria-hidden="true">
+      ✓
+    </div>
+
+    <h1>You’re all set</h1>
+
+    <p class="supporting-text">
+      Mumma Bear is ready to help you keep track of the little things,
+      so you don’t have to hold everything in your head.
+    </p>
+
+    <p class="reassurance">
+      You can change your details later.
+    </p>
+  </main>
+
+  <button
+    type="button"
+    class="continue-button"
+    (click)="finish()"
+  >
+    <span>Go to Today</span>
+    <span aria-hidden="true">→</span>
+  </button>
+</div>

@@ -1,0 +1,61 @@
+<div class="onboarding-screen">
+  <div class="progress" aria-label="Onboarding progress">
+    <span class="progress-fill"></span>
+  </div>
+
+  <main class="onboarding-content">
+    <h1>How was your baby born?</h1>
+
+    <p class="supporting-text">
+      This helps us better understand your recovery.
+    </p>
+
+    <div class="option-list">
+      <button
+        type="button"
+        class="option-card"
+        [class.selected]="selected === 'vaginal'"
+        (click)="select('vaginal')"
+      >
+        Vaginal birth
+      </button>
+
+      <button
+        type="button"
+        class="option-card"
+        [class.selected]="selected === 'caesarean'"
+        (click)="select('caesarean')"
+      >
+        Caesarean birth
+      </button>
+
+      <button
+        type="button"
+        class="option-card"
+        [class.selected]="selected === 'assisted'"
+        (click)="select('assisted')"
+      >
+        Assisted vaginal birth
+      </button>
+
+      <button
+        type="button"
+        class="option-card"
+        [class.selected]="selected === 'other'"
+        (click)="select('other')"
+      >
+        Prefer not to say
+      </button>
+    </div>
+  </main>
+
+  <button
+    type="button"
+    class="continue-button"
+    [disabled]="selected === null"
+    (click)="continue()"
+  >
+    <span>Continue</span>
+    <span aria-hidden="true">→</span>
+  </button>
+</div>

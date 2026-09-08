@@ -1,0 +1,43 @@
+<div class="onboarding-screen">
+  <div class="progress" aria-label="Onboarding progress">
+    <span class="progress-fill"></span>
+  </div>
+
+  <main class="onboarding-content">
+    <h1>Was your baby born premature?</h1>
+
+    <p class="supporting-text">
+      This helps us give guidance that better matches your baby’s stage.
+    </p>
+
+    <div class="option-list">
+      <button
+        type="button"
+        class="option-card"
+        [class.selected]="selected === true"
+        (click)="select(true)"
+      >
+        Yes
+      </button>
+
+      <button
+        type="button"
+        class="option-card"
+        [class.selected]="selected === false"
+        (click)="select(false)"
+      >
+        No
+      </button>
+    </div>
+  </main>
+
+  <button
+    type="button"
+    class="continue-button"
+    [disabled]="selected === null"
+    (click)="continue()"
+  >
+    <span>Continue</span>
+    <span aria-hidden="true">→</span>
+  </button>
+</div>

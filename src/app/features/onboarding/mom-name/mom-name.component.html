@@ -1,0 +1,36 @@
+<div class="onboarding-screen">
+  <div class="progress" aria-label="Onboarding progress">
+    <span class="progress-fill"></span>
+  </div>
+
+  <main class="onboarding-content">
+    <h1>What should we call you?</h1>
+
+    <p class="supporting-text">
+      Whatever feels most like you.
+    </p>
+
+    <label for="preferred-name">Your name</label>
+
+    <input
+      id="preferred-name"
+      type="text"
+      autocomplete="given-name"
+      inputmode="text"
+      placeholder="e.g. Neha"
+      maxlength="50"
+      [(ngModel)]="preferredName"
+      (keyup.enter)="continue()"
+    />
+  </main>
+
+  <button
+    type="button"
+    class="continue-button"
+    [disabled]="!preferredName.trim()"
+    (click)="continue()"
+  >
+    <span>Continue</span>
+    <span aria-hidden="true">→</span>
+  </button>
+</div>

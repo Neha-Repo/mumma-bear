@@ -1,0 +1,72 @@
+<div class="onboarding-screen">
+  <div class="progress" aria-label="Onboarding progress">
+    <span class="progress-fill"></span>
+  </div>
+
+  <main class="onboarding-content">
+    <h1>How early was your baby born?</h1>
+
+    <p class="supporting-text">
+      Choose their gestational age at birth.
+    </p>
+
+    <div class="age-picker">
+      <div class="selection-band" aria-hidden="true"></div>
+
+      <div class="wheel-column">
+        <div
+          #wheel
+          class="wheel"
+          aria-label="Gestational weeks"
+          (scroll)="onWheelScroll('weeks', wheel)"
+        >
+          <div class="wheel-spacer"></div>
+
+          @for (week of weeks; track week) {
+            <div class="wheel-item">
+              {{ week }}
+            </div>
+          }
+
+          <div class="wheel-spacer"></div>
+        </div>
+
+        <span class="column-label">weeks</span>
+      </div>
+
+      <div class="wheel-column">
+        <div
+          #wheel
+          class="wheel"
+          aria-label="Gestational days"
+          (scroll)="onWheelScroll('days', wheel)"
+        >
+          <div class="wheel-spacer"></div>
+
+          @for (day of days; track day) {
+            <div class="wheel-item">
+              {{ day }}
+            </div>
+          }
+
+          <div class="wheel-spacer"></div>
+        </div>
+
+        <span class="column-label">days</span>
+      </div>
+    </div>
+
+    <p class="selected-age">
+      {{ selectedWeeks }} weeks, {{ selectedDays }} days
+    </p>
+  </main>
+
+  <button
+    type="button"
+    class="continue-button"
+    (click)="continue()"
+  >
+    <span>Continue</span>
+    <span aria-hidden="true">→</span>
+  </button>
+</div>
