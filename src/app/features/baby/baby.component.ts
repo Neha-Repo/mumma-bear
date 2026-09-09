@@ -24,6 +24,19 @@ interface Appointment {
   time: string;
 }
 
+interface GrowthEntry {
+  id: string;
+  date: string;
+  weightKg:
+    number | null;
+  lengthCm:
+    number | null;
+  headCm:
+    number | null;
+  notes: string;
+  createdAt: string;
+}
+
 @Component({
   selector: 'app-baby',
   standalone: true,
@@ -64,6 +77,12 @@ export class BabyComponent
   upcomingVaccinations =
     0;
 
+  growthEntryCount =
+    0;
+
+  latestGrowthText =
+    'No measurements yet';
+
 
   ngOnInit(): void {
     this.loadBabyProfile();
@@ -84,6 +103,7 @@ export class BabyComponent
       );
 
     this.loadVaccinations();
+    this.loadGrowth();
   }
 
 
@@ -117,6 +137,13 @@ export class BabyComponent
             'vaccinations',
         },
       },
+    );
+  }
+
+
+  openGrowth(): void {
+    void this.router.navigate(
+      ['/baby/growth'],
     );
   }
 
@@ -271,6 +298,146 @@ export class BabyComponent
       this.upcomingVaccinations =
         0;
     }
+  }
+
+
+  private loadGrowth():
+    void {
+    const stored =
+      localStorage.getItem(
+        'mumma-bear:growth-entries',
+      );
+
+    if (!stored) {
+      this.growthEntryCount =
+        0;
+
+      this.latestGrowthText =
+        'No measurements yet';
+
+      return;
+    }
+
+    try {
+      const parsed =
+        JSON.parse(
+          stored,
+        ) as GrowthEntry[];
+
+      if (
+        !Array.isArray(
+          parsed,
+        )
+      ) {
+        return;
+      }
+
+      const entries =
+        parsed
+          .filter(
+            (
+              entry,
+            ) =>
+              Boolean(
+                entry?.date,
+              ),
+          )
+          .sort(
+            (
+              a,
+              b,
+            ) =>
+              this.getDateTimestamp(
+                b.date,
+              ) -
+              this.getDateTimestamp(
+                a.date,
+              ),
+          );
+
+      this.growthEntryCount =
+        entries.length;
+
+      const latest =
+        entries[0];
+
+      if (!latest) {
+        this.latestGrowthText =
+          'No measurements yet';
+
+        return;
+      }
+
+      const parts:
+        string[] = [];
+
+      if (
+        latest.weightKg !==
+        null
+      ) {
+        parts.push(
+          `${this.cleanNumber(
+            latest.weightKg,
+          )} kg`,
+        );
+      }
+
+      if (
+        latest.lengthCm !==
+        null
+      ) {
+        parts.push(
+          `${this.cleanNumber(
+            latest.lengthCm,
+          )} cm`,
+        );
+      }
+
+      if (
+        parts.length > 0
+      ) {
+        this.latestGrowthText =
+          parts.join(' • ');
+      } else {
+        this.latestGrowthText =
+          `${entries.length} ${
+            entries.length === 1
+              ? 'measurement'
+              : 'measurements'
+          } recorded`;
+      }
+    } catch {
+      this.growthEntryCount =
+        0;
+
+      this.latestGrowthText =
+        'No measurements yet';
+    }
+  }
+
+
+  private getDateTimestamp(
+    value: string,
+  ): number {
+    const timestamp =
+      new Date(
+        `${value}T00:00:00`,
+      ).getTime();
+
+    return Number.isNaN(
+      timestamp,
+    )
+      ? 0
+      : timestamp;
+  }
+
+
+  private cleanNumber(
+    value: number,
+  ): string {
+    return Number(
+      value.toFixed(2),
+    ).toString();
   }
 
 

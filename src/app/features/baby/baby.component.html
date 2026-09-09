@@ -1,8 +1,11 @@
 <div class="baby-page">
+
   <main class="baby-shell">
 
     <header class="page-header">
+
       <div>
+
         <p>
           Baby
         </p>
@@ -12,11 +15,15 @@
         </h1>
 
         @if (babyAgeText) {
+
           <span>
             {{ babyAgeText }}
           </span>
+
         }
+
       </div>
+
 
       <div
         class="profile-mark"
@@ -24,12 +31,14 @@
       >
         B
       </div>
+
     </header>
 
 
     <section class="profile-card">
 
       <div>
+
         <span>
           Baby profile
         </span>
@@ -37,10 +46,14 @@
         <strong>
           {{ babyName }}
         </strong>
+
       </div>
 
+
       @if (babyDobText) {
+
         <div>
+
           <span>
             Date of birth
           </span>
@@ -48,7 +61,9 @@
           <strong>
             {{ babyDobText }}
           </strong>
+
         </div>
+
       }
 
     </section>
@@ -57,7 +72,9 @@
     <section class="section">
 
       <div class="section-heading">
+
         <div>
+
           <h2>
             Everyday care
           </h2>
@@ -66,8 +83,11 @@
             Everything you've logged
             for {{ babyName }}.
           </p>
+
         </div>
+
       </div>
+
 
       <div class="history-grid">
 
@@ -75,6 +95,7 @@
           type="button"
           (click)="openFeeding()"
         >
+
           <span
             class="letter-icon"
             aria-hidden="true"
@@ -90,6 +111,7 @@
             {{ feedingCount }}
             logged
           </small>
+
         </button>
 
 
@@ -97,6 +119,7 @@
           type="button"
           (click)="openDiapers()"
         >
+
           <span
             class="letter-icon"
             aria-hidden="true"
@@ -112,6 +135,7 @@
             {{ diaperCount }}
             logged
           </small>
+
         </button>
 
 
@@ -119,6 +143,7 @@
           type="button"
           (click)="openSleep()"
         >
+
           <span
             class="letter-icon"
             aria-hidden="true"
@@ -134,6 +159,7 @@
             {{ sleepCount }}
             logged
           </small>
+
         </button>
 
       </div>
@@ -147,11 +173,13 @@
         Health
       </h2>
 
+
       <button
         type="button"
         class="feature-card"
         (click)="openVaccinations()"
       >
+
         <span
           class="feature-symbol"
           aria-hidden="true"
@@ -160,6 +188,7 @@
         </span>
 
         <div>
+
           <strong>
             Vaccinations
           </strong>
@@ -168,15 +197,21 @@
             {{ upcomingVaccinations }}
             upcoming
           </p>
+
         </div>
 
         <span class="arrow">
           ›
         </span>
+
       </button>
 
 
-      <div class="feature-card upcoming">
+      <button
+        type="button"
+        class="feature-card"
+        (click)="openGrowth()"
+      >
 
         <span
           class="feature-symbol"
@@ -186,21 +221,22 @@
         </span>
 
         <div>
+
           <strong>
             Growth & health
           </strong>
 
           <p>
-            Weight, height and growth
-            tracking
+            {{ latestGrowthText }}
           </p>
+
         </div>
 
-        <span class="coming">
-          Coming soon
+        <span class="arrow">
+          ›
         </span>
 
-      </div>
+      </button>
 
     </section>
 
@@ -210,6 +246,7 @@
       <h2>
         Development
       </h2>
+
 
       <div class="feature-card upcoming">
 
@@ -221,6 +258,7 @@
         </span>
 
         <div>
+
           <strong>
             Milestones
           </strong>
@@ -229,6 +267,7 @@
             Track new skills and
             development.
           </p>
+
         </div>
 
         <span class="coming">
@@ -248,6 +287,7 @@
         </span>
 
         <div>
+
           <strong>
             Baby food & recipes
           </strong>
@@ -256,6 +296,7 @@
             Stage-aware meal ideas when
             baby is ready.
           </p>
+
         </div>
 
         <span class="coming">
@@ -268,5 +309,7 @@
 
   </main>
 
+
   <app-bottom-nav></app-bottom-nav>
+
 </div>

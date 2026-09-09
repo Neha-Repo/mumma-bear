@@ -135,6 +135,39 @@ export const routes: Routes = [
   },
 
   {
+    path: 'baby/growth',
+    loadComponent: () =>
+      import(
+        './features/growth/growth.component'
+      ).then(
+        (m) =>
+          m.GrowthComponent,
+      ),
+  },
+
+  {
+    path: 'baby/growth/new',
+    loadComponent: () =>
+      import(
+        './features/growth-form/growth-form.component'
+      ).then(
+        (m) =>
+          m.GrowthFormComponent,
+      ),
+  },
+
+  {
+    path: 'baby/growth/:id/edit',
+    loadComponent: () =>
+      import(
+        './features/growth-form/growth-form.component'
+      ).then(
+        (m) =>
+          m.GrowthFormComponent,
+      ),
+  },
+
+  {
     path: 'me',
     loadComponent: () =>
       import(

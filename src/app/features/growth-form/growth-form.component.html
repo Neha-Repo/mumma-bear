@@ -1,0 +1,303 @@
+<div class="growth-form-page">
+
+  <main class="growth-form-shell">
+
+    <header class="page-header">
+
+      <button
+        type="button"
+        class="back-button"
+        aria-label="Back"
+        (click)="goBack()"
+      >
+        ‹
+      </button>
+
+      <div>
+        <p>
+          Growth & health
+        </p>
+
+        <h1>
+          {{
+            isEditing
+              ? 'Edit measurement'
+              : 'Add measurement'
+          }}
+        </h1>
+      </div>
+
+      <div
+        class="header-space"
+        aria-hidden="true"
+      ></div>
+
+    </header>
+
+
+    <section class="intro">
+
+      <strong>
+        {{ babyName }}
+      </strong>
+
+      <p>
+        Record the measurements you
+        have. You do not need to fill
+        every field.
+      </p>
+
+    </section>
+
+
+    <section class="form-card">
+
+      <label class="field">
+
+        <span>
+          Measurement date
+        </span>
+
+        <input
+          type="date"
+          [(ngModel)]="date"
+        />
+
+      </label>
+
+
+      <div class="measurement-field">
+
+        <div class="field-heading">
+
+          <span
+            class="field-symbol"
+            aria-hidden="true"
+          >
+            W
+          </span>
+
+          <div>
+            <strong>
+              Weight
+            </strong>
+
+            <small>
+              Kilograms
+            </small>
+          </div>
+
+        </div>
+
+        <div class="number-input">
+
+          <input
+            type="number"
+            inputmode="decimal"
+            min="0"
+            step="0.01"
+            placeholder="e.g. 4.25"
+            [(ngModel)]="weight"
+          />
+
+          <span>
+            kg
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <div class="measurement-field">
+
+        <div class="field-heading">
+
+          <span
+            class="field-symbol"
+            aria-hidden="true"
+          >
+            L
+          </span>
+
+          <div>
+            <strong>
+              Length / height
+            </strong>
+
+            <small>
+              Centimetres
+            </small>
+          </div>
+
+        </div>
+
+        <div class="number-input">
+
+          <input
+            type="number"
+            inputmode="decimal"
+            min="0"
+            step="0.1"
+            placeholder="e.g. 54.5"
+            [(ngModel)]="length"
+          />
+
+          <span>
+            cm
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <div class="measurement-field">
+
+        <div class="field-heading">
+
+          <span
+            class="field-symbol"
+            aria-hidden="true"
+          >
+            H
+          </span>
+
+          <div>
+            <strong>
+              Head circumference
+            </strong>
+
+            <small>
+              Centimetres
+            </small>
+          </div>
+
+        </div>
+
+        <div class="number-input">
+
+          <input
+            type="number"
+            inputmode="decimal"
+            min="0"
+            step="0.1"
+            placeholder="e.g. 37.2"
+            [(ngModel)]="head"
+          />
+
+          <span>
+            cm
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <label class="field notes-field">
+
+        <span>
+          Notes
+
+          <small>
+            Optional
+          </small>
+        </span>
+
+        <textarea
+          rows="4"
+          maxlength="500"
+          placeholder="Add anything you want to remember about this measurement."
+          [(ngModel)]="notes"
+        ></textarea>
+
+      </label>
+
+
+      @if (validationMessage) {
+
+        <p class="validation-message">
+          {{ validationMessage }}
+        </p>
+
+      }
+
+    </section>
+
+
+    <button
+      type="button"
+      class="save-button"
+      (click)="save()"
+    >
+      {{
+        isEditing
+          ? 'Save changes'
+          : 'Save measurement'
+      }}
+    </button>
+
+
+    @if (
+      isEditing &&
+      !showDeleteConfirmation
+    ) {
+
+      <button
+        type="button"
+        class="delete-button"
+        (click)="requestDelete()"
+      >
+        Delete measurement
+      </button>
+
+    }
+
+
+    @if (showDeleteConfirmation) {
+
+      <section
+        class="delete-confirmation"
+        aria-live="polite"
+      >
+
+        <strong>
+          Delete this measurement?
+        </strong>
+
+        <p>
+          This measurement will be
+          removed from {{ babyName }}'s
+          growth history.
+        </p>
+
+        <div
+          class="delete-confirmation-actions"
+        >
+
+          <button
+            type="button"
+            class="cancel-delete-button"
+            (click)="cancelDelete()"
+          >
+            Cancel
+          </button>
+
+          <button
+            type="button"
+            class="confirm-delete-button"
+            (click)="confirmDelete()"
+          >
+            Delete
+          </button>
+
+        </div>
+
+      </section>
+
+    }
+
+  </main>
+
+</div>

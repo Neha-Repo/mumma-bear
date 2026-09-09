@@ -1,0 +1,730 @@
+<div class="growth-page">
+
+  <main class="growth-shell">
+
+    <header class="page-header">
+
+      <button
+        type="button"
+        class="back-button"
+        aria-label="Back to Baby"
+        (click)="goBack()"
+      >
+        ‹
+      </button>
+
+      <div>
+        <p>
+          Baby
+        </p>
+
+        <h1>
+          Growth & health
+        </h1>
+      </div>
+
+      <button
+        type="button"
+        class="add-button"
+        aria-label="Add measurement"
+        (click)="addMeasurement()"
+      >
+        +
+      </button>
+
+    </header>
+
+
+    <section class="intro">
+
+      <span>
+        Growth record
+      </span>
+
+      <h2>
+        {{ babyName }}
+      </h2>
+
+      <p>
+        Keep Baby's measurements
+        together so you can look back
+        at changes over time.
+      </p>
+
+    </section>
+
+
+    @if (latestEntry) {
+
+      <section class="section">
+
+        <div class="section-heading">
+
+          <div>
+            <p class="eyebrow">
+              Latest
+            </p>
+
+            <h2>
+              Latest measurements
+            </h2>
+          </div>
+
+          <span class="date-label">
+            {{
+              formatDate(
+                latestEntry.date
+              )
+            }}
+          </span>
+
+        </div>
+
+
+        <button
+          type="button"
+          class="latest-card"
+          (click)="
+            editEntry(
+              latestEntry
+            )
+          "
+        >
+
+          <div class="measurement">
+
+            <span
+              class="measurement-symbol"
+              aria-hidden="true"
+            >
+              W
+            </span>
+
+            <div>
+              <small>
+                Weight
+              </small>
+
+              <strong>
+                {{
+                  formatWeight(
+                    latestEntry.weightKg
+                  )
+                }}
+              </strong>
+            </div>
+
+          </div>
+
+
+          <div class="measurement">
+
+            <span
+              class="measurement-symbol"
+              aria-hidden="true"
+            >
+              L
+            </span>
+
+            <div>
+              <small>
+                Length / height
+              </small>
+
+              <strong>
+                {{
+                  formatLength(
+                    latestEntry.lengthCm
+                  )
+                }}
+              </strong>
+            </div>
+
+          </div>
+
+
+          <div class="measurement">
+
+            <span
+              class="measurement-symbol"
+              aria-hidden="true"
+            >
+              H
+            </span>
+
+            <div>
+              <small>
+                Head circumference
+              </small>
+
+              <strong>
+                {{
+                  formatLength(
+                    latestEntry.headCm
+                  )
+                }}
+              </strong>
+            </div>
+
+          </div>
+
+
+          <span class="edit-label">
+            Tap to edit
+          </span>
+
+        </button>
+
+      </section>
+
+
+      <section class="section trend-section">
+
+        <div class="section-heading">
+
+          <div>
+            <p class="eyebrow">
+              Trends
+            </p>
+
+            <h2>
+              Growth over time
+            </h2>
+          </div>
+
+        </div>
+
+
+        <div
+          class="metric-tabs"
+          role="group"
+          aria-label="Growth measurement"
+        >
+
+          <button
+            type="button"
+            [class.active]="
+              selectedMetric ===
+              'weight'
+            "
+            (click)="
+              setChartMetric(
+                'weight'
+              )
+            "
+          >
+            Weight
+
+            <small>
+              {{
+                metricEntryCount(
+                  'weight'
+                )
+              }}
+            </small>
+          </button>
+
+
+          <button
+            type="button"
+            [class.active]="
+              selectedMetric ===
+              'length'
+            "
+            (click)="
+              setChartMetric(
+                'length'
+              )
+            "
+          >
+            Length
+
+            <small>
+              {{
+                metricEntryCount(
+                  'length'
+                )
+              }}
+            </small>
+          </button>
+
+
+          <button
+            type="button"
+            [class.active]="
+              selectedMetric ===
+              'head'
+            "
+            (click)="
+              setChartMetric(
+                'head'
+              )
+            "
+          >
+            Head
+
+            <small>
+              {{
+                metricEntryCount(
+                  'head'
+                )
+              }}
+            </small>
+          </button>
+
+        </div>
+
+
+        <div class="chart-card">
+
+          <div class="chart-header">
+
+            <div>
+              <small>
+                Showing
+              </small>
+
+              <strong>
+                {{
+                  selectedMetricLabel
+                }}
+              </strong>
+            </div>
+
+            <span>
+              {{
+                chartMeasurements.length
+              }}
+              {{
+                chartMeasurements.length
+                === 1
+                  ? 'record'
+                  : 'records'
+              }}
+            </span>
+
+          </div>
+
+
+          @if (hasChartTrend) {
+
+            <div class="chart-wrapper">
+
+              <svg
+                class="growth-chart"
+                viewBox="0 0 320 190"
+                role="img"
+                [attr.aria-label]="
+                  selectedMetricLabel +
+                  ' growth trend'
+                "
+              >
+
+                <line
+                  class="chart-grid-line"
+                  x1="38"
+                  y1="18"
+                  x2="306"
+                  y2="18"
+                ></line>
+
+                <line
+                  class="chart-grid-line"
+                  x1="38"
+                  y1="64"
+                  x2="306"
+                  y2="64"
+                ></line>
+
+                <line
+                  class="chart-grid-line"
+                  x1="38"
+                  y1="110"
+                  x2="306"
+                  y2="110"
+                ></line>
+
+                <line
+                  class="chart-grid-line"
+                  x1="38"
+                  y1="156"
+                  x2="306"
+                  y2="156"
+                ></line>
+
+
+                <polyline
+                  class="chart-line"
+                  fill="none"
+                  [attr.points]="
+                    chartPolyline
+                  "
+                ></polyline>
+
+
+                @for (
+                  point of chartPoints;
+                  track point.id
+                ) {
+
+                  <circle
+                    class="chart-point-halo"
+                    [attr.cx]="point.x"
+                    [attr.cy]="point.y"
+                    r="7"
+                  ></circle>
+
+                  <circle
+                    class="chart-point"
+                    [attr.cx]="point.x"
+                    [attr.cy]="point.y"
+                    r="4"
+                  >
+                    <title>
+                      {{
+                        formatDate(
+                          point.date
+                        )
+                      }}:
+                      {{
+                        formatChartValue(
+                          point.value
+                        )
+                      }}
+                    </title>
+                  </circle>
+
+                }
+
+              </svg>
+
+
+              <div class="chart-scale">
+
+                <div>
+                  <strong>
+                    {{
+                      formatChartValue(
+                        chartMaximum
+                      )
+                    }}
+                  </strong>
+
+                  <small>
+                    Highest recorded
+                  </small>
+                </div>
+
+                <div>
+                  <strong>
+                    {{
+                      formatChartValue(
+                        chartMinimum
+                      )
+                    }}
+                  </strong>
+
+                  <small>
+                    Lowest recorded
+                  </small>
+                </div>
+
+              </div>
+
+
+              <div class="chart-dates">
+
+                <span>
+                  {{ chartStartDate }}
+                </span>
+
+                <span>
+                  {{ chartEndDate }}
+                </span>
+
+              </div>
+
+            </div>
+
+          } @else {
+
+            <div class="chart-empty">
+
+              <span
+                class="chart-empty-symbol"
+                aria-hidden="true"
+              >
+                ↗
+              </span>
+
+              @if (
+                chartMeasurements.length
+                === 1
+              ) {
+
+                <strong>
+                  One {{
+                    selectedMetricLabel
+                  }} record
+                </strong>
+
+                <p>
+                  Add another
+                  {{
+                    selectedMetricLabel
+                      .toLowerCase()
+                  }}
+                  measurement to show
+                  the trend over time.
+                </p>
+
+              } @else {
+
+                <strong>
+                  No {{
+                    selectedMetricLabel
+                      .toLowerCase()
+                  }} records yet
+                </strong>
+
+                <p>
+                  Add this measurement
+                  to start building the
+                  trend.
+                </p>
+
+              }
+
+              <button
+                type="button"
+                (click)="addMeasurement()"
+              >
+                Add measurement
+              </button>
+
+            </div>
+
+          }
+
+
+          <p class="chart-note">
+            This graph only plots the
+            measurements you record.
+            It does not assess or
+            interpret growth.
+          </p>
+
+        </div>
+
+      </section>
+
+    } @else {
+
+      <section class="empty-card">
+
+        <span
+          class="empty-symbol"
+          aria-hidden="true"
+        >
+          G
+        </span>
+
+        <h2>
+          No measurements yet
+        </h2>
+
+        <p>
+          Add {{ babyName }}'s weight,
+          length or head circumference
+          when you have them.
+        </p>
+
+        <button
+          type="button"
+          (click)="addMeasurement()"
+        >
+          Add first measurement
+        </button>
+
+      </section>
+
+    }
+
+
+    @if (entries.length > 0) {
+
+      <section
+        class="section history-section"
+      >
+
+        <div class="section-heading">
+
+          <div>
+            <p class="eyebrow">
+              History
+            </p>
+
+            <h2>
+              Measurements
+            </h2>
+          </div>
+
+          <span class="count-label">
+            {{ entries.length }}
+            {{
+              entries.length === 1
+                ? 'entry'
+                : 'entries'
+            }}
+          </span>
+
+        </div>
+
+
+        <div class="history-list">
+
+          @for (
+            entry of entries;
+            track entry.id
+          ) {
+
+            <button
+              type="button"
+              class="history-card"
+              (click)="
+                editEntry(
+                  entry
+                )
+              "
+            >
+
+              <div class="history-date">
+
+                <strong>
+                  {{
+                    formatDate(
+                      entry.date
+                    )
+                  }}
+                </strong>
+
+                <span>
+                  View or edit
+                </span>
+
+              </div>
+
+
+              <div class="history-values">
+
+                @if (
+                  entry.weightKg !==
+                  null
+                ) {
+
+                  <span>
+                    <small>
+                      Weight
+                    </small>
+
+                    <strong>
+                      {{
+                        formatWeight(
+                          entry.weightKg
+                        )
+                      }}
+                    </strong>
+                  </span>
+
+                }
+
+
+                @if (
+                  entry.lengthCm !==
+                  null
+                ) {
+
+                  <span>
+                    <small>
+                      Length
+                    </small>
+
+                    <strong>
+                      {{
+                        formatLength(
+                          entry.lengthCm
+                        )
+                      }}
+                    </strong>
+                  </span>
+
+                }
+
+
+                @if (
+                  entry.headCm !==
+                  null
+                ) {
+
+                  <span>
+                    <small>
+                      Head
+                    </small>
+
+                    <strong>
+                      {{
+                        formatLength(
+                          entry.headCm
+                        )
+                      }}
+                    </strong>
+                  </span>
+
+                }
+
+              </div>
+
+
+              @if (entry.notes) {
+
+                <p class="history-notes">
+                  {{ entry.notes }}
+                </p>
+
+              }
+
+
+              <span class="arrow">
+                ›
+              </span>
+
+            </button>
+
+          }
+
+        </div>
+
+      </section>
+
+    }
+
+
+    <section class="record-note">
+
+      <strong>
+        Your records
+      </strong>
+
+      <p>
+        Mumma Bear stores the
+        measurements you enter so you
+        can keep a personal history.
+        This screen does not assess or
+        interpret Baby's growth.
+      </p>
+
+    </section>
+
+  </main>
+
+</div>
