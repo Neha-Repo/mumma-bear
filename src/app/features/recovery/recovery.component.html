@@ -26,7 +26,7 @@
       <button
         type="button"
         class="add-button"
-        aria-label="Add recovery check-in"
+        aria-label="New recovery check-in"
         (click)="addCheckIn()"
       >
         +
@@ -35,21 +35,29 @@
     </header>
 
 
-    <section class="intro">
+    <section class="check-in-card">
 
-      <span>
-        Recovery record
+      <span class="eyebrow">
+        A quick moment for you
       </span>
 
       <h2>
-        {{ momName }}
+        How are you feeling today,
+        {{ momName }}?
       </h2>
 
       <p>
-        Keep your recovery check-ins
-        together so you can look back
-        at how you were feeling.
+        A recovery check-in should
+        take only a few seconds.
       </p>
+
+      <button
+        type="button"
+        class="check-in-button"
+        (click)="addCheckIn()"
+      >
+        Check in
+      </button>
 
     </section>
 
@@ -66,7 +74,7 @@
             </p>
 
             <h2>
-              Latest check-in
+              Your last check-in
             </h2>
           </div>
 
@@ -91,142 +99,94 @@
           "
         >
 
-          <div class="measurement">
-
-            <span
-              class="measurement-symbol"
-              aria-hidden="true"
-            >
-              D
-            </span>
-
-            <div>
-              <small>
-                Pain / discomfort
-              </small>
-
-              <strong>
-                {{
-                  formatLevel(
-                    latestEntry
-                      .discomfortLevel
-                  )
-                }}
-              </strong>
-            </div>
-
-          </div>
-
-
-          <div class="measurement">
-
-            <span
-              class="measurement-symbol"
-              aria-hidden="true"
-            >
-              E
-            </span>
-
-            <div>
-              <small>
-                Energy
-              </small>
-
-              <strong>
-                {{
-                  formatLevel(
-                    latestEntry
-                      .energyLevel
-                  )
-                }}
-              </strong>
-            </div>
-
-          </div>
-
-
-          <div class="measurement">
-
-            <span
-              class="measurement-symbol"
-              aria-hidden="true"
-            >
-              B
-            </span>
-
-            <div>
-              <small>
-                Bleeding
-              </small>
-
-              <strong>
-                {{
-                  formatBleeding(
-                    latestEntry
-                      .bleeding
-                  )
-                }}
-              </strong>
-            </div>
-
-          </div>
-
-
           @if (
-            latestEntry.recoveryNotes
+            hasQuickFeeling(
+              latestEntry
+            )
           ) {
 
-            <div class="latest-notes">
+            <div
+              class="feeling-pill"
+              [class.better]="
+                latestEntry.feeling
+                  === 'better'
+              "
+              [class.same]="
+                latestEntry.feeling
+                  === 'same'
+              "
+              [class.worse]="
+                latestEntry.feeling
+                  === 'worse'
+              "
+            >
+              {{
+                formatFeeling(
+                  latestEntry.feeling
+                )
+              }}
+            </div>
 
-              <small>
-                Recovery notes
-              </small>
+            @if (
+              hasFlag(
+                latestEntry
+              )
+            ) {
 
-              <p>
-                {{
-                  latestEntry
-                    .recoveryNotes
-                }}
+              <div class="remembered-item">
+
+                <span>
+                  You wanted to remember
+                </span>
+
+                <strong>
+                  {{
+                    formatFlag(
+                      latestEntry.flag
+                    )
+                  }}
+                </strong>
+
+              </div>
+
+            }
+
+            @if (
+              hasNote(
+                latestEntry
+              )
+            ) {
+
+              <p class="entry-note">
+                {{ latestEntry.notes }}
               </p>
+
+            }
+
+          } @else {
+
+            <div class="legacy-entry">
+
+              <span>
+                Earlier detailed check-in
+              </span>
+
+              <strong>
+                {{
+                  legacySummary(
+                    latestEntry
+                  )
+                }}
+              </strong>
 
             </div>
 
           }
 
-
           <span class="edit-label">
-            Tap to edit
+            Tap to view or edit
           </span>
 
-        </button>
-
-      </section>
-
-    } @else {
-
-      <section class="empty-card">
-
-        <span
-          class="empty-symbol"
-          aria-hidden="true"
-        >
-          R
-        </span>
-
-        <h2>
-          No recovery check-ins yet
-        </h2>
-
-        <p>
-          Record how you're feeling
-          when it is useful to you.
-        </p>
-
-        <button
-          type="button"
-          (click)="addCheckIn()"
-        >
-          Add first check-in
         </button>
 
       </section>
@@ -254,11 +214,6 @@
 
           <span class="count-label">
             {{ entries.length }}
-            {{
-              entries.length === 1
-                ? 'entry'
-                : 'entries'
-            }}
           </span>
 
         </div>
@@ -275,13 +230,11 @@
               type="button"
               class="history-card"
               (click)="
-                editEntry(
-                  entry
-                )
+                editEntry(entry)
               "
             >
 
-              <div class="history-date">
+              <div class="history-main">
 
                 <strong>
                   {{
@@ -291,78 +244,24 @@
                   }}
                 </strong>
 
-                <span>
-                  View or edit
-                </span>
-
-              </div>
-
-
-              <div class="history-values">
-
                 @if (
-                  entry.discomfortLevel
-                  !== null
+                  hasQuickFeeling(
+                    entry
+                  )
                 ) {
 
                   <span>
-                    <small>
-                      Discomfort
-                    </small>
-
-                    <strong>
-                      {{
-                        formatLevel(
-                          entry
-                            .discomfortLevel
-                        )
-                      }}
-                    </strong>
+                    {{
+                      formatFeeling(
+                        entry.feeling
+                      )
+                    }}
                   </span>
 
-                }
-
-
-                @if (
-                  entry.energyLevel
-                  !== null
-                ) {
+                } @else {
 
                   <span>
-                    <small>
-                      Energy
-                    </small>
-
-                    <strong>
-                      {{
-                        formatLevel(
-                          entry
-                            .energyLevel
-                        )
-                      }}
-                    </strong>
-                  </span>
-
-                }
-
-
-                @if (
-                  entry.bleeding
-                ) {
-
-                  <span>
-                    <small>
-                      Bleeding
-                    </small>
-
-                    <strong>
-                      {{
-                        formatBleeding(
-                          entry
-                            .bleeding
-                        )
-                      }}
-                    </strong>
+                    Detailed check-in
                   </span>
 
                 }
@@ -371,12 +270,14 @@
 
 
               @if (
-                entry.recoveryNotes
+                hasFlag(entry)
               ) {
 
-                <p class="history-notes">
+                <p>
                   {{
-                    entry.recoveryNotes
+                    formatFlag(
+                      entry.flag
+                    )
                   }}
                 </p>
 
@@ -384,16 +285,23 @@
 
 
               @if (
-                hasDetails(entry) &&
-                !entry.recoveryNotes
+                !hasQuickFeeling(
+                  entry
+                ) &&
+                hasLegacyDetails(
+                  entry
+                )
               ) {
 
-                <p class="detail-label">
-                  Additional notes saved
+                <p>
+                  {{
+                    legacySummary(
+                      entry
+                    )
+                  }}
                 </p>
 
               }
-
 
               <span class="arrow">
                 ›
@@ -413,16 +321,15 @@
     <section class="record-note">
 
       <strong>
-        Your recovery record
+        Keep it light
       </strong>
 
       <p>
-        Mumma Bear stores what you
-        enter so you can keep a
-        personal recovery history.
-        These records are not a
-        medical assessment or
-        interpretation.
+        You do not need to track
+        everything. Recovery check-ins
+        are simply a way to remember
+        how things have been changing
+        for you.
       </p>
 
     </section>

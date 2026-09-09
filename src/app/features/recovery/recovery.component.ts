@@ -13,19 +13,42 @@ import {
   filter,
 } from 'rxjs';
 
+type RecoveryFeeling =
+  | ''
+  | 'better'
+  | 'same'
+  | 'worse';
+
+type RecoveryFlag =
+  | ''
+  | 'none'
+  | 'pain'
+  | 'bleeding'
+  | 'feeding'
+  | 'tired'
+  | 'mood'
+  | 'other';
+
 interface RecoveryCheckIn {
   id: string;
   date: string;
+
+  feeling?: RecoveryFeeling;
+  flag?: RecoveryFlag;
+
   discomfortLevel:
     number | null;
+
   energyLevel:
     number | null;
+
   bleeding:
     | ''
     | 'none'
     | 'light'
     | 'moderate'
     | 'heavy';
+
   recoveryNotes: string;
   medicationNotes: string;
   notes: string;
@@ -159,44 +182,134 @@ export class RecoveryComponent
   }
 
 
-  formatLevel(
+  formatFeeling(
     value:
-      number | null,
+      RecoveryFeeling | undefined,
   ): string {
-    if (
-      value === null
-    ) {
-      return 'Not recorded';
-    }
+    switch (value) {
+      case 'better':
+        return 'Better';
 
-    return `${value} / 10`;
+      case 'same':
+        return 'Same';
+
+      case 'worse':
+        return 'Worse';
+
+      default:
+        return 'Detailed check-in';
+    }
   }
 
 
-  formatBleeding(
-    value: RecoveryCheckIn[
-      'bleeding'
-    ],
+  formatFlag(
+    value:
+      RecoveryFlag | undefined,
   ): string {
-    if (!value) {
-      return 'Not recorded';
-    }
+    switch (value) {
+      case 'none':
+        return 'Nothing else';
 
-    return (
-      value.charAt(0)
-        .toUpperCase() +
-      value.slice(1)
+      case 'pain':
+        return 'Pain or soreness';
+
+      case 'bleeding':
+        return 'Bleeding';
+
+      case 'feeding':
+        return 'Feeding or breast comfort';
+
+      case 'tired':
+        return 'Very tired';
+
+      case 'mood':
+        return 'Mood or emotions';
+
+      case 'other':
+        return 'Something else';
+
+      default:
+        return '';
+    }
+  }
+
+
+  hasQuickFeeling(
+    entry: RecoveryCheckIn,
+  ): boolean {
+    return Boolean(
+      entry.feeling,
     );
   }
 
 
-  hasDetails(
+  hasFlag(
     entry: RecoveryCheckIn,
   ): boolean {
     return Boolean(
+      entry.flag &&
+      entry.flag !== 'none',
+    );
+  }
+
+
+  hasNote(
+    entry: RecoveryCheckIn,
+  ): boolean {
+    return Boolean(
+      entry.notes?.trim(),
+    );
+  }
+
+
+  hasLegacyDetails(
+    entry: RecoveryCheckIn,
+  ): boolean {
+    return Boolean(
+      entry.discomfortLevel !== null ||
+      entry.energyLevel !== null ||
+      entry.bleeding ||
       entry.recoveryNotes ||
-      entry.medicationNotes ||
-      entry.notes,
+      entry.medicationNotes,
+    );
+  }
+
+
+  legacySummary(
+    entry: RecoveryCheckIn,
+  ): string {
+    const parts:
+      string[] = [];
+
+    if (
+      entry.discomfortLevel !==
+      null
+    ) {
+      parts.push(
+        `Discomfort ${entry.discomfortLevel}/10`,
+      );
+    }
+
+    if (
+      entry.energyLevel !==
+      null
+    ) {
+      parts.push(
+        `Energy ${entry.energyLevel}/10`,
+      );
+    }
+
+    if (
+      entry.bleeding
+    ) {
+      parts.push(
+        `Bleeding ${entry.bleeding}`,
+      );
+    }
+
+    return (
+      parts.join(' · ') ||
+      'Earlier detailed recovery record'
     );
   }
 

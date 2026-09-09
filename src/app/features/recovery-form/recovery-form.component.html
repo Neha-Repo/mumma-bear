@@ -22,7 +22,7 @@
           {{
             isEditing
               ? 'Edit check-in'
-              : 'Add check-in'
+              : 'Quick check-in'
           }}
         </h1>
       </div>
@@ -35,19 +35,24 @@
     </header>
 
 
-    <section class="intro-card">
+    @if (isLegacyEntry) {
 
-      <strong>
-        {{ momName }}
-      </strong>
+      <section class="legacy-note">
 
-      <p>
-        Record what is useful today.
-        You can leave any individual
-        field blank.
-      </p>
+        <strong>
+          Earlier recovery record
+        </strong>
 
-    </section>
+        <p>
+          This check-in was created
+          with the older detailed
+          format. Its existing details
+          will stay saved.
+        </p>
+
+      </section>
+
+    }
 
 
     <form
@@ -55,351 +60,331 @@
       (ngSubmit)="save()"
     >
 
-      <section class="form-section">
+      <section class="feeling-section">
 
-        <div class="section-heading">
+        <p class="eyebrow">
+          {{ momName }}
+        </p>
 
-          <span>
-            1
-          </span>
+        <h2>
+          How are you feeling compared
+          with your last check-in?
+        </h2>
 
-          <div>
-            <h2>
-              Date
-            </h2>
+        <p class="helper">
+          One tap is enough.
+        </p>
 
-            <p>
-              When was this check-in?
-            </p>
-          </div>
+
+        <div class="feeling-options">
+
+          <button
+            type="button"
+            [class.selected]="
+              feeling === 'better'
+            "
+            (click)="
+              selectFeeling(
+                'better'
+              )
+            "
+          >
+            <span
+              class="choice-mark"
+              aria-hidden="true"
+            >
+              ↑
+            </span>
+
+            <strong>
+              Better
+            </strong>
+          </button>
+
+
+          <button
+            type="button"
+            [class.selected]="
+              feeling === 'same'
+            "
+            (click)="
+              selectFeeling(
+                'same'
+              )
+            "
+          >
+            <span
+              class="choice-mark"
+              aria-hidden="true"
+            >
+              —
+            </span>
+
+            <strong>
+              Same
+            </strong>
+          </button>
+
+
+          <button
+            type="button"
+            [class.selected]="
+              feeling === 'worse'
+            "
+            (click)="
+              selectFeeling(
+                'worse'
+              )
+            "
+          >
+            <span
+              class="choice-mark"
+              aria-hidden="true"
+            >
+              ↓
+            </span>
+
+            <strong>
+              Worse
+            </strong>
+          </button>
 
         </div>
 
 
-        <label class="field">
+        @if (
+          showValidation &&
+          !feeling
+        ) {
 
-          <span>
-            Date
-          </span>
+          <p class="validation-message">
+            Choose Better, Same or
+            Worse.
+          </p>
 
-          <input
-            type="date"
-            name="date"
-            [(ngModel)]="date"
-            required
-          />
-
-        </label>
+        }
 
       </section>
 
 
-      <section class="form-section">
+      @if (feeling) {
 
-        <div class="section-heading">
+        <section class="follow-up-section">
 
-          <span>
-            2
-          </span>
+          <div class="follow-up-heading">
 
-          <div>
+            <span>
+              Optional
+            </span>
+
             <h2>
-              How you're feeling
+              Anything you want to
+              remember today?
             </h2>
 
             <p>
-              Optional personal
-              ratings from 0 to 10.
+              Tap one if useful.
+              Otherwise just save.
             </p>
+
           </div>
 
-        </div>
 
-
-        <label class="field">
-
-          <span>
-            Pain / discomfort
-          </span>
-
-          <small>
-            0 to 10
-          </small>
-
-          <input
-            type="number"
-            name="discomfortLevel"
-            min="0"
-            max="10"
-            step="1"
-            inputmode="numeric"
-            placeholder="Optional"
-            [(ngModel)]="
-              discomfortLevel
-            "
-          />
-
-        </label>
-
-
-        <label class="field">
-
-          <span>
-            Energy
-          </span>
-
-          <small>
-            0 to 10
-          </small>
-
-          <input
-            type="number"
-            name="energyLevel"
-            min="0"
-            max="10"
-            step="1"
-            inputmode="numeric"
-            placeholder="Optional"
-            [(ngModel)]="
-              energyLevel
-            "
-          />
-
-        </label>
-
-      </section>
-
-
-      <section class="form-section">
-
-        <div class="section-heading">
-
-          <span>
-            3
-          </span>
-
-          <div>
-            <h2>
-              Recovery details
-            </h2>
-
-            <p>
-              Record only what you
-              want to keep.
-            </p>
-          </div>
-
-        </div>
-
-
-        <fieldset class="choice-field">
-
-          <legend>
-            Bleeding
-          </legend>
-
-          <div class="choice-grid">
+          <div class="flag-grid">
 
             <button
               type="button"
               [class.selected]="
-                bleeding === ''
+                flag === 'pain'
               "
-              (click)="bleeding = ''"
+              (click)="
+                selectFlag(
+                  'pain'
+                )
+              "
             >
-              Not recorded
+              Pain or soreness
             </button>
 
             <button
               type="button"
               [class.selected]="
-                bleeding === 'none'
+                flag === 'bleeding'
               "
               (click)="
-                bleeding = 'none'
+                selectFlag(
+                  'bleeding'
+                )
               "
             >
-              None
+              Bleeding
             </button>
 
             <button
               type="button"
               [class.selected]="
-                bleeding === 'light'
+                flag === 'feeding'
               "
               (click)="
-                bleeding = 'light'
+                selectFlag(
+                  'feeding'
+                )
               "
             >
-              Light
+              Feeding or breast
+              comfort
             </button>
 
             <button
               type="button"
               [class.selected]="
-                bleeding ===
-                'moderate'
+                flag === 'tired'
               "
               (click)="
-                bleeding =
-                  'moderate'
+                selectFlag(
+                  'tired'
+                )
               "
             >
-              Moderate
+              Very tired
             </button>
 
             <button
               type="button"
               [class.selected]="
-                bleeding === 'heavy'
+                flag === 'mood'
               "
               (click)="
-                bleeding = 'heavy'
+                selectFlag(
+                  'mood'
+                )
               "
             >
-              Heavy
+              Mood or emotions
+            </button>
+
+            <button
+              type="button"
+              [class.selected]="
+                flag === 'other'
+              "
+              (click)="
+                selectFlag(
+                  'other'
+                )
+              "
+            >
+              Something else
             </button>
 
           </div>
 
-        </fieldset>
+        </section>
 
 
-        <label class="field">
+        <section class="secondary-actions">
 
-          <span>
-            Healing / recovery notes
-          </span>
+          <button
+            type="button"
+            class="secondary-button"
+            (click)="toggleNote()"
+          >
+            {{
+              showNote
+                ? 'Hide note'
+                : 'Add a note'
+            }}
+          </button>
 
-          <small>
-            For example, incision,
-            stitches, soreness or
-            anything else you want to
-            remember.
-          </small>
+          <button
+            type="button"
+            class="secondary-button"
+            (click)="toggleDate()"
+          >
+            {{
+              showDate
+                ? 'Hide date'
+                : 'Change date'
+            }}
+          </button>
 
-          <textarea
-            name="recoveryNotes"
-            rows="4"
-            maxlength="1000"
-            placeholder="Optional notes"
-            [(ngModel)]="
-              recoveryNotes
-            "
-          ></textarea>
-
-        </label>
-
-
-        <label class="field">
-
-          <span>
-            Medication notes
-          </span>
-
-          <small>
-            Record medication
-            information for your own
-            reference.
-          </small>
-
-          <textarea
-            name="medicationNotes"
-            rows="3"
-            maxlength="1000"
-            placeholder="Optional notes"
-            [(ngModel)]="
-              medicationNotes
-            "
-          ></textarea>
-
-        </label>
+        </section>
 
 
-        <label class="field">
+        @if (showNote) {
 
-          <span>
-            Other notes
-          </span>
+          <section class="optional-card">
 
-          <textarea
-            name="notes"
-            rows="4"
-            maxlength="1500"
-            placeholder="Anything else you want to remember"
-            [(ngModel)]="notes"
-          ></textarea>
+            <label>
 
-        </label>
+              <span>
+                Optional note
+              </span>
 
-      </section>
+              <textarea
+                name="notes"
+                rows="3"
+                maxlength="1000"
+                placeholder="Only if there is something you want to remember"
+                [(ngModel)]="notes"
+              ></textarea>
 
+            </label>
 
-      @if (
-        showValidation &&
-        !date
-      ) {
+          </section>
 
-        <p class="validation-message">
-          Choose a date for this
-          check-in.
-        </p>
-
-      }
+        }
 
 
-      @if (
-        showValidation &&
-        date &&
-        !hasAnyRecord()
-      ) {
+        @if (showDate) {
 
-        <p class="validation-message">
-          Record at least one recovery
-          detail before saving.
-        </p>
+          <section class="optional-card">
 
-      }
+            <label>
+
+              <span>
+                Check-in date
+              </span>
+
+              <input
+                type="date"
+                name="date"
+                [(ngModel)]="date"
+                required
+              />
+
+            </label>
+
+          </section>
+
+        }
 
 
-      @if (
-        showValidation &&
-        (
-          (
-            discomfortLevel !== null &&
-            (
-              discomfortLevel < 0 ||
-              discomfortLevel > 10
-            )
-          ) ||
-          (
-            energyLevel !== null &&
-            (
-              energyLevel < 0 ||
-              energyLevel > 10
-            )
-          )
-        )
-      ) {
+        @if (
+          showValidation &&
+          !date
+        ) {
 
-        <p class="validation-message">
-          Ratings must be between
-          0 and 10.
-        </p>
+          <p class="validation-message">
+            Choose a date for this
+            check-in.
+          </p>
+
+        }
+
+
+        <button
+          type="submit"
+          class="save-button"
+        >
+          {{
+            isEditing
+              ? 'Save changes'
+              : 'Save check-in'
+          }}
+        </button>
 
       }
-
-
-      <button
-        type="submit"
-        class="save-button"
-      >
-        {{
-          isEditing
-            ? 'Save changes'
-            : 'Save check-in'
-        }}
-      </button>
 
 
       @if (
@@ -432,9 +417,8 @@
           </strong>
 
           <p>
-            This recovery record will
-            be removed from your
-            history.
+            It will be removed from
+            your recovery history.
           </p>
 
           <div>
@@ -467,14 +451,14 @@
     <section class="record-note">
 
       <strong>
-        A personal record
+        A check-in, not homework
       </strong>
 
       <p>
-        Mumma Bear records the
-        information you enter here.
-        It does not assess, diagnose
-        or interpret your recovery.
+        You do not need to record
+        every symptom or detail.
+        Save only what is useful to
+        you.
       </p>
 
     </section>

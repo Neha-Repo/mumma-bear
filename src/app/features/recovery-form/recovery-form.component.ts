@@ -11,6 +11,22 @@ import {
   Router,
 } from '@angular/router';
 
+type RecoveryFeeling =
+  | ''
+  | 'better'
+  | 'same'
+  | 'worse';
+
+type RecoveryFlag =
+  | ''
+  | 'none'
+  | 'pain'
+  | 'bleeding'
+  | 'feeding'
+  | 'tired'
+  | 'mood'
+  | 'other';
+
 type BleedingLevel =
   | ''
   | 'none'
@@ -21,12 +37,19 @@ type BleedingLevel =
 interface RecoveryCheckIn {
   id: string;
   date: string;
+
+  feeling?: RecoveryFeeling;
+  flag?: RecoveryFlag;
+
   discomfortLevel:
     number | null;
+
   energyLevel:
     number | null;
+
   bleeding:
     BleedingLevel;
+
   recoveryNotes: string;
   medicationNotes: string;
   notes: string;
@@ -72,32 +95,35 @@ export class RecoveryFormComponent
   date =
     this.getToday();
 
-  discomfortLevel:
-    number | null =
-      null;
-
-  energyLevel:
-    number | null =
-      null;
-
-  bleeding:
-    BleedingLevel =
+  feeling:
+    RecoveryFeeling =
       '';
 
-  recoveryNotes =
-    '';
-
-  medicationNotes =
-    '';
+  flag:
+    RecoveryFlag =
+      '';
 
   notes =
     '';
+
+  showNote =
+    false;
+
+  showDate =
+    false;
 
   showDeleteConfirmation =
     false;
 
   showValidation =
     false;
+
+  isLegacyEntry =
+    false;
+
+  private originalEntry:
+    RecoveryCheckIn | null =
+      null;
 
 
   ngOnInit(): void {
@@ -111,6 +137,9 @@ export class RecoveryFormComponent
       Boolean(
         this.entryId,
       );
+
+    this.showDate =
+      this.isEditing;
 
     if (
       this.entryId
@@ -129,12 +158,46 @@ export class RecoveryFormComponent
   }
 
 
+  selectFeeling(
+    value: RecoveryFeeling,
+  ): void {
+    this.feeling =
+      value;
+
+    this.showValidation =
+      false;
+  }
+
+
+  selectFlag(
+    value: RecoveryFlag,
+  ): void {
+    this.flag =
+      this.flag === value
+        ? ''
+        : value;
+  }
+
+
+  toggleNote(): void {
+    this.showNote =
+      !this.showNote;
+  }
+
+
+  toggleDate(): void {
+    this.showDate =
+      !this.showDate;
+  }
+
+
   save(): void {
     this.showValidation =
       true;
 
     if (
-      !this.isValid()
+      !this.date ||
+      !this.feeling
     ) {
       return;
     }
@@ -166,28 +229,20 @@ export class RecoveryFormComponent
         entries[
           existingIndex
         ] = {
-          id:
-            existing.id,
+          ...existing,
+
           date:
             this.date,
-          discomfortLevel:
-            this.normaliseLevel(
-              this.discomfortLevel,
-            ),
-          energyLevel:
-            this.normaliseLevel(
-              this.energyLevel,
-            ),
-          bleeding:
-            this.bleeding,
-          recoveryNotes:
-            this.recoveryNotes
-              .trim(),
-          medicationNotes:
-            this.medicationNotes
-              .trim(),
+
+          feeling:
+            this.feeling,
+
+          flag:
+            this.flag,
+
           notes:
             this.notes.trim(),
+
           createdAt:
             existing.createdAt,
         };
@@ -196,26 +251,34 @@ export class RecoveryFormComponent
       entries.push({
         id:
           this.createId(),
+
         date:
           this.date,
+
+        feeling:
+          this.feeling,
+
+        flag:
+          this.flag,
+
         discomfortLevel:
-          this.normaliseLevel(
-            this.discomfortLevel,
-          ),
+          null,
+
         energyLevel:
-          this.normaliseLevel(
-            this.energyLevel,
-          ),
+          null,
+
         bleeding:
-          this.bleeding,
+          '',
+
         recoveryNotes:
-          this.recoveryNotes
-            .trim(),
+          '',
+
         medicationNotes:
-          this.medicationNotes
-            .trim(),
+          '',
+
         notes:
           this.notes.trim(),
+
         createdAt:
           new Date()
             .toISOString(),
@@ -277,105 +340,6 @@ export class RecoveryFormComponent
   }
 
 
-  private isValid():
-    boolean {
-    if (!this.date) {
-      return false;
-    }
-
-    if (
-      !this.isLevelValid(
-        this.discomfortLevel,
-      )
-    ) {
-      return false;
-    }
-
-    if (
-      !this.isLevelValid(
-        this.energyLevel,
-      )
-    ) {
-      return false;
-    }
-
-    return this.hasAnyRecord();
-  }
-
-
-  hasAnyRecord():
-    boolean {
-    return (
-      this.discomfortLevel !==
-        null ||
-      this.energyLevel !==
-        null ||
-      Boolean(
-        this.bleeding,
-      ) ||
-      Boolean(
-        this.recoveryNotes
-          .trim(),
-      ) ||
-      Boolean(
-        this.medicationNotes
-          .trim(),
-      ) ||
-      Boolean(
-        this.notes.trim(),
-      )
-    );
-  }
-
-
-  private isLevelValid(
-    value:
-      number | null,
-  ): boolean {
-    if (
-      value === null ||
-      value === undefined
-    ) {
-      return true;
-    }
-
-    return (
-      Number.isFinite(
-        Number(value),
-      ) &&
-      Number(value) >= 0 &&
-      Number(value) <= 10
-    );
-  }
-
-
-  private normaliseLevel(
-    value:
-      number | null,
-  ): number | null {
-    if (
-      value === null ||
-      value === undefined ||
-      value === ('' as unknown)
-    ) {
-      return null;
-    }
-
-    const numeric =
-      Number(value);
-
-    if (
-      !Number.isFinite(
-        numeric,
-      )
-    ) {
-      return null;
-    }
-
-    return numeric;
-  }
-
-
   private loadEntry(
     id: string,
   ): void {
@@ -396,26 +360,46 @@ export class RecoveryFormComponent
       return;
     }
 
+    this.originalEntry =
+      entry;
+
     this.date =
       entry.date;
 
-    this.discomfortLevel =
-      entry.discomfortLevel;
+    this.feeling =
+      entry.feeling || '';
 
-    this.energyLevel =
-      entry.energyLevel;
-
-    this.bleeding =
-      entry.bleeding || '';
-
-    this.recoveryNotes =
-      entry.recoveryNotes || '';
-
-    this.medicationNotes =
-      entry.medicationNotes || '';
+    this.flag =
+      entry.flag || '';
 
     this.notes =
       entry.notes || '';
+
+    this.showNote =
+      Boolean(
+        this.notes,
+      );
+
+    this.isLegacyEntry =
+      !entry.feeling &&
+      this.hasLegacyDetails(
+        entry,
+      );
+  }
+
+
+  private hasLegacyDetails(
+    entry: RecoveryCheckIn,
+  ): boolean {
+    return Boolean(
+      entry.discomfortLevel !==
+        null ||
+      entry.energyLevel !==
+        null ||
+      entry.bleeding ||
+      entry.recoveryNotes ||
+      entry.medicationNotes,
+    );
   }
 
 
