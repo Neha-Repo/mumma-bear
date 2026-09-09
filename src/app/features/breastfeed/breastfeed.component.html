@@ -1,0 +1,214 @@
+<div class="breastfeed-page">
+  <div class="breastfeed-shell">
+
+    <header class="breastfeed-header">
+      <button
+        type="button"
+        class="back-button"
+        aria-label="Back"
+        (click)="goBack()"
+      >
+        ‹
+      </button>
+
+      <h1>
+        Breastfeed
+      </h1>
+
+      <div
+        class="header-spacer"
+        aria-hidden="true"
+      ></div>
+    </header>
+
+
+    <section class="side-section">
+      <p class="section-label">
+        Which side?
+      </p>
+
+      <div
+        class="side-selector"
+        role="group"
+        aria-label="Feeding side"
+      >
+        <button
+          type="button"
+          [disabled]="isStopped"
+          [class.selected]="selectedSide === 'left'"
+          (click)="selectSide('left')"
+        >
+          Left
+        </button>
+
+        <button
+          type="button"
+          [disabled]="isStopped"
+          [class.selected]="selectedSide === 'right'"
+          (click)="selectSide('right')"
+        >
+          Right
+        </button>
+
+        <button
+          type="button"
+          [disabled]="isStopped"
+          [class.selected]="selectedSide === 'both'"
+          (click)="selectSide('both')"
+        >
+          Both
+        </button>
+      </div>
+    </section>
+
+
+    <section class="timer-section">
+      <strong class="timer-value">
+        {{ timerText }}
+      </strong>
+
+      <div class="started-row">
+        @if (startedAt) {
+          <span>Started</span>
+
+          <strong>
+            {{ startedTimeText }}
+          </strong>
+
+          <span>
+            {{ startedDateText }}
+          </span>
+        } @else {
+          <span>
+            Ready to start
+          </span>
+        }
+      </div>
+
+
+      @if (!startedAt) {
+
+        <button
+          type="button"
+          class="main-timer-button"
+          (click)="startTimer()"
+        >
+          <span
+            class="play-symbol"
+            aria-hidden="true"
+          ></span>
+
+          Start
+        </button>
+
+      } @else if (isRunning) {
+
+        <div class="timer-actions">
+          <button
+            type="button"
+            class="secondary-action"
+            (click)="pauseTimer()"
+          >
+            <span
+              class="pause-symbol"
+              aria-hidden="true"
+            ></span>
+
+            Pause
+          </button>
+
+          <button
+            type="button"
+            class="stop-action"
+            (click)="stopTimer()"
+          >
+            <span
+              class="stop-symbol"
+              aria-hidden="true"
+            ></span>
+
+            Stop
+          </button>
+        </div>
+
+      } @else if (!isStopped) {
+
+        <div class="timer-actions">
+          <button
+            type="button"
+            class="secondary-action"
+            (click)="resumeTimer()"
+          >
+            <span
+              class="play-small-symbol"
+              aria-hidden="true"
+            ></span>
+
+            Resume
+          </button>
+
+          <button
+            type="button"
+            class="stop-action"
+            (click)="stopTimer()"
+          >
+            <span
+              class="stop-symbol"
+              aria-hidden="true"
+            ></span>
+
+            Stop
+          </button>
+        </div>
+
+      } @else {
+
+        <div class="stopped-status">
+          Feeding finished
+        </div>
+
+      }
+    </section>
+
+
+    <section class="note-section">
+      <label for="breastfeed-notes">
+        Add note
+        <span>
+          Optional
+        </span>
+      </label>
+
+      <textarea
+        id="breastfeed-notes"
+        rows="3"
+        maxlength="250"
+        placeholder="Add a note"
+        [(ngModel)]="notes"
+      ></textarea>
+    </section>
+
+
+    @if (isStopped && !isSaved) {
+
+      <button
+        type="button"
+        class="save-button"
+        [disabled]="!canSave"
+        (click)="saveFeed()"
+      >
+        Save feed
+      </button>
+
+      <button
+        type="button"
+        class="new-session-button"
+        (click)="startNewSession()"
+      >
+        Discard and start new
+      </button>
+
+    }
+
+  </div>
+</div>

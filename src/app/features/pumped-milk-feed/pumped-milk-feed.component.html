@@ -1,0 +1,223 @@
+<div class="milk-feed-page">
+  <div class="milk-feed-shell">
+
+    <header class="milk-feed-header">
+      <button
+        type="button"
+        class="back-button"
+        aria-label="Back"
+        (click)="goBack()"
+      >
+        ‹
+      </button>
+
+      <h1>
+        Pumped Milk
+      </h1>
+
+      <button
+        type="button"
+        class="header-save"
+        [disabled]="!canSave"
+        (click)="saveFeed()"
+      >
+        @if (isSaved) {
+          Saved
+        } @else {
+          Save
+        }
+      </button>
+    </header>
+
+
+    @if (hasMilk) {
+
+      <section class="available-card">
+        <div>
+          <span class="card-label">
+            Available milk
+          </span>
+
+          <strong>
+            {{ totalAvailableMl }} ml
+          </strong>
+        </div>
+
+        <div class="available-detail">
+          <span>
+            Use first
+          </span>
+
+          <strong>
+            {{ nextMilkText }}
+          </strong>
+
+          <small>
+            {{ nextMilkUseByText }}
+          </small>
+        </div>
+      </section>
+
+
+      <section class="time-card">
+        <div class="time-copy">
+          <span>
+            {{ dateText }}
+          </span>
+
+          <strong>
+            {{ timeText }}
+          </strong>
+        </div>
+
+        <button
+          type="button"
+          class="now-button"
+          (click)="setNow()"
+        >
+          Now
+        </button>
+      </section>
+
+
+      <section class="amount-section">
+        <h2>
+          How much did
+          {{ babyName }} take?
+        </h2>
+
+        <div class="selected-amount">
+          <strong>
+            {{ selectedAmountMl }} ml
+          </strong>
+
+          <span>
+            about
+            {{ amountOz }} oz
+          </span>
+        </div>
+
+
+        <div class="wheel-shell">
+
+          <div
+            class="wheel-highlight"
+            aria-hidden="true"
+          ></div>
+
+          <div
+            #amountWheel
+            class="amount-wheel"
+            (scroll)="onAmountScroll()"
+          >
+
+            <div
+              class="wheel-spacer"
+              aria-hidden="true"
+            ></div>
+
+            @for (
+              amount of amounts;
+              track amount
+            ) {
+              <button
+                type="button"
+                class="amount-row"
+                [class.selected]="
+                  amount ===
+                  selectedAmountMl
+                "
+                (click)="
+                  selectAmount(amount)
+                "
+              >
+                {{ amount }}
+              </button>
+            }
+
+            <div
+              class="wheel-spacer"
+              aria-hidden="true"
+            ></div>
+
+          </div>
+
+          <span
+            class="wheel-unit"
+            aria-hidden="true"
+          >
+            ml
+          </span>
+
+        </div>
+      </section>
+
+
+      <section class="notes-section">
+        <label for="milk-feed-notes">
+          Notes
+          <span>
+            Optional
+          </span>
+        </label>
+
+        <textarea
+          id="milk-feed-notes"
+          rows="3"
+          maxlength="250"
+          placeholder="Add a note"
+          [(ngModel)]="notes"
+        ></textarea>
+      </section>
+
+
+      <button
+        type="button"
+        class="save-button"
+        [disabled]="!canSave"
+        (click)="saveFeed()"
+      >
+        @if (isSaved) {
+          Feed saved
+        } @else {
+          Save feed
+        }
+      </button>
+
+      <p class="inventory-note">
+        The milk with the earliest
+        use-by time will be used first.
+      </p>
+
+    } @else {
+
+      <section class="empty-state">
+        <div
+          class="empty-symbol"
+          aria-hidden="true"
+        >
+          M
+        </div>
+
+        <h2>
+          No pumped milk available
+        </h2>
+
+        <p>
+          Pump and save milk first,
+          then it will be available
+          here for feeding.
+        </p>
+
+        <button
+          type="button"
+          (click)="goBack()"
+        >
+          Back to feeding
+        </button>
+      </section>
+
+    }
+
+  </div>
+</div>

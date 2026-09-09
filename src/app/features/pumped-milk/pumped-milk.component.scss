@@ -1,0 +1,580 @@
+:host {
+  display: block;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+button {
+  font: inherit;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.pumped-milk-page {
+  min-height: 100vh;
+
+  background:
+    var(--mumma-bg);
+
+  color:
+    var(--mumma-text);
+}
+
+.pumped-milk-shell {
+  width: 100%;
+  max-width: 480px;
+  min-height: 100vh;
+
+  margin: 0 auto;
+
+  padding:
+    15px
+    20px
+    28px;
+
+  display: flex;
+  flex-direction: column;
+}
+
+
+/* HEADER */
+
+.page-header {
+  display: grid;
+
+  grid-template-columns:
+    44px
+    1fr
+    44px;
+
+  align-items: center;
+
+  min-height: 52px;
+}
+
+.page-header h1 {
+  margin: 0;
+
+  text-align: center;
+
+  color:
+    var(--mumma-text);
+
+  font-size: 21px;
+  font-weight: 800;
+}
+
+.back-button {
+  width: 44px;
+  height: 44px;
+
+  border: 0;
+
+  padding: 0;
+
+  background: transparent;
+
+  color:
+    var(--mumma-text);
+
+  font-size: 34px;
+  line-height: 1;
+
+  cursor: pointer;
+}
+
+.history-button {
+  justify-self: end;
+
+  width: 44px;
+  height: 44px;
+
+  padding: 0;
+
+  border: 0;
+
+  background: transparent;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+}
+
+
+/* TEMPORARY HISTORY CLOCK */
+
+.history-clock {
+  position: relative;
+
+  display: block;
+
+  width: 27px;
+  height: 27px;
+
+  border:
+    2px solid
+    var(--mumma-text);
+
+  border-radius: 50%;
+}
+
+.history-clock::before {
+  content: "";
+
+  position: absolute;
+
+  left: 11px;
+  top: 5px;
+
+  width: 2px;
+  height: 8px;
+
+  border-radius: 2px;
+
+  background:
+    var(--mumma-text);
+}
+
+.history-clock::after {
+  content: "";
+
+  position: absolute;
+
+  left: 11px;
+  top: 12px;
+
+  width: 7px;
+  height: 2px;
+
+  border-radius: 2px;
+
+  background:
+    var(--mumma-text);
+}
+
+.history-clock span::before {
+  content: "";
+
+  position: absolute;
+
+  left: -5px;
+  top: 1px;
+
+  width: 7px;
+  height: 7px;
+
+  border-left:
+    2px solid
+    var(--mumma-text);
+
+  border-top:
+    2px solid
+    var(--mumma-text);
+
+  transform:
+    rotate(-25deg);
+}
+
+
+/* TABS */
+
+.storage-tabs {
+  margin-top: 22px;
+
+  padding: 4px;
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(
+      3,
+      minmax(0, 1fr)
+    );
+
+  gap: 4px;
+
+  border-radius: 17px;
+
+  background:
+    rgba(
+      201,
+      143,
+      151,
+      0.1
+    );
+}
+
+.storage-tabs button {
+  min-height: 49px;
+
+  border: 0;
+
+  border-radius: 14px;
+
+  background: transparent;
+
+  color:
+    var(--mumma-text);
+
+  font-size: 15px;
+  font-weight: 700;
+
+  cursor: pointer;
+}
+
+.storage-tabs button.selected {
+  background:
+    var(--mumma-primary);
+
+  color: #ffffff;
+
+  box-shadow:
+    0 5px 14px
+    var(--mumma-shadow);
+}
+
+
+/* MILK SECTION */
+
+.milk-section {
+  margin-top: 38px;
+}
+
+.section-heading {
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 16px;
+
+  margin-bottom: 19px;
+}
+
+.section-heading h2 {
+  margin: 0;
+
+  color:
+    var(--mumma-text);
+
+  font-size: 23px;
+  font-weight: 800;
+}
+
+.section-heading > strong {
+  flex: 0 0 auto;
+
+  color:
+    var(--mumma-text-soft);
+
+  font-size: 15px;
+  font-weight: 700;
+}
+
+
+/* SESSION LIST */
+
+.milk-list {
+  display: flex;
+  flex-direction: column;
+
+  gap: 14px;
+}
+
+.milk-card {
+  padding:
+    18px
+    17px
+    17px;
+
+  border:
+    1px solid
+    rgba(
+      201,
+      143,
+      151,
+      0.22
+    );
+
+  border-radius: 18px;
+
+  background: #ffffff;
+
+  box-shadow:
+    0 5px 16px
+    rgba(
+      125,
+      78,
+      87,
+      0.06
+    );
+}
+
+.milk-card-top {
+  display: flex;
+
+  align-items: flex-start;
+  justify-content: space-between;
+
+  gap: 14px;
+}
+
+.milk-card-top > div {
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 3px;
+}
+
+.pump-time {
+  color:
+    var(--mumma-text);
+
+  font-size: 19px;
+  font-weight: 800;
+}
+
+.pump-date {
+  color:
+    var(--mumma-text-soft);
+
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.milk-amount {
+  flex: 0 0 auto;
+
+  color:
+    var(--mumma-text);
+
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.use-by {
+  margin:
+    17px
+    0
+    15px;
+
+  color:
+    var(--mumma-text);
+
+  font-size: 15px;
+  font-weight: 650;
+}
+
+
+/* REMAINING */
+
+.remaining-row {
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 1fr)
+    auto;
+
+  align-items: center;
+
+  gap: 15px;
+}
+
+.progress-track {
+  height: 8px;
+
+  overflow: hidden;
+
+  border-radius: 999px;
+
+  background:
+    rgba(
+      183,
+      123,
+      132,
+      0.13
+    );
+}
+
+.progress-fill {
+  height: 100%;
+
+  border-radius: inherit;
+
+  background:
+    var(--mumma-primary);
+
+  transition:
+    width
+    0.3s ease;
+}
+
+.remaining-row strong {
+  min-width: 76px;
+
+  text-align: right;
+
+  color:
+    var(--mumma-text-soft);
+
+  font-size: 13px;
+  font-weight: 700;
+}
+
+
+/* SHOW MORE */
+
+.show-more-button {
+  width: 100%;
+
+  min-height: 47px;
+
+  margin-top: 16px;
+
+  border:
+    1px solid
+    var(--mumma-line);
+
+  border-radius: 14px;
+
+  background:
+    var(--mumma-surface);
+
+  color:
+    var(--mumma-primary);
+
+  font-size: 14px;
+  font-weight: 750;
+
+  cursor: pointer;
+}
+
+
+/* EMPTY */
+
+.empty-state {
+  padding:
+    38px
+    20px;
+
+  border:
+    1px solid
+    rgba(
+      201,
+      143,
+      151,
+      0.22
+    );
+
+  border-radius: 18px;
+
+  background: #ffffff;
+
+  text-align: center;
+}
+
+.empty-state strong {
+  color:
+    var(--mumma-text);
+
+  font-size: 16px;
+  font-weight: 750;
+}
+
+.empty-state p {
+  max-width: 230px;
+
+  margin:
+    7px
+    auto
+    0;
+
+  color:
+    var(--mumma-text-soft);
+
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+
+/* GUIDELINES */
+
+.guidelines-button {
+  margin-top: auto;
+
+  padding-top: 42px;
+
+  border: 0;
+
+  background: transparent;
+
+  color:
+    var(--mumma-primary);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 8px;
+
+  font-size: 14px;
+  font-weight: 700;
+
+  cursor: pointer;
+}
+
+.guideline-icon {
+  width: 19px;
+  height: 19px;
+
+  border:
+    2px solid
+    var(--mumma-primary);
+
+  border-radius: 50%;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 11px;
+  font-weight: 800;
+}
+
+
+/* SMALL DEVICES */
+
+@media (max-width: 380px) {
+  .pumped-milk-shell {
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+
+  .section-heading h2 {
+    font-size: 21px;
+  }
+
+  .section-heading > strong {
+    font-size: 14px;
+  }
+
+  .milk-card {
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+
+  .remaining-row {
+    gap: 10px;
+  }
+
+  .remaining-row strong {
+    min-width: 68px;
+
+    font-size: 12px;
+  }
+}

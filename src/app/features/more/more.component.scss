@@ -1,0 +1,202 @@
+:host {
+  display: block;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+button {
+  font: inherit;
+}
+
+.more-page {
+  min-height: 100vh;
+  min-height: 100dvh;
+
+  background:
+    var(--mumma-bg);
+
+  color:
+    var(--mumma-text);
+}
+
+.more-shell {
+  width: 100%;
+  max-width: 500px;
+
+  margin: 0 auto;
+
+  padding:
+    24px
+    18px
+    120px;
+}
+
+.page-header {
+  margin-bottom: 29px;
+}
+
+.page-header p {
+  margin: 0 0 4px;
+
+  color:
+    var(--mumma-primary);
+
+  font-size: 12px;
+  font-weight: 750;
+
+  letter-spacing: 0.08em;
+
+  text-transform: uppercase;
+}
+
+.page-header h1 {
+  margin: 0;
+
+  font-size: 27px;
+}
+
+.page-header span {
+  display: block;
+
+  margin-top: 5px;
+
+  color:
+    var(--mumma-text-soft);
+
+  font-size: 12px;
+}
+
+.section {
+  margin-bottom: 30px;
+}
+
+.section h2 {
+  margin:
+    0
+    0
+    12px;
+
+  font-size: 18px;
+}
+
+.menu-card {
+  width: 100%;
+
+  min-height: 72px;
+
+  margin-bottom: 9px;
+
+  padding: 12px;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 12px;
+
+  border:
+    1px solid
+    rgba(
+      201,
+      143,
+      151,
+      0.3
+    );
+
+  border-radius: 17px;
+
+  background: #ffffff;
+
+  color:
+    var(--mumma-text);
+
+  text-align: left;
+}
+
+button.menu-card {
+  cursor: pointer;
+}
+
+.menu-symbol {
+  width: 42px;
+  height: 42px;
+
+  flex:
+    0
+    0
+    42px;
+
+  border-radius: 13px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  background:
+    var(--mumma-surface);
+
+  color:
+    var(--mumma-primary);
+
+  font-size: 12px;
+  font-weight: 850;
+}
+
+.menu-card > div {
+  min-width: 0;
+
+  flex: 1;
+}
+
+.menu-card strong {
+  display: block;
+
+  font-size: 14px;
+}
+
+.menu-card p {
+  margin:
+    3px
+    0
+    0;
+
+  color:
+    var(--mumma-text-soft);
+
+  font-size: 11px;
+}
+
+.arrow {
+  color:
+    var(--mumma-primary);
+
+  font-size: 25px;
+}
+
+.coming,
+.future {
+  flex:
+    0
+    0
+    auto;
+
+  font-size: 9px;
+  font-weight: 750;
+}
+
+.coming {
+  color:
+    var(--mumma-primary);
+}
+
+.future {
+  color:
+    var(--mumma-text-soft);
+}
+
+.upcoming {
+  opacity: 0.86;
+}

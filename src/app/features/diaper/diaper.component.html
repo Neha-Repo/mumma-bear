@@ -1,0 +1,270 @@
+<div class="diaper-page">
+  <div class="diaper-shell">
+
+    <header class="diaper-header">
+      <button
+        type="button"
+        class="back-button"
+        aria-label="Back to Today"
+        (click)="goBack()"
+      >
+        ‹
+      </button>
+
+      <h1>
+        Diaper
+      </h1>
+
+      <button
+        type="button"
+        class="history-button"
+        (click)="viewHistory()"
+      >
+        History
+      </button>
+    </header>
+
+
+    <section class="time-card">
+      <div class="time-copy">
+        <span>
+          {{ dateText }}
+        </span>
+
+        <strong>
+          {{ timeText }}
+        </strong>
+      </div>
+
+      <button
+        type="button"
+        class="now-button"
+        (click)="setNow()"
+      >
+        Now
+      </button>
+    </section>
+
+
+    <section class="type-section">
+
+      <div class="section-heading">
+        <h2>
+          What kind of diaper?
+        </h2>
+
+        <p>
+          Tap one.
+        </p>
+      </div>
+
+
+      <div class="type-grid">
+
+        <button
+          type="button"
+          class="type-button"
+          [class.selected]="
+            selectedType ===
+            'wet'
+          "
+          (click)="
+            selectType('wet')
+          "
+        >
+          <span
+            class="type-symbol"
+            aria-hidden="true"
+          >
+            W
+          </span>
+
+          <strong>
+            Wet
+          </strong>
+        </button>
+
+
+        <button
+          type="button"
+          class="type-button"
+          [class.selected]="
+            selectedType ===
+            'dirty'
+          "
+          (click)="
+            selectType('dirty')
+          "
+        >
+          <span
+            class="type-symbol"
+            aria-hidden="true"
+          >
+            D
+          </span>
+
+          <strong>
+            Dirty
+          </strong>
+        </button>
+
+
+        <button
+          type="button"
+          class="type-button"
+          [class.selected]="
+            selectedType ===
+            'both'
+          "
+          (click)="
+            selectType('both')
+          "
+        >
+          <span
+            class="type-symbol"
+            aria-hidden="true"
+          >
+            B
+          </span>
+
+          <strong>
+            Both
+          </strong>
+        </button>
+
+      </div>
+    </section>
+
+
+    @if (showStoolDetails) {
+
+      <section class="details-section">
+
+        <div class="detail-heading">
+          <div>
+            <h2>
+              Stool consistency
+            </h2>
+
+            <span>
+              Optional
+            </span>
+          </div>
+
+          <p>
+            Skip this if you just
+            want to save quickly.
+          </p>
+        </div>
+
+
+        <div class="detail-grid">
+
+          <button
+            type="button"
+            [class.selected]="
+              stoolConsistency ===
+              'seedy'
+            "
+            (click)="
+              selectConsistency(
+                'seedy'
+              )
+            "
+          >
+            Seedy
+          </button>
+
+          <button
+            type="button"
+            [class.selected]="
+              stoolConsistency ===
+              'soft'
+            "
+            (click)="
+              selectConsistency(
+                'soft'
+              )
+            "
+          >
+            Soft
+          </button>
+
+          <button
+            type="button"
+            [class.selected]="
+              stoolConsistency ===
+              'loose'
+            "
+            (click)="
+              selectConsistency(
+                'loose'
+              )
+            "
+          >
+            Loose
+          </button>
+
+          <button
+            type="button"
+            [class.selected]="
+              stoolConsistency ===
+              'firm'
+            "
+            (click)="
+              selectConsistency(
+                'firm'
+              )
+            "
+          >
+            Firm
+          </button>
+
+        </div>
+
+      </section>
+
+    }
+
+
+    <section class="notes-section">
+
+      <label for="diaper-notes">
+        Notes
+        <span>
+          Optional
+        </span>
+      </label>
+
+      <textarea
+        id="diaper-notes"
+        rows="3"
+        maxlength="250"
+        placeholder="Add a note"
+        [(ngModel)]="notes"
+      ></textarea>
+
+    </section>
+
+
+    <button
+      type="button"
+      class="save-button"
+      [disabled]="isSaved"
+      (click)="saveDiaper()"
+    >
+      @if (isSaved) {
+        Diaper saved
+      } @else {
+        Save diaper
+      }
+    </button>
+
+
+    <p class="save-helper">
+      Wet, dirty or both is all you
+      need for a quick log.
+    </p>
+
+  </div>
+</div>

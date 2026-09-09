@@ -1,0 +1,161 @@
+<div class="feed-page">
+  <div class="feed-shell">
+
+    <header class="feed-header">
+      <button
+        type="button"
+        class="back-button"
+        aria-label="Back to Today"
+        (click)="goBack()"
+      >
+        ‹
+      </button>
+
+      <h1>
+        Feed baby
+      </h1>
+
+      <button
+        type="button"
+        class="history-button"
+        (click)="viewHistory()"
+      >
+        History
+      </button>
+    </header>
+
+
+    <section class="feed-intro">
+      <h2>
+        How are you feeding
+        {{ babyName }}?
+      </h2>
+
+      <p>
+        Choose a feeding type.
+      </p>
+    </section>
+
+
+    <section class="feed-options">
+
+      <button
+        type="button"
+        class="feed-option"
+        (click)="startBreastfeed()"
+      >
+        <div
+          class="option-symbol"
+          aria-hidden="true"
+        >
+          B
+        </div>
+
+        <div class="option-copy">
+          <strong>
+            Breastfeed
+          </strong>
+
+          <span>
+            Left, right or both sides
+          </span>
+        </div>
+
+        <span
+          class="option-arrow"
+          aria-hidden="true"
+        >
+          ›
+        </span>
+      </button>
+
+
+      <button
+        type="button"
+        class="feed-option"
+        (click)="startPumpedMilkFeed()"
+      >
+        <div
+          class="option-symbol"
+          aria-hidden="true"
+        >
+          M
+        </div>
+
+        <div class="option-copy">
+          <strong>
+            Pumped milk
+          </strong>
+
+          <span>
+            Feed from stored milk
+          </span>
+        </div>
+
+        <span
+          class="option-arrow"
+          aria-hidden="true"
+        >
+          ›
+        </span>
+      </button>
+
+
+      <button
+        type="button"
+        class="feed-option"
+        (click)="startFormulaFeed()"
+      >
+        <div
+          class="option-symbol"
+          aria-hidden="true"
+        >
+          F
+        </div>
+
+        <div class="option-copy">
+          <strong>
+            Formula
+          </strong>
+
+          <span>
+            Quickly log an amount
+          </span>
+        </div>
+
+        <span
+          class="option-arrow"
+          aria-hidden="true"
+        >
+          ›
+        </span>
+      </button>
+
+    </section>
+
+
+    <button
+      type="button"
+      class="history-card"
+      (click)="viewHistory()"
+    >
+      <div>
+        <strong>
+          Feeding history
+        </strong>
+
+        <span>
+          See all saved feeds
+        </span>
+      </div>
+
+      <span
+        class="history-arrow"
+        aria-hidden="true"
+      >
+        ›
+      </span>
+    </button>
+
+  </div>
+</div>

@@ -1,0 +1,1090 @@
+<div class="appointments-page">
+
+  <div class="appointments-shell">
+
+    <header class="page-header">
+
+      <button
+        type="button"
+        class="back-button"
+        aria-label="Back to Today"
+        (click)="goBack()"
+      >
+        ‹
+      </button>
+
+      <h1>
+        Appointments
+      </h1>
+
+      <button
+        type="button"
+        class="add-button"
+        aria-label="Add appointment"
+        (click)="addAppointment()"
+      >
+        +
+      </button>
+
+    </header>
+
+
+    <nav
+      class="section-tabs"
+      aria-label="Appointment sections"
+    >
+
+      <button
+        type="button"
+        [class.active]="
+          activeTab ===
+          'appointments'
+        "
+        (click)="
+          selectTab(
+            'appointments'
+          )
+        "
+      >
+        Appointments
+      </button>
+
+      <button
+        type="button"
+        [class.active]="
+          activeTab ===
+          'vaccinations'
+        "
+        (click)="
+          selectTab(
+            'vaccinations'
+          )
+        "
+      >
+        Vaccinations
+      </button>
+
+      <button
+        type="button"
+        [class.active]="
+          activeTab ===
+          'reminders'
+        "
+        (click)="
+          selectTab(
+            'reminders'
+          )
+        "
+      >
+        Reminders
+      </button>
+
+    </nav>
+
+
+    @if (
+      activeTab ===
+      'appointments'
+    ) {
+
+      <section class="content-section">
+
+        <div class="section-heading">
+          <h2>
+            Upcoming
+          </h2>
+
+          <button
+            type="button"
+            (click)="addAppointment()"
+          >
+            Add
+          </button>
+        </div>
+
+
+        @if (
+          upcomingAppointments.length >
+          0
+        ) {
+
+          <div class="card-list">
+
+            @for (
+              appointment
+              of upcomingAppointments;
+              track appointment.id
+            ) {
+
+              <article
+                class="event-card"
+                role="button"
+                tabindex="0"
+                (click)="
+                  editAppointment(
+                    appointment
+                  )
+                "
+                (keydown.enter)="
+                  editAppointment(
+                    appointment
+                  )
+                "
+              >
+
+                <div
+                  class="event-symbol mama"
+                  [class.baby]="
+                    appointment.forWho ===
+                    'baby'
+                  "
+                  aria-hidden="true"
+                >
+                  {{
+                    appointment.forWho ===
+                    'baby'
+                      ? 'B'
+                      : 'M'
+                  }}
+                </div>
+
+
+                <div class="event-copy">
+
+                  <div class="event-title-row">
+                    <strong>
+                      {{
+                        appointment.title
+                      }}
+                    </strong>
+
+                    <span class="chevron">
+                      ›
+                    </span>
+                  </div>
+
+                  <span>
+                    For
+                    {{
+                      getOwnerLabel(
+                        appointment.forWho
+                      )
+                    }}
+                  </span>
+
+                  <span>
+                    {{
+                      getDateLabel(
+                        appointment
+                      )
+                    }}
+                    •
+                    {{
+                      getTimeLabel(
+                        appointment.time
+                      )
+                    }}
+                  </span>
+
+                  @if (
+                    appointment.location
+                  ) {
+                    <span>
+                      {{
+                        appointment.location
+                      }}
+                    </span>
+                  }
+
+                  @if (
+                    appointment.prepareItems
+                      .length > 0
+                  ) {
+
+                    <div class="prepare-preview">
+                      <strong>
+                        Prepare
+                      </strong>
+
+                      <span>
+                        {{
+                          appointment
+                            .prepareItems[0]
+                        }}
+
+                        @if (
+                          appointment
+                            .prepareItems
+                            .length >
+                          1
+                        ) {
+                          +
+                          {{
+                            appointment
+                              .prepareItems
+                              .length -
+                            1
+                          }}
+                          more
+                        }
+                      </span>
+                    </div>
+
+                  }
+
+                  <button
+                    type="button"
+                    class="small-action"
+                    (click)="
+                      markCompleted(
+                        appointment,
+                        $event
+                      )
+                    "
+                  >
+                    Mark complete
+                  </button>
+
+                </div>
+
+              </article>
+
+            }
+
+          </div>
+
+        } @else {
+
+          <div class="empty-card">
+            <strong>
+              No upcoming appointments
+            </strong>
+
+            <p>
+              Add Mom or Baby's next
+              appointment and it will
+              also appear on Today.
+            </p>
+
+            <button
+              type="button"
+              (click)="addAppointment()"
+            >
+              Add appointment
+            </button>
+          </div>
+
+        }
+
+
+        @if (
+          pastAppointments.length >
+          0
+        ) {
+
+          <div class="past-section">
+
+            <h2>
+              Past
+            </h2>
+
+            <div class="card-list">
+
+              @for (
+                appointment
+                of pastAppointments;
+                track appointment.id
+              ) {
+
+                <article
+                  class="event-card past"
+                  role="button"
+                  tabindex="0"
+                  (click)="
+                    editAppointment(
+                      appointment
+                    )
+                  "
+                  (keydown.enter)="
+                    editAppointment(
+                      appointment
+                    )
+                  "
+                >
+
+                  <div
+                    class="event-symbol completed"
+                    aria-hidden="true"
+                  >
+                    ✓
+                  </div>
+
+                  <div class="event-copy">
+
+                    <strong>
+                      {{
+                        appointment.title
+                      }}
+                    </strong>
+
+                    <span>
+                      For
+                      {{
+                        getOwnerLabel(
+                          appointment.forWho
+                        )
+                      }}
+                    </span>
+
+                    <span>
+                      {{
+                        getDateLabel(
+                          appointment
+                        )
+                      }}
+                      •
+                      {{
+                        getTimeLabel(
+                          appointment.time
+                        )
+                      }}
+                    </span>
+
+                    <button
+                      type="button"
+                      class="small-action"
+                      (click)="
+                        restoreAppointment(
+                          appointment,
+                          $event
+                        )
+                      "
+                    >
+                      Restore
+                    </button>
+
+                  </div>
+
+                </article>
+
+              }
+
+            </div>
+
+          </div>
+
+        }
+
+      </section>
+
+    }
+
+
+    @if (
+      activeTab ===
+      'vaccinations'
+    ) {
+
+      <section class="content-section">
+
+        <div class="section-heading">
+          <div>
+            <h2>
+              Vaccinations
+            </h2>
+
+            <p>
+              Keep Baby's upcoming
+              vaccination visits in one
+              place.
+            </p>
+          </div>
+
+          <button
+            type="button"
+            (click)="addAppointment()"
+          >
+            Add
+          </button>
+        </div>
+
+
+        @if (
+          upcomingVaccinations.length >
+          0
+        ) {
+
+          <div class="card-list">
+
+            @for (
+              vaccination
+              of upcomingVaccinations;
+              track vaccination.id
+            ) {
+
+              <article
+                class="event-card"
+                role="button"
+                tabindex="0"
+                (click)="
+                  editAppointment(
+                    vaccination
+                  )
+                "
+                (keydown.enter)="
+                  editAppointment(
+                    vaccination
+                  )
+                "
+              >
+
+                <div
+                  class="event-symbol vaccination"
+                  aria-hidden="true"
+                >
+                  V
+                </div>
+
+                <div class="event-copy">
+
+                  <div class="event-title-row">
+                    <strong>
+                      {{
+                        vaccination.title
+                      }}
+                    </strong>
+
+                    <span class="chevron">
+                      ›
+                    </span>
+                  </div>
+
+                  <span>
+                    {{
+                      getDateLabel(
+                        vaccination
+                      )
+                    }}
+                    •
+                    {{
+                      getTimeLabel(
+                        vaccination.time
+                      )
+                    }}
+                  </span>
+
+                  @if (
+                    vaccination.location
+                  ) {
+                    <span>
+                      {{
+                        vaccination.location
+                      }}
+                    </span>
+                  }
+
+
+                  @if (
+                    vaccination
+                      .reminderOffset !==
+                    'none'
+                  ) {
+
+                    <div class="status-row due">
+                      Reminder
+                      {{
+                        vaccination
+                          .reminderOffset ===
+                        '1-day'
+                          ? '1 day before'
+                          : vaccination
+                              .reminderOffset ===
+                            '2-hours'
+                            ? '2 hours before'
+                            : '1 week before'
+                      }}
+                    </div>
+
+                  }
+
+
+                  @if (
+                    vaccination
+                      .prepareItems
+                      .length >
+                    0
+                  ) {
+
+                    <div class="prepare-card">
+
+                      <strong>
+                        Prepare for this visit
+                      </strong>
+
+                      @for (
+                        item
+                        of vaccination
+                          .prepareItems;
+                        track item
+                      ) {
+                        <span>
+                          ✓ {{ item }}
+                        </span>
+                      }
+
+                    </div>
+
+                  }
+
+
+                  <button
+                    type="button"
+                    class="small-action"
+                    (click)="
+                      markCompleted(
+                        vaccination,
+                        $event
+                      )
+                    "
+                  >
+                    Mark complete
+                  </button>
+
+                </div>
+
+              </article>
+
+            }
+
+          </div>
+
+        } @else {
+
+          <div class="empty-card">
+            <strong>
+              No vaccinations added
+            </strong>
+
+            <p>
+              Add a vaccination visit
+              when you know Baby's next
+              date.
+            </p>
+
+            <button
+              type="button"
+              (click)="addAppointment()"
+            >
+              Add vaccination
+            </button>
+          </div>
+
+        }
+
+
+        @if (
+          pastVaccinations.length >
+          0
+        ) {
+
+          <div class="past-section">
+
+            <h2>
+              Previous
+            </h2>
+
+            <div class="card-list">
+
+              @for (
+                vaccination
+                of pastVaccinations;
+                track vaccination.id
+              ) {
+
+                <article
+                  class="event-card past"
+                  role="button"
+                  tabindex="0"
+                  (click)="
+                    editAppointment(
+                      vaccination
+                    )
+                  "
+                  (keydown.enter)="
+                    editAppointment(
+                      vaccination
+                    )
+                  "
+                >
+
+                  <div
+                    class="event-symbol completed"
+                    aria-hidden="true"
+                  >
+                    ✓
+                  </div>
+
+                  <div class="event-copy">
+
+                    <strong>
+                      {{
+                        vaccination.title
+                      }}
+                    </strong>
+
+                    <span>
+                      {{
+                        getDateLabel(
+                          vaccination
+                        )
+                      }}
+                    </span>
+
+                    <span class="status-row success">
+                      Completed
+                    </span>
+
+                  </div>
+
+                </article>
+
+              }
+
+            </div>
+
+          </div>
+
+        }
+
+      </section>
+
+    }
+
+
+    @if (
+      activeTab ===
+      'reminders'
+    ) {
+
+      <section class="content-section">
+
+        <div class="section-heading">
+          <div>
+            <h2>
+              Reminders
+            </h2>
+
+            <p>
+              Things Mumma Bear should
+              remember for you.
+            </p>
+          </div>
+
+          <button
+            type="button"
+            (click)="openReminderForm()"
+          >
+            Add
+          </button>
+        </div>
+
+
+        @if (showReminderForm) {
+
+          <section class="reminder-form">
+
+            <h3>
+              New reminder
+            </h3>
+
+            <label>
+              Reminder
+
+              <input
+                type="text"
+                maxlength="80"
+                placeholder="e.g. Give baby vitamin D"
+                [(ngModel)]="
+                  reminderTitle
+                "
+              />
+            </label>
+
+
+            <div class="field-label">
+              Who is it for?
+            </div>
+
+            <div class="choice-row">
+
+              <button
+                type="button"
+                [class.selected]="
+                  reminderForWho ===
+                  'mama'
+                "
+                (click)="
+                  reminderForWho =
+                    'mama'
+                "
+              >
+                Mama
+              </button>
+
+              <button
+                type="button"
+                [class.selected]="
+                  reminderForWho ===
+                  'baby'
+                "
+                (click)="
+                  reminderForWho =
+                    'baby'
+                "
+              >
+                Baby
+              </button>
+
+            </div>
+
+
+            <div class="two-fields">
+
+              <label>
+                Date
+
+                <input
+                  type="date"
+                  [(ngModel)]="
+                    reminderDate
+                  "
+                />
+              </label>
+
+              <label>
+                Time
+
+                <input
+                  type="time"
+                  [(ngModel)]="
+                    reminderTime
+                  "
+                />
+              </label>
+
+            </div>
+
+
+            <div class="field-label">
+              Repeat
+            </div>
+
+            <div class="repeat-row">
+
+              <button
+                type="button"
+                [class.selected]="
+                  reminderRepeat ===
+                  'once'
+                "
+                (click)="
+                  reminderRepeat =
+                    'once'
+                "
+              >
+                Once
+              </button>
+
+              <button
+                type="button"
+                [class.selected]="
+                  reminderRepeat ===
+                  'daily'
+                "
+                (click)="
+                  reminderRepeat =
+                    'daily'
+                "
+              >
+                Daily
+              </button>
+
+              <button
+                type="button"
+                [class.selected]="
+                  reminderRepeat ===
+                  'weekly'
+                "
+                (click)="
+                  reminderRepeat =
+                    'weekly'
+                "
+              >
+                Weekly
+              </button>
+
+            </div>
+
+
+            <div class="form-actions">
+
+              <button
+                type="button"
+                class="cancel"
+                (click)="
+                  cancelReminderForm()
+                "
+              >
+                Cancel
+              </button>
+
+              <button
+                type="button"
+                class="save"
+                [disabled]="
+                  !reminderTitle.trim()
+                "
+                (click)="
+                  saveReminder()
+                "
+              >
+                Save reminder
+              </button>
+
+            </div>
+
+          </section>
+
+        }
+
+
+        @if (
+          appointmentReminders.length >
+          0
+        ) {
+
+          <div class="reminder-group">
+
+            <h3>
+              Appointment reminders
+            </h3>
+
+            <div class="card-list">
+
+              @for (
+                reminder
+                of appointmentReminders;
+                track reminder.id
+              ) {
+
+                <article class="reminder-card">
+
+                  <div
+                    class="reminder-symbol"
+                    aria-hidden="true"
+                  >
+                    A
+                  </div>
+
+                  <div class="reminder-copy">
+
+                    <strong>
+                      {{ reminder.title }}
+                    </strong>
+
+                    <span>
+                      {{
+                        reminder.reminderText
+                      }}
+                    </span>
+
+                    <span>
+                      {{
+                        reminder.appointmentDate
+                      }}
+                      •
+                      {{
+                        getTimeLabel(
+                          reminder.appointmentTime
+                        )
+                      }}
+                    </span>
+
+                  </div>
+
+                  <button
+                    type="button"
+                    class="toggle enabled"
+                    aria-label="Disable appointment reminder"
+                    (click)="
+                      disableAppointmentReminder(
+                        reminder
+                      )
+                    "
+                  >
+                    <span></span>
+                  </button>
+
+                </article>
+
+              }
+
+            </div>
+
+          </div>
+
+        }
+
+
+        @if (
+          activeCustomReminders.length >
+          0
+        ) {
+
+          <div class="reminder-group">
+
+            <h3>
+              My reminders
+            </h3>
+
+            <div class="card-list">
+
+              @for (
+                reminder
+                of activeCustomReminders;
+                track reminder.id
+              ) {
+
+                <article class="reminder-card">
+
+                  <div
+                    class="reminder-symbol custom"
+                    aria-hidden="true"
+                  >
+                    R
+                  </div>
+
+                  <div class="reminder-copy">
+
+                    <strong>
+                      {{
+                        reminder.title
+                      }}
+                    </strong>
+
+                    <span>
+                      For
+                      {{
+                        getOwnerLabel(
+                          reminder.forWho
+                        )
+                      }}
+                    </span>
+
+                    <span>
+                      {{
+                        getReminderDateLabel(
+                          reminder
+                        )
+                      }}
+                      •
+                      {{
+                        getTimeLabel(
+                          reminder.time
+                        )
+                      }}
+                    </span>
+
+                    <small>
+                      {{
+                        getRepeatLabel(
+                          reminder.repeat
+                        )
+                      }}
+                    </small>
+
+                    <button
+                      type="button"
+                      class="delete-reminder"
+                      (click)="
+                        deleteReminder(
+                          reminder
+                        )
+                      "
+                    >
+                      Delete
+                    </button>
+
+                  </div>
+
+
+                  <button
+                    type="button"
+                    class="toggle"
+                    [class.enabled]="
+                      reminder.enabled
+                    "
+                    [attr.aria-label]="
+                      reminder.enabled
+                        ? 'Turn reminder off'
+                        : 'Turn reminder on'
+                    "
+                    (click)="
+                      toggleReminder(
+                        reminder
+                      )
+                    "
+                  >
+                    <span></span>
+                  </button>
+
+                </article>
+
+              }
+
+            </div>
+
+          </div>
+
+        }
+
+
+        @if (
+          appointmentReminders.length ===
+            0 &&
+          activeCustomReminders.length ===
+            0 &&
+          !showReminderForm
+        ) {
+
+          <div class="empty-card">
+            <strong>
+              Nothing to remember yet
+            </strong>
+
+            <p>
+              Add a reminder or enable
+              one while creating an
+              appointment.
+            </p>
+
+            <button
+              type="button"
+              (click)="openReminderForm()"
+            >
+              Add reminder
+            </button>
+          </div>
+
+        }
+
+      </section>
+
+    }
+
+  </div>
+
+
+  <app-bottom-nav></app-bottom-nav>
+
+</div>

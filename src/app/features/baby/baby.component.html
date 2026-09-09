@@ -1,0 +1,272 @@
+<div class="baby-page">
+  <main class="baby-shell">
+
+    <header class="page-header">
+      <div>
+        <p>
+          Baby
+        </p>
+
+        <h1>
+          {{ babyName }}
+        </h1>
+
+        @if (babyAgeText) {
+          <span>
+            {{ babyAgeText }}
+          </span>
+        }
+      </div>
+
+      <div
+        class="profile-mark"
+        aria-hidden="true"
+      >
+        B
+      </div>
+    </header>
+
+
+    <section class="profile-card">
+
+      <div>
+        <span>
+          Baby profile
+        </span>
+
+        <strong>
+          {{ babyName }}
+        </strong>
+      </div>
+
+      @if (babyDobText) {
+        <div>
+          <span>
+            Date of birth
+          </span>
+
+          <strong>
+            {{ babyDobText }}
+          </strong>
+        </div>
+      }
+
+    </section>
+
+
+    <section class="section">
+
+      <div class="section-heading">
+        <div>
+          <h2>
+            Everyday care
+          </h2>
+
+          <p>
+            Everything you've logged
+            for {{ babyName }}.
+          </p>
+        </div>
+      </div>
+
+      <div class="history-grid">
+
+        <button
+          type="button"
+          (click)="openFeeding()"
+        >
+          <span
+            class="letter-icon"
+            aria-hidden="true"
+          >
+            F
+          </span>
+
+          <strong>
+            Feeding
+          </strong>
+
+          <small>
+            {{ feedingCount }}
+            logged
+          </small>
+        </button>
+
+
+        <button
+          type="button"
+          (click)="openDiapers()"
+        >
+          <span
+            class="letter-icon"
+            aria-hidden="true"
+          >
+            D
+          </span>
+
+          <strong>
+            Diapers
+          </strong>
+
+          <small>
+            {{ diaperCount }}
+            logged
+          </small>
+        </button>
+
+
+        <button
+          type="button"
+          (click)="openSleep()"
+        >
+          <span
+            class="letter-icon"
+            aria-hidden="true"
+          >
+            S
+          </span>
+
+          <strong>
+            Sleep
+          </strong>
+
+          <small>
+            {{ sleepCount }}
+            logged
+          </small>
+        </button>
+
+      </div>
+
+    </section>
+
+
+    <section class="section">
+
+      <h2>
+        Health
+      </h2>
+
+      <button
+        type="button"
+        class="feature-card"
+        (click)="openVaccinations()"
+      >
+        <span
+          class="feature-symbol"
+          aria-hidden="true"
+        >
+          V
+        </span>
+
+        <div>
+          <strong>
+            Vaccinations
+          </strong>
+
+          <p>
+            {{ upcomingVaccinations }}
+            upcoming
+          </p>
+        </div>
+
+        <span class="arrow">
+          ›
+        </span>
+      </button>
+
+
+      <div class="feature-card upcoming">
+
+        <span
+          class="feature-symbol"
+          aria-hidden="true"
+        >
+          G
+        </span>
+
+        <div>
+          <strong>
+            Growth & health
+          </strong>
+
+          <p>
+            Weight, height and growth
+            tracking
+          </p>
+        </div>
+
+        <span class="coming">
+          Coming soon
+        </span>
+
+      </div>
+
+    </section>
+
+
+    <section class="section">
+
+      <h2>
+        Development
+      </h2>
+
+      <div class="feature-card upcoming">
+
+        <span
+          class="feature-symbol"
+          aria-hidden="true"
+        >
+          M
+        </span>
+
+        <div>
+          <strong>
+            Milestones
+          </strong>
+
+          <p>
+            Track new skills and
+            development.
+          </p>
+        </div>
+
+        <span class="coming">
+          Coming soon
+        </span>
+
+      </div>
+
+
+      <div class="feature-card upcoming">
+
+        <span
+          class="feature-symbol"
+          aria-hidden="true"
+        >
+          R
+        </span>
+
+        <div>
+          <strong>
+            Baby food & recipes
+          </strong>
+
+          <p>
+            Stage-aware meal ideas when
+            baby is ready.
+          </p>
+        </div>
+
+        <span class="coming">
+          Coming soon
+        </span>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <app-bottom-nav></app-bottom-nav>
+</div>

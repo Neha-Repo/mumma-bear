@@ -1,0 +1,366 @@
+<div class="form-page">
+  <div class="form-shell">
+
+    <header class="page-header">
+
+      <button
+        type="button"
+        class="back-button"
+        aria-label="Back"
+        (click)="goBack()"
+      >
+        ‹
+      </button>
+
+      <h1>
+        {{ pageTitle }}
+      </h1>
+
+      <div
+        class="header-space"
+        aria-hidden="true"
+      ></div>
+
+    </header>
+
+
+    <section class="form-section">
+
+      <div class="field-label">
+        What are you adding?
+      </div>
+
+      <div class="choice-grid">
+
+        <button
+          type="button"
+          [class.selected]="
+            kind ===
+            'appointment'
+          "
+          (click)="
+            selectKind(
+              'appointment'
+            )
+          "
+        >
+          Appointment
+        </button>
+
+        <button
+          type="button"
+          [class.selected]="
+            kind ===
+            'vaccination'
+          "
+          (click)="
+            selectKind(
+              'vaccination'
+            )
+          "
+        >
+          Vaccination
+        </button>
+
+      </div>
+
+
+      <label class="field">
+        Title
+
+        <input
+          type="text"
+          maxlength="80"
+          placeholder="e.g. Postnatal checkup"
+          [(ngModel)]="title"
+        />
+      </label>
+
+
+      <div class="field-label">
+        Who is it for?
+      </div>
+
+      <div class="choice-grid">
+
+        <button
+          type="button"
+          [disabled]="
+            kind ===
+            'vaccination'
+          "
+          [class.selected]="
+            forWho ===
+            'mama'
+          "
+          (click)="
+            selectOwner(
+              'mama'
+            )
+          "
+        >
+          Mama
+        </button>
+
+        <button
+          type="button"
+          [class.selected]="
+            forWho ===
+            'baby'
+          "
+          (click)="
+            selectOwner(
+              'baby'
+            )
+          "
+        >
+          Baby
+        </button>
+
+      </div>
+
+
+      <div class="two-fields">
+
+        <label class="field">
+          Date
+
+          <input
+            type="date"
+            [(ngModel)]="date"
+          />
+        </label>
+
+        <label class="field">
+          Time
+
+          <input
+            type="time"
+            [(ngModel)]="time"
+          />
+        </label>
+
+      </div>
+
+
+      <label class="field">
+        Location
+        <span>
+          Optional
+        </span>
+
+        <input
+          type="text"
+          maxlength="120"
+          placeholder="Clinic or address"
+          [(ngModel)]="location"
+        />
+      </label>
+
+
+      <label class="field">
+        Notes
+        <span>
+          Optional
+        </span>
+
+        <textarea
+          rows="3"
+          maxlength="300"
+          placeholder="Anything you want to remember"
+          [(ngModel)]="notes"
+        ></textarea>
+      </label>
+
+    </section>
+
+
+    <section class="settings-card">
+
+      <h2>
+        Reminder
+      </h2>
+
+      <p>
+        When should Mumma Bear remind
+        you?
+      </p>
+
+      <div class="reminder-grid">
+
+        <button
+          type="button"
+          [class.selected]="
+            reminderOffset ===
+            'none'
+          "
+          (click)="
+            selectReminder(
+              'none'
+            )
+          "
+        >
+          Off
+        </button>
+
+        <button
+          type="button"
+          [class.selected]="
+            reminderOffset ===
+            '2-hours'
+          "
+          (click)="
+            selectReminder(
+              '2-hours'
+            )
+          "
+        >
+          2 hours
+        </button>
+
+        <button
+          type="button"
+          [class.selected]="
+            reminderOffset ===
+            '1-day'
+          "
+          (click)="
+            selectReminder(
+              '1-day'
+            )
+          "
+        >
+          1 day
+        </button>
+
+        <button
+          type="button"
+          [class.selected]="
+            reminderOffset ===
+            '1-week'
+          "
+          (click)="
+            selectReminder(
+              '1-week'
+            )
+          "
+        >
+          1 week
+        </button>
+
+      </div>
+
+    </section>
+
+
+    <section class="prepare-section">
+
+      <button
+        type="button"
+        class="prepare-heading"
+        (click)="togglePrepare()"
+      >
+
+        <div>
+          <strong>
+            Prepare for this
+          </strong>
+
+          <span>
+            Optional
+          </span>
+
+          <p>
+            A small checklist before
+            the appointment.
+          </p>
+        </div>
+
+        <div
+          class="prepare-toggle"
+          [class.enabled]="
+            prepareEnabled
+          "
+          aria-hidden="true"
+        >
+          <span></span>
+        </div>
+
+      </button>
+
+
+      @if (prepareEnabled) {
+
+        <div class="prepare-options">
+
+          @for (
+            option
+            of prepareOptions;
+            track option.label
+          ) {
+
+            <button
+              type="button"
+              [class.selected]="
+                option.selected
+              "
+              (click)="
+                togglePrepareItem(
+                  option
+                )
+              "
+            >
+              <span
+                class="check"
+                aria-hidden="true"
+              >
+                @if (
+                  option.selected
+                ) {
+                  ✓
+                }
+              </span>
+
+              {{ option.label }}
+            </button>
+
+          }
+
+        </div>
+
+      }
+
+    </section>
+
+
+    <button
+      type="button"
+      class="save-button"
+      [disabled]="
+        !canSave ||
+        isSaved
+      "
+      (click)="
+        saveAppointment()
+      "
+    >
+      {{ saveLabel }}
+    </button>
+
+
+    @if (isEditing) {
+
+      <button
+        type="button"
+        class="delete-button"
+        (click)="
+          deleteAppointment()
+        "
+      >
+        Delete appointment
+      </button>
+
+    }
+
+  </div>
+</div>

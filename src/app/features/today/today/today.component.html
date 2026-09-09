@@ -1,0 +1,298 @@
+<div class="today-page">
+  <div class="today-shell">
+
+    <section class="top-section">
+      <div class="mom-row">
+        <div class="avatar mom-avatar">
+          👩
+        </div>
+
+        <div class="mom-copy">
+          <h1>
+            Hello, {{ momName }}
+          </h1>
+        </div>
+
+        <span class="top-icon">
+          🔔
+        </span>
+      </div>
+
+      <div class="baby-row">
+        <div class="avatar baby-avatar">
+          👶
+        </div>
+
+        <div>
+          <h2>
+            {{ babyName }} is
+            {{ babyAgeText }}
+          </h2>
+
+          <p>
+            {{ babyWeekDayText }}
+          </p>
+        </div>
+      </div>
+    </section>
+
+
+    <section class="glance-card">
+      <h3>
+        At a glance
+      </h3>
+
+      <div class="glance-grid">
+
+        <div
+          class="mini-card"
+          role="button"
+          tabindex="0"
+          aria-label="Open pumping"
+          (click)="goToPump()"
+          (keydown)="onLastPumpKeydown($event)"
+        >
+          <div class="mini-card-title">
+            <span class="mini-card-icon">
+              💧
+            </span>
+
+            <p>
+              Last pump
+            </p>
+          </div>
+
+          @if (lastPump) {
+
+            <strong>
+              {{ lastPumpTime }}
+            </strong>
+
+            <span>
+              {{ lastPumpDateText }}
+            </span>
+
+            <span>
+              Milk expires at
+            </span>
+
+            <strong>
+              {{ lastPumpExpiryTime }}
+            </strong>
+
+            <small>
+              {{ lastPumpRemainingTime }}
+            </small>
+
+          } @else {
+
+            <strong>
+              No pump logged
+            </strong>
+
+            <span>
+              Tap to log a pump
+            </span>
+
+          }
+        </div>
+
+
+        <div
+          class="mini-card"
+          role="button"
+          tabindex="0"
+          aria-label="Open appointments"
+          (click)="goToAppointments()"
+          (keydown)="onNextAppointmentKeydown($event)"
+        >
+          <div class="mini-card-title">
+            <span class="mini-card-icon">
+              📅
+            </span>
+
+            <p>
+              Next up
+            </p>
+          </div>
+
+          @if (nextAppointment) {
+
+            <strong>
+              {{ nextAppointment.title }}
+            </strong>
+
+            <span>
+              {{ nextAppointmentOwnerText }}
+            </span>
+
+            <span>
+              {{ nextAppointmentDateText }}
+            </span>
+
+            <strong>
+              {{ nextAppointmentTimeText }}
+            </strong>
+
+            @if (
+              nextAppointment.kind ===
+              'vaccination'
+            ) {
+              <small>
+                Vaccination
+              </small>
+            }
+
+          } @else {
+
+            <strong>
+              Nothing coming up
+            </strong>
+
+            <span>
+              Tap to add an appointment
+            </span>
+
+          }
+        </div>
+
+      </div>
+    </section>
+
+
+    <section class="care-card">
+      <div class="care-copy">
+        <h3>
+          <span class="care-heart">
+            ♥
+          </span>
+
+          Take care, Mama
+        </h3>
+
+        <p>
+          Your body is healing.
+        </p>
+
+        <p>
+          Rest when baby sleeps.
+        </p>
+      </div>
+
+      <div class="care-image">
+        <img
+          src="assets/images/mom-baby-care.jpg"
+          alt="Mom holding baby"
+        />
+      </div>
+    </section>
+
+
+    <section class="quick-section">
+
+      <h3>
+        Quick actions
+      </h3>
+
+      <div class="quick-grid">
+
+        <button
+          type="button"
+          (click)="goToPump()"
+        >
+          <span
+            class="quick-icon"
+            aria-hidden="true"
+          >
+            <svg viewBox="0 0 24 24">
+              <path d="M9 3h6v4H9z"></path>
+              <path d="M10 7h4v3"></path>
+              <path d="M8 10h8v3H8z"></path>
+              <path d="M9 13h6v7H9z"></path>
+              <path d="M15 11h2c1.5 0 3 1.2 3 3v2"></path>
+            </svg>
+          </span>
+
+          <span>
+            Pump
+          </span>
+        </button>
+
+
+        <button
+          type="button"
+          (click)="goToFeed()"
+        >
+          <span class="quick-icon">
+            🍼
+          </span>
+
+          <span>
+            Feed baby
+          </span>
+        </button>
+
+
+        <button
+          type="button"
+          (click)="goToDiaper()"
+        >
+          <span class="quick-icon">
+            👶
+          </span>
+
+          <span>
+            Diaper
+          </span>
+        </button>
+
+
+        <button
+          type="button"
+          (click)="goToSleep()"
+        >
+          <span class="quick-icon">
+            🌙
+          </span>
+
+          <span>
+            Sleep
+          </span>
+        </button>
+
+      </div>
+
+    </section>
+
+
+    <section class="baby-today-section">
+
+      <h3>
+        Today for baby
+      </h3>
+
+      <div class="baby-tip-card">
+
+        <div>
+          <strong>
+            Hiccups are normal
+          </strong>
+
+          <p>
+            Learn why hiccups happen
+            and when to worry.
+          </p>
+        </div>
+
+        <span class="arrow-icon">
+          →
+        </span>
+
+      </div>
+
+    </section>
+
+  </div>
+
+  <app-bottom-nav></app-bottom-nav>
+</div>

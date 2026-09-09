@@ -1,0 +1,320 @@
+<div class="pump-page">
+  <div class="pump-shell">
+
+    <header class="pump-header">
+      <button
+        type="button"
+        class="back-button"
+        aria-label="Go back"
+        (click)="goBack()"
+      >
+        ‹
+      </button>
+
+      <h1>Pumping</h1>
+
+      <button
+        type="button"
+        class="info-button"
+        aria-label="Pumping information"
+      >
+        i
+      </button>
+    </header>
+
+
+    <!-- TIME WHEEL -->
+    <section class="time-picker-section">
+
+      <button
+        type="button"
+        class="now-button"
+        (click)="setNow()"
+      >
+        Now
+      </button>
+
+      <div class="wheel-clock">
+
+        <div class="clock-ticks"></div>
+
+        <div class="wheel-selection"></div>
+
+        <div class="wheel-columns">
+
+          <!-- HOURS -->
+          <div
+            #hourWheel
+            class="wheel-column hour-column"
+            (scroll)="onHourScroll()"
+          >
+            <div class="wheel-spacer"></div>
+
+            @for (hour of hours; track hour) {
+              <div
+                class="wheel-item"
+                [class.selected]="
+                  hour === selectedHour
+                "
+              >
+                {{ hour }}
+              </div>
+            }
+
+            <div class="wheel-spacer"></div>
+          </div>
+
+
+          <!-- MINUTES -->
+          <div
+            #minuteWheel
+            class="wheel-column minute-column"
+            (scroll)="onMinuteScroll()"
+          >
+            <div class="wheel-spacer"></div>
+
+            @for (
+              minute of minutes;
+              track minute
+            ) {
+              <div
+                class="wheel-item"
+                [class.selected]="
+                  minute ===
+                  selectedMinute
+                "
+              >
+                {{
+                  minute
+                    .toString()
+                    .padStart(2, '0')
+                }}
+              </div>
+            }
+
+            <div class="wheel-spacer"></div>
+          </div>
+
+
+          <!-- AM / PM -->
+          <div
+            #periodWheel
+            class="wheel-column period-column"
+            (scroll)="onPeriodScroll()"
+          >
+            <div class="wheel-spacer"></div>
+
+            @for (
+              period of periods;
+              track period
+            ) {
+              <div
+                class="wheel-item period-item"
+                [class.selected]="
+                  period ===
+                  selectedPeriod
+                "
+              >
+                {{ period }}
+              </div>
+            }
+
+            <div class="wheel-spacer"></div>
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- SELECTED TIME -->
+      <div class="selected-time-summary">
+        <span>I pumped at</span>
+
+        <strong>
+          {{ formattedPumpTime }}
+        </strong>
+
+        <div class="date-picker-wrap">
+          <span>
+            {{ formattedPumpDate }}
+          </span>
+
+          <input
+            type="date"
+            [(ngModel)]="selectedDate"
+            aria-label="Pump date"
+          />
+        </div>
+      </div>
+
+    </section>
+
+
+    <!-- STORAGE -->
+    <section class="storage-section">
+
+      <h2>
+        Where will you store the milk?
+      </h2>
+
+      <div class="storage-grid">
+
+        @for (
+          option of storageOptions;
+          track option.value
+        ) {
+          <button
+            type="button"
+            class="storage-option"
+            [class.selected]="
+              selectedStorage ===
+              option.value
+            "
+            (click)="
+              selectStorage(
+                option.value
+              )
+            "
+          >
+            <strong>
+              {{ option.label }}
+            </strong>
+
+            <span>
+              ({{ option.guidance }})
+            </span>
+          </button>
+        }
+
+      </div>
+
+    </section>
+
+
+    <!-- OPTIONAL DETAILS -->
+    <section class="details-section">
+
+      <h2>
+        Add details
+        <span>(optional)</span>
+      </h2>
+
+      <div class="details-card">
+
+        <div class="detail-row">
+          <span class="detail-label">
+            Amount
+          </span>
+
+          <div class="amount-picker">
+
+            <button
+              type="button"
+              aria-label="Decrease amount"
+              (click)="decreaseAmount()"
+            >
+              −
+            </button>
+
+            <strong>
+              @if (amountMl) {
+                {{ amountMl }} ml
+              } @else {
+                Add
+              }
+            </strong>
+
+            <button
+              type="button"
+              aria-label="Increase amount"
+              (click)="increaseAmount()"
+            >
+              +
+            </button>
+
+          </div>
+        </div>
+
+        <div class="detail-divider"></div>
+
+        <label
+          class="detail-row notes-row"
+          for="pumpNotes"
+        >
+          <span class="detail-label">
+            Notes
+          </span>
+
+          <input
+            id="pumpNotes"
+            type="text"
+            maxlength="250"
+            [(ngModel)]="notes"
+            placeholder="Add note"
+          />
+        </label>
+
+      </div>
+
+    </section>
+
+
+    <!-- SAVE -->
+    <button
+      type="button"
+      class="save-button"
+      [class.saved]="saved"
+      (click)="savePump()"
+    >
+      @if (saved) {
+        Pump saved
+      } @else {
+        Save pump
+      }
+    </button>
+
+
+    <!-- MILK STATUS -->
+    <section class="milk-status-card">
+
+      <div class="expiry-block">
+        <span>
+          Milk expires at
+        </span>
+
+        <strong>
+          {{ formattedUseBy }}
+        </strong>
+      </div>
+
+      <div class="status-divider"></div>
+
+      <div class="remaining-block">
+        <div
+          class="clock-status-icon"
+          aria-hidden="true"
+        >
+          <span></span>
+        </div>
+
+        <strong>
+          {{ remainingTimeText }}
+        </strong>
+      </div>
+
+      <button
+        type="button"
+        class="view-all-button"
+        (click)="viewPumpedMilk()"
+      >
+        View all pumped milk
+        <span aria-hidden="true">
+          →
+        </span>
+      </button>
+
+    </section>
+
+  </div>
+</div>

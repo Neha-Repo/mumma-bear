@@ -1,0 +1,139 @@
+:host {
+  display: block;
+}
+
+.bottom-nav {
+  position: fixed;
+
+  left: 50%;
+  bottom: 0;
+
+  z-index: 100;
+
+  width: 100%;
+  max-width: 500px;
+
+  transform:
+    translateX(-50%);
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(
+      5,
+      minmax(0, 1fr)
+    );
+
+  padding:
+    8px
+    6px
+    calc(
+      8px +
+      env(
+        safe-area-inset-bottom
+      )
+    );
+
+  border-top:
+    1px solid
+    rgba(
+      201,
+      143,
+      151,
+      0.3
+    );
+
+  background:
+    rgba(
+      255,
+      250,
+      247,
+      0.97
+    );
+
+  box-shadow:
+    0
+    -8px
+    24px
+    rgba(
+      125,
+      78,
+      87,
+      0.09
+    );
+
+  backdrop-filter:
+    blur(14px);
+}
+
+.bottom-nav button {
+  min-width: 0;
+
+  padding:
+    3px
+    2px;
+
+  border: 0;
+
+  background:
+    transparent;
+
+  color:
+    var(--mumma-text-soft);
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 3px;
+
+  font-size: 10px;
+  font-weight: 650;
+
+  cursor: pointer;
+}
+
+.bottom-nav button.active {
+  color:
+    var(--mumma-primary);
+}
+
+.nav-icon {
+  width: 25px;
+  height: 25px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-icon svg {
+  width: 23px;
+  height: 23px;
+
+  fill: none;
+
+  stroke:
+    currentColor;
+
+  stroke-width: 1.7;
+
+  stroke-linecap: round;
+
+  stroke-linejoin: round;
+}
+
+.bottom-nav button.active
+.nav-icon {
+  width: 34px;
+  height: 30px;
+
+  border-radius: 12px;
+
+  background:
+    var(--mumma-surface);
+}

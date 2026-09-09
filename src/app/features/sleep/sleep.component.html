@@ -1,0 +1,218 @@
+<div class="sleep-page">
+  <div class="sleep-shell">
+
+    <header class="sleep-header">
+
+      <button
+        type="button"
+        class="back-button"
+        aria-label="Back to Today"
+        (click)="goBack()"
+      >
+        ‹
+      </button>
+
+      <h1>
+        Sleep
+      </h1>
+
+      <button
+        type="button"
+        class="history-button"
+        (click)="viewHistory()"
+      >
+        History
+      </button>
+
+    </header>
+
+
+    <section class="sleep-intro">
+      <p>
+        Sleep timer for
+        {{ babyName }}
+      </p>
+    </section>
+
+
+    <section class="timer-section">
+
+      <div class="timer">
+        {{ timerText }}
+      </div>
+
+      <div class="started-row">
+        <span>
+          Started
+        </span>
+
+        <strong>
+          {{ startedTimeText }}
+        </strong>
+
+        <small>
+          {{ startedDateText }}
+        </small>
+      </div>
+
+
+      <div class="main-control">
+
+        @if (isReady) {
+
+          <button
+            type="button"
+            class="circle-button"
+            (click)="startSleep()"
+          >
+            <span
+              class="play-symbol"
+              aria-hidden="true"
+            >
+              ▶
+            </span>
+
+            <strong>
+              Start
+            </strong>
+          </button>
+
+        }
+
+
+        @if (isRunning) {
+
+          <button
+            type="button"
+            class="circle-button"
+            (click)="pauseSleep()"
+          >
+            <span
+              class="pause-symbol"
+              aria-hidden="true"
+            >
+              Ⅱ
+            </span>
+
+            <strong>
+              Pause
+            </strong>
+          </button>
+
+        }
+
+
+        @if (isPaused) {
+
+          <button
+            type="button"
+            class="circle-button"
+            (click)="resumeSleep()"
+          >
+            <span
+              class="play-symbol"
+              aria-hidden="true"
+            >
+              ▶
+            </span>
+
+            <strong>
+              Resume
+            </strong>
+          </button>
+
+        }
+
+
+        @if (isStopped) {
+
+          <div
+            class="finished-circle"
+            aria-hidden="true"
+          >
+            <span>
+              ✓
+            </span>
+
+            <strong>
+              Finished
+            </strong>
+          </div>
+
+        }
+
+      </div>
+
+
+      @if (
+        isRunning ||
+        isPaused
+      ) {
+
+        <button
+          type="button"
+          class="stop-button"
+          (click)="stopSleep()"
+        >
+          Stop
+        </button>
+
+      }
+
+    </section>
+
+
+    <div class="divider"></div>
+
+
+    <section class="notes-section">
+
+      <label for="sleep-notes">
+        Note
+        <span>
+          Optional
+        </span>
+      </label>
+
+      <textarea
+        id="sleep-notes"
+        rows="3"
+        maxlength="250"
+        placeholder="Add a note"
+        [(ngModel)]="notes"
+      ></textarea>
+
+    </section>
+
+
+    @if (isStopped) {
+
+      <section class="finished-actions">
+
+        <button
+          type="button"
+          class="save-button"
+          [disabled]="isSaved"
+          (click)="saveSleep()"
+        >
+          @if (isSaved) {
+            Sleep saved
+          } @else {
+            Save sleep
+          }
+        </button>
+
+        <button
+          type="button"
+          class="discard-button"
+          (click)="startNewSession()"
+        >
+          Discard and start new
+        </button>
+
+      </section>
+
+    }
+
+  </div>
+</div>

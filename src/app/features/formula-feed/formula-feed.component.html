@@ -1,0 +1,184 @@
+<div class="formula-page">
+  <div class="formula-shell">
+
+    <header class="formula-header">
+      <button
+        type="button"
+        class="back-button"
+        aria-label="Back"
+        (click)="goBack()"
+      >
+        ‹
+      </button>
+
+      <h1>
+        Formula Feed
+      </h1>
+
+      <button
+        type="button"
+        class="header-save"
+        [disabled]="isSaved"
+        (click)="saveFeed()"
+      >
+        @if (isSaved) {
+          Saved
+        } @else {
+          Save
+        }
+      </button>
+    </header>
+
+
+    <section class="time-card">
+      <div class="time-copy">
+        <span>
+          {{ dateText }}
+        </span>
+
+        <strong>
+          {{ timeText }}
+        </strong>
+      </div>
+
+      <button
+        type="button"
+        class="now-button"
+        (click)="setNow()"
+      >
+        Now
+      </button>
+    </section>
+
+
+    <section class="amount-section">
+      <h2>
+        How much did
+        {{ babyName }} take?
+      </h2>
+
+      <div class="selected-amount">
+        <strong>
+          {{ selectedAmountMl }} ml
+        </strong>
+
+        <span>
+          about
+          {{ amountOz }} oz
+        </span>
+      </div>
+
+
+      <div class="wheel-shell">
+
+        <div
+          class="wheel-highlight"
+          aria-hidden="true"
+        ></div>
+
+        <div
+          #amountWheel
+          class="amount-wheel"
+          (scroll)="onAmountScroll()"
+        >
+
+          <div
+            class="wheel-spacer"
+            aria-hidden="true"
+          ></div>
+
+          @for (
+            amount of amounts;
+            track amount
+          ) {
+            <button
+              type="button"
+              class="amount-row"
+              [class.selected]="
+                amount ===
+                selectedAmountMl
+              "
+              (click)="
+                selectAmount(amount)
+              "
+            >
+              {{ amount }}
+            </button>
+          }
+
+          <div
+            class="wheel-spacer"
+            aria-hidden="true"
+          ></div>
+
+        </div>
+
+        <span
+          class="wheel-unit"
+          aria-hidden="true"
+        >
+          ml
+        </span>
+
+      </div>
+    </section>
+
+
+    <section class="details-section">
+
+      <label
+        class="detail-label"
+        for="formula-name"
+      >
+        Formula
+        <span>
+          Optional
+        </span>
+      </label>
+
+      <input
+        id="formula-name"
+        type="text"
+        maxlength="80"
+        placeholder="e.g. Aptamil Advance 1"
+        [(ngModel)]="formulaName"
+      />
+
+
+      <label
+        class="detail-label notes-label"
+        for="formula-notes"
+      >
+        Notes
+        <span>
+          Optional
+        </span>
+      </label>
+
+      <textarea
+        id="formula-notes"
+        rows="3"
+        maxlength="250"
+        placeholder="Add a note"
+        [(ngModel)]="notes"
+      ></textarea>
+
+    </section>
+
+
+    <button
+      type="button"
+      class="save-button"
+      [class.saved]="isSaved"
+      [disabled]="isSaved"
+      (click)="saveFeed()"
+    >
+      @if (isSaved) {
+        Feed saved
+      } @else {
+        Save feed
+      }
+    </button>
+
+  </div>
+</div>

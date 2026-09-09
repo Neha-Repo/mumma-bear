@@ -1,0 +1,205 @@
+<div class="history-page">
+  <div class="history-shell">
+
+    <header class="history-header">
+
+      <button
+        type="button"
+        class="back-button"
+        aria-label="Back"
+        (click)="goBack()"
+      >
+        ‹
+      </button>
+
+      <h1>
+        Sleep History
+      </h1>
+
+      <div
+        class="header-spacer"
+        aria-hidden="true"
+      ></div>
+
+    </header>
+
+
+    <section class="summary-card">
+
+      <div class="summary-item">
+        <span>
+          Saved sleeps
+        </span>
+
+        <strong>
+          {{ totalSleeps }}
+        </strong>
+      </div>
+
+      <div class="summary-divider"></div>
+
+      <div class="summary-item">
+        <span>
+          Total logged
+        </span>
+
+        <strong class="duration-total">
+          {{ totalSleepText }}
+        </strong>
+      </div>
+
+      <p>
+        Sleep sessions for
+        {{ babyName }}
+      </p>
+
+    </section>
+
+
+    @if (
+      groupedSessions.length >
+      0
+    ) {
+
+      <section class="timeline">
+
+        @for (
+          group
+          of groupedSessions;
+          track group.key
+        ) {
+
+          <div class="day-group">
+
+            <h2>
+              {{ group.label }}
+            </h2>
+
+
+            <div class="session-list">
+
+              @for (
+                session
+                of group.sessions;
+                track trackSession(
+                  $index,
+                  session
+                )
+              ) {
+
+                <article
+                  class="session-card"
+                >
+
+                  <div
+                    class="sleep-symbol"
+                    aria-hidden="true"
+                  >
+                    Z
+                  </div>
+
+
+                  <div
+                    class="session-content"
+                  >
+
+                    <div class="session-top">
+
+                      <div>
+                        <strong>
+                          Sleep
+                        </strong>
+
+                        <span>
+                          {{
+                            getStartTime(
+                              session
+                            )
+                          }}
+                          –
+                          {{
+                            getEndTime(
+                              session
+                            )
+                          }}
+                        </span>
+                      </div>
+
+
+                      <strong
+                        class="duration"
+                      >
+                        {{
+                          getDuration(
+                            session
+                          )
+                        }}
+                      </strong>
+
+                    </div>
+
+
+                    @if (
+                      hasNotes(
+                        session
+                      )
+                    ) {
+
+                      <div class="notes">
+                        {{
+                          getNotes(
+                            session
+                          )
+                        }}
+                      </div>
+
+                    }
+
+                  </div>
+
+                </article>
+
+              }
+
+            </div>
+
+          </div>
+
+        }
+
+      </section>
+
+    } @else {
+
+      <section class="empty-state">
+
+        <div
+          class="empty-symbol"
+          aria-hidden="true"
+        >
+          Z
+        </div>
+
+        <h2>
+          No sleep logged yet
+        </h2>
+
+        <p>
+          Start a sleep timer and
+          saved sessions will appear
+          here.
+        </p>
+
+        <button
+          type="button"
+          (click)="logSleep()"
+        >
+          Start sleep
+        </button>
+
+      </section>
+
+    }
+
+  </div>
+</div>

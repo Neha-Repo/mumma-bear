@@ -1,0 +1,207 @@
+<div class="pumped-milk-page">
+  <div class="pumped-milk-shell">
+
+    <header class="page-header">
+      <button
+        type="button"
+        class="back-button"
+        aria-label="Go back"
+        (click)="goBack()"
+      >
+        ‹
+      </button>
+
+      <h1>Pumped Milk</h1>
+
+      <button
+        type="button"
+        class="history-button"
+        aria-label="Milk history"
+        (click)="openHistory()"
+      >
+        <span
+          class="history-clock"
+          aria-hidden="true"
+        >
+          <span></span>
+        </span>
+      </button>
+    </header>
+
+
+    <nav
+      class="storage-tabs"
+      aria-label="Milk storage location"
+    >
+      @for (
+        tab of tabs;
+        track tab.value
+      ) {
+        <button
+          type="button"
+          [class.selected]="
+            selectedStorage ===
+            tab.value
+          "
+          (click)="
+            selectStorage(
+              tab.value
+            )
+          "
+        >
+          {{ tab.label }}
+        </button>
+      }
+    </nav>
+
+
+    <section class="milk-section">
+      <div class="section-heading">
+        <h2>
+          {{ sectionTitle }}
+        </h2>
+
+        <strong>
+          Total {{ totalAmountMl }} ml
+        </strong>
+      </div>
+
+
+      @if (
+        activeSessions.length > 0
+      ) {
+
+        <div class="milk-list">
+
+          @for (
+            session of visibleSessions;
+            track session.id
+          ) {
+            <article class="milk-card">
+
+              <div class="milk-card-top">
+                <div>
+                  <strong
+                    class="pump-time"
+                  >
+                    {{
+                      getPumpTime(
+                        session
+                      )
+                    }}
+                  </strong>
+
+                  <span class="pump-date">
+                    {{
+                      getPumpDate(
+                        session
+                      )
+                    }}
+                  </span>
+                </div>
+
+                <strong
+                  class="milk-amount"
+                >
+                  @if (
+                    session.amountMl
+                  ) {
+                    {{
+                      session.amountMl
+                    }}
+                    ml
+                  } @else {
+                    Amount not added
+                  }
+                </strong>
+              </div>
+
+
+              <p class="use-by">
+                Use by
+                {{
+                  getUseByText(
+                    session
+                  )
+                }}
+              </p>
+
+
+              <div class="remaining-row">
+                <div
+                  class="progress-track"
+                  aria-hidden="true"
+                >
+                  <div
+                    class="progress-fill"
+                    [style.width.%]="
+                      getProgress(
+                        session
+                      )
+                    "
+                  ></div>
+                </div>
+
+                <strong>
+                  {{
+                    getRemainingText(
+                      session
+                    )
+                  }}
+                </strong>
+              </div>
+
+            </article>
+          }
+
+        </div>
+
+
+        @if (hasMoreSessions) {
+          <button
+            type="button"
+            class="show-more-button"
+            (click)="showMore()"
+          >
+            Show more
+          </button>
+        }
+
+      } @else {
+
+        <div class="empty-state">
+          <strong>
+            No milk stored here
+          </strong>
+
+          <p>
+            Pumped milk saved in
+            this location will
+            appear here.
+          </p>
+        </div>
+
+      }
+
+    </section>
+
+
+    <button
+      type="button"
+      class="guidelines-button"
+      (click)="
+        openStorageGuidelines()
+      "
+    >
+      <span
+        class="guideline-icon"
+        aria-hidden="true"
+      >
+        i
+      </span>
+
+      Follow safe storage guidelines
+    </button>
+
+  </div>
+</div>
