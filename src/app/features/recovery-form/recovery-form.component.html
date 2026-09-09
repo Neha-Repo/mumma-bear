@@ -1,0 +1,484 @@
+<div class="recovery-form-page">
+
+  <main class="recovery-form-shell">
+
+    <header class="page-header">
+
+      <button
+        type="button"
+        class="back-button"
+        aria-label="Back to recovery"
+        (click)="goBack()"
+      >
+        ‹
+      </button>
+
+      <div>
+        <p>
+          Recovery
+        </p>
+
+        <h1>
+          {{
+            isEditing
+              ? 'Edit check-in'
+              : 'Add check-in'
+          }}
+        </h1>
+      </div>
+
+      <span
+        class="header-space"
+        aria-hidden="true"
+      ></span>
+
+    </header>
+
+
+    <section class="intro-card">
+
+      <strong>
+        {{ momName }}
+      </strong>
+
+      <p>
+        Record what is useful today.
+        You can leave any individual
+        field blank.
+      </p>
+
+    </section>
+
+
+    <form
+      class="recovery-form"
+      (ngSubmit)="save()"
+    >
+
+      <section class="form-section">
+
+        <div class="section-heading">
+
+          <span>
+            1
+          </span>
+
+          <div>
+            <h2>
+              Date
+            </h2>
+
+            <p>
+              When was this check-in?
+            </p>
+          </div>
+
+        </div>
+
+
+        <label class="field">
+
+          <span>
+            Date
+          </span>
+
+          <input
+            type="date"
+            name="date"
+            [(ngModel)]="date"
+            required
+          />
+
+        </label>
+
+      </section>
+
+
+      <section class="form-section">
+
+        <div class="section-heading">
+
+          <span>
+            2
+          </span>
+
+          <div>
+            <h2>
+              How you're feeling
+            </h2>
+
+            <p>
+              Optional personal
+              ratings from 0 to 10.
+            </p>
+          </div>
+
+        </div>
+
+
+        <label class="field">
+
+          <span>
+            Pain / discomfort
+          </span>
+
+          <small>
+            0 to 10
+          </small>
+
+          <input
+            type="number"
+            name="discomfortLevel"
+            min="0"
+            max="10"
+            step="1"
+            inputmode="numeric"
+            placeholder="Optional"
+            [(ngModel)]="
+              discomfortLevel
+            "
+          />
+
+        </label>
+
+
+        <label class="field">
+
+          <span>
+            Energy
+          </span>
+
+          <small>
+            0 to 10
+          </small>
+
+          <input
+            type="number"
+            name="energyLevel"
+            min="0"
+            max="10"
+            step="1"
+            inputmode="numeric"
+            placeholder="Optional"
+            [(ngModel)]="
+              energyLevel
+            "
+          />
+
+        </label>
+
+      </section>
+
+
+      <section class="form-section">
+
+        <div class="section-heading">
+
+          <span>
+            3
+          </span>
+
+          <div>
+            <h2>
+              Recovery details
+            </h2>
+
+            <p>
+              Record only what you
+              want to keep.
+            </p>
+          </div>
+
+        </div>
+
+
+        <fieldset class="choice-field">
+
+          <legend>
+            Bleeding
+          </legend>
+
+          <div class="choice-grid">
+
+            <button
+              type="button"
+              [class.selected]="
+                bleeding === ''
+              "
+              (click)="bleeding = ''"
+            >
+              Not recorded
+            </button>
+
+            <button
+              type="button"
+              [class.selected]="
+                bleeding === 'none'
+              "
+              (click)="
+                bleeding = 'none'
+              "
+            >
+              None
+            </button>
+
+            <button
+              type="button"
+              [class.selected]="
+                bleeding === 'light'
+              "
+              (click)="
+                bleeding = 'light'
+              "
+            >
+              Light
+            </button>
+
+            <button
+              type="button"
+              [class.selected]="
+                bleeding ===
+                'moderate'
+              "
+              (click)="
+                bleeding =
+                  'moderate'
+              "
+            >
+              Moderate
+            </button>
+
+            <button
+              type="button"
+              [class.selected]="
+                bleeding === 'heavy'
+              "
+              (click)="
+                bleeding = 'heavy'
+              "
+            >
+              Heavy
+            </button>
+
+          </div>
+
+        </fieldset>
+
+
+        <label class="field">
+
+          <span>
+            Healing / recovery notes
+          </span>
+
+          <small>
+            For example, incision,
+            stitches, soreness or
+            anything else you want to
+            remember.
+          </small>
+
+          <textarea
+            name="recoveryNotes"
+            rows="4"
+            maxlength="1000"
+            placeholder="Optional notes"
+            [(ngModel)]="
+              recoveryNotes
+            "
+          ></textarea>
+
+        </label>
+
+
+        <label class="field">
+
+          <span>
+            Medication notes
+          </span>
+
+          <small>
+            Record medication
+            information for your own
+            reference.
+          </small>
+
+          <textarea
+            name="medicationNotes"
+            rows="3"
+            maxlength="1000"
+            placeholder="Optional notes"
+            [(ngModel)]="
+              medicationNotes
+            "
+          ></textarea>
+
+        </label>
+
+
+        <label class="field">
+
+          <span>
+            Other notes
+          </span>
+
+          <textarea
+            name="notes"
+            rows="4"
+            maxlength="1500"
+            placeholder="Anything else you want to remember"
+            [(ngModel)]="notes"
+          ></textarea>
+
+        </label>
+
+      </section>
+
+
+      @if (
+        showValidation &&
+        !date
+      ) {
+
+        <p class="validation-message">
+          Choose a date for this
+          check-in.
+        </p>
+
+      }
+
+
+      @if (
+        showValidation &&
+        date &&
+        !hasAnyRecord()
+      ) {
+
+        <p class="validation-message">
+          Record at least one recovery
+          detail before saving.
+        </p>
+
+      }
+
+
+      @if (
+        showValidation &&
+        (
+          (
+            discomfortLevel !== null &&
+            (
+              discomfortLevel < 0 ||
+              discomfortLevel > 10
+            )
+          ) ||
+          (
+            energyLevel !== null &&
+            (
+              energyLevel < 0 ||
+              energyLevel > 10
+            )
+          )
+        )
+      ) {
+
+        <p class="validation-message">
+          Ratings must be between
+          0 and 10.
+        </p>
+
+      }
+
+
+      <button
+        type="submit"
+        class="save-button"
+      >
+        {{
+          isEditing
+            ? 'Save changes'
+            : 'Save check-in'
+        }}
+      </button>
+
+
+      @if (
+        isEditing &&
+        !showDeleteConfirmation
+      ) {
+
+        <button
+          type="button"
+          class="delete-button"
+          (click)="requestDelete()"
+        >
+          Delete check-in
+        </button>
+
+      }
+
+
+      @if (
+        isEditing &&
+        showDeleteConfirmation
+      ) {
+
+        <section
+          class="delete-confirmation"
+        >
+
+          <strong>
+            Delete this check-in?
+          </strong>
+
+          <p>
+            This recovery record will
+            be removed from your
+            history.
+          </p>
+
+          <div>
+
+            <button
+              type="button"
+              class="cancel-delete"
+              (click)="cancelDelete()"
+            >
+              Cancel
+            </button>
+
+            <button
+              type="button"
+              class="confirm-delete"
+              (click)="confirmDelete()"
+            >
+              Delete
+            </button>
+
+          </div>
+
+        </section>
+
+      }
+
+    </form>
+
+
+    <section class="record-note">
+
+      <strong>
+        A personal record
+      </strong>
+
+      <p>
+        Mumma Bear records the
+        information you enter here.
+        It does not assess, diagnose
+        or interpret your recovery.
+      </p>
+
+    </section>
+
+  </main>
+
+</div>

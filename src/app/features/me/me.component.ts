@@ -24,6 +24,11 @@ interface Appointment {
   time: string;
 }
 
+interface RecoveryCheckIn {
+  id: string;
+  date: string;
+}
+
 @Component({
   selector: 'app-me',
   standalone: true,
@@ -49,9 +54,23 @@ export class MeComponent
   upcomingAppointments =
     0;
 
+  recoveryCheckIns =
+    0;
+
+  latestRecoveryDate =
+    'No check-ins yet';
+
 
   ngOnInit(): void {
     this.loadAppointments();
+    this.loadRecovery();
+  }
+
+
+  openRecovery(): void {
+    void this.router.navigate(
+      ['/me/recovery'],
+    );
   }
 
 
@@ -65,6 +84,87 @@ export class MeComponent
         },
       },
     );
+  }
+
+
+  private loadRecovery():
+    void {
+    const stored =
+      localStorage.getItem(
+        'mumma-bear:recovery-checkins',
+      );
+
+    if (!stored) {
+      this.recoveryCheckIns =
+        0;
+
+      this.latestRecoveryDate =
+        'No check-ins yet';
+
+      return;
+    }
+
+    try {
+      const parsed =
+        JSON.parse(
+          stored,
+        );
+
+      if (
+        !Array.isArray(
+          parsed,
+        )
+      ) {
+        return;
+      }
+
+      const entries =
+        (
+          parsed as RecoveryCheckIn[]
+        )
+          .filter(
+            (
+              entry,
+            ) =>
+              Boolean(
+                entry?.id &&
+                entry?.date,
+              ),
+          )
+          .sort(
+            (
+              a,
+              b,
+            ) =>
+              this.getDateTimestamp(
+                b.date,
+              ) -
+              this.getDateTimestamp(
+                a.date,
+              ),
+          );
+
+      this.recoveryCheckIns =
+        entries.length;
+
+      if (
+        entries.length > 0
+      ) {
+        this.latestRecoveryDate =
+          `Last check-in ${this.formatShortDate(
+            entries[0].date,
+          )}`;
+      } else {
+        this.latestRecoveryDate =
+          'No check-ins yet';
+      }
+    } catch {
+      this.recoveryCheckIns =
+        0;
+
+      this.latestRecoveryDate =
+        'No check-ins yet';
+    }
   }
 
 
@@ -121,5 +221,49 @@ export class MeComponent
       this.upcomingAppointments =
         0;
     }
+  }
+
+
+  private formatShortDate(
+    value: string,
+  ): string {
+    const date =
+      new Date(
+        `${value}T00:00:00`,
+      );
+
+    if (
+      Number.isNaN(
+        date.getTime(),
+      )
+    ) {
+      return value;
+    }
+
+    return new Intl.DateTimeFormat(
+      undefined,
+      {
+        month: 'short',
+        day: 'numeric',
+      },
+    ).format(
+      date,
+    );
+  }
+
+
+  private getDateTimestamp(
+    value: string,
+  ): number {
+    const timestamp =
+      new Date(
+        `${value}T00:00:00`,
+      ).getTime();
+
+    return Number.isNaN(
+      timestamp,
+    )
+      ? 0
+      : timestamp;
   }
 }

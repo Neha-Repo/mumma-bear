@@ -53,7 +53,12 @@
         Your health
       </h2>
 
-      <div class="feature-card upcoming">
+
+      <button
+        type="button"
+        class="feature-card"
+        (click)="openRecovery()"
+      >
 
         <span
           class="feature-symbol"
@@ -68,16 +73,26 @@
           </strong>
 
           <p>
-            Postpartum recovery and
-            healing support.
+            {{ latestRecoveryDate }}
+            @if (
+              recoveryCheckIns > 0
+            ) {
+              ·
+              {{ recoveryCheckIns }}
+              {{
+                recoveryCheckIns === 1
+                  ? 'check-in'
+                  : 'check-ins'
+              }}
+            }
           </p>
         </div>
 
-        <span class="coming">
-          Coming soon
+        <span class="arrow">
+          ›
         </span>
 
-      </div>
+      </button>
 
 
       <div class="feature-card upcoming">

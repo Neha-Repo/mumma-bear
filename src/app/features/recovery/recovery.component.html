@@ -1,0 +1,432 @@
+<div class="recovery-page">
+
+  <main class="recovery-shell">
+
+    <header class="page-header">
+
+      <button
+        type="button"
+        class="back-button"
+        aria-label="Back to Me"
+        (click)="goBack()"
+      >
+        ‹
+      </button>
+
+      <div>
+        <p>
+          Me
+        </p>
+
+        <h1>
+          Recovery
+        </h1>
+      </div>
+
+      <button
+        type="button"
+        class="add-button"
+        aria-label="Add recovery check-in"
+        (click)="addCheckIn()"
+      >
+        +
+      </button>
+
+    </header>
+
+
+    <section class="intro">
+
+      <span>
+        Recovery record
+      </span>
+
+      <h2>
+        {{ momName }}
+      </h2>
+
+      <p>
+        Keep your recovery check-ins
+        together so you can look back
+        at how you were feeling.
+      </p>
+
+    </section>
+
+
+    @if (latestEntry) {
+
+      <section class="section">
+
+        <div class="section-heading">
+
+          <div>
+            <p class="eyebrow">
+              Latest
+            </p>
+
+            <h2>
+              Latest check-in
+            </h2>
+          </div>
+
+          <span class="date-label">
+            {{
+              formatDate(
+                latestEntry.date
+              )
+            }}
+          </span>
+
+        </div>
+
+
+        <button
+          type="button"
+          class="latest-card"
+          (click)="
+            editEntry(
+              latestEntry
+            )
+          "
+        >
+
+          <div class="measurement">
+
+            <span
+              class="measurement-symbol"
+              aria-hidden="true"
+            >
+              D
+            </span>
+
+            <div>
+              <small>
+                Pain / discomfort
+              </small>
+
+              <strong>
+                {{
+                  formatLevel(
+                    latestEntry
+                      .discomfortLevel
+                  )
+                }}
+              </strong>
+            </div>
+
+          </div>
+
+
+          <div class="measurement">
+
+            <span
+              class="measurement-symbol"
+              aria-hidden="true"
+            >
+              E
+            </span>
+
+            <div>
+              <small>
+                Energy
+              </small>
+
+              <strong>
+                {{
+                  formatLevel(
+                    latestEntry
+                      .energyLevel
+                  )
+                }}
+              </strong>
+            </div>
+
+          </div>
+
+
+          <div class="measurement">
+
+            <span
+              class="measurement-symbol"
+              aria-hidden="true"
+            >
+              B
+            </span>
+
+            <div>
+              <small>
+                Bleeding
+              </small>
+
+              <strong>
+                {{
+                  formatBleeding(
+                    latestEntry
+                      .bleeding
+                  )
+                }}
+              </strong>
+            </div>
+
+          </div>
+
+
+          @if (
+            latestEntry.recoveryNotes
+          ) {
+
+            <div class="latest-notes">
+
+              <small>
+                Recovery notes
+              </small>
+
+              <p>
+                {{
+                  latestEntry
+                    .recoveryNotes
+                }}
+              </p>
+
+            </div>
+
+          }
+
+
+          <span class="edit-label">
+            Tap to edit
+          </span>
+
+        </button>
+
+      </section>
+
+    } @else {
+
+      <section class="empty-card">
+
+        <span
+          class="empty-symbol"
+          aria-hidden="true"
+        >
+          R
+        </span>
+
+        <h2>
+          No recovery check-ins yet
+        </h2>
+
+        <p>
+          Record how you're feeling
+          when it is useful to you.
+        </p>
+
+        <button
+          type="button"
+          (click)="addCheckIn()"
+        >
+          Add first check-in
+        </button>
+
+      </section>
+
+    }
+
+
+    @if (entries.length > 0) {
+
+      <section
+        class="section history-section"
+      >
+
+        <div class="section-heading">
+
+          <div>
+            <p class="eyebrow">
+              History
+            </p>
+
+            <h2>
+              Recovery check-ins
+            </h2>
+          </div>
+
+          <span class="count-label">
+            {{ entries.length }}
+            {{
+              entries.length === 1
+                ? 'entry'
+                : 'entries'
+            }}
+          </span>
+
+        </div>
+
+
+        <div class="history-list">
+
+          @for (
+            entry of entries;
+            track entry.id
+          ) {
+
+            <button
+              type="button"
+              class="history-card"
+              (click)="
+                editEntry(
+                  entry
+                )
+              "
+            >
+
+              <div class="history-date">
+
+                <strong>
+                  {{
+                    formatDate(
+                      entry.date
+                    )
+                  }}
+                </strong>
+
+                <span>
+                  View or edit
+                </span>
+
+              </div>
+
+
+              <div class="history-values">
+
+                @if (
+                  entry.discomfortLevel
+                  !== null
+                ) {
+
+                  <span>
+                    <small>
+                      Discomfort
+                    </small>
+
+                    <strong>
+                      {{
+                        formatLevel(
+                          entry
+                            .discomfortLevel
+                        )
+                      }}
+                    </strong>
+                  </span>
+
+                }
+
+
+                @if (
+                  entry.energyLevel
+                  !== null
+                ) {
+
+                  <span>
+                    <small>
+                      Energy
+                    </small>
+
+                    <strong>
+                      {{
+                        formatLevel(
+                          entry
+                            .energyLevel
+                        )
+                      }}
+                    </strong>
+                  </span>
+
+                }
+
+
+                @if (
+                  entry.bleeding
+                ) {
+
+                  <span>
+                    <small>
+                      Bleeding
+                    </small>
+
+                    <strong>
+                      {{
+                        formatBleeding(
+                          entry
+                            .bleeding
+                        )
+                      }}
+                    </strong>
+                  </span>
+
+                }
+
+              </div>
+
+
+              @if (
+                entry.recoveryNotes
+              ) {
+
+                <p class="history-notes">
+                  {{
+                    entry.recoveryNotes
+                  }}
+                </p>
+
+              }
+
+
+              @if (
+                hasDetails(entry) &&
+                !entry.recoveryNotes
+              ) {
+
+                <p class="detail-label">
+                  Additional notes saved
+                </p>
+
+              }
+
+
+              <span class="arrow">
+                ›
+              </span>
+
+            </button>
+
+          }
+
+        </div>
+
+      </section>
+
+    }
+
+
+    <section class="record-note">
+
+      <strong>
+        Your recovery record
+      </strong>
+
+      <p>
+        Mumma Bear stores what you
+        enter so you can keep a
+        personal recovery history.
+        These records are not a
+        medical assessment or
+        interpretation.
+      </p>
+
+    </section>
+
+  </main>
+
+</div>

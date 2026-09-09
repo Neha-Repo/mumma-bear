@@ -179,6 +179,39 @@ export const routes: Routes = [
   },
 
   {
+    path: 'me/recovery',
+    loadComponent: () =>
+      import(
+        './features/recovery/recovery.component'
+      ).then(
+        (m) =>
+          m.RecoveryComponent,
+      ),
+  },
+
+  {
+    path: 'me/recovery/new',
+    loadComponent: () =>
+      import(
+        './features/recovery-form/recovery-form.component'
+      ).then(
+        (m) =>
+          m.RecoveryFormComponent,
+      ),
+  },
+
+  {
+    path: 'me/recovery/:id/edit',
+    loadComponent: () =>
+      import(
+        './features/recovery-form/recovery-form.component'
+      ).then(
+        (m) =>
+          m.RecoveryFormComponent,
+      ),
+  },
+
+  {
     path: 'more',
     loadComponent: () =>
       import(
