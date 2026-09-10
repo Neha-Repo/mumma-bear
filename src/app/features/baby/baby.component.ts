@@ -65,6 +65,10 @@ export class BabyComponent
   babyDobText =
     '';
 
+  babyAgeDays:
+    number | null =
+      null;
+
   feedingCount =
     0;
 
@@ -82,6 +86,17 @@ export class BabyComponent
 
   latestGrowthText =
     'No measurements yet';
+
+
+  get babyRecipesReady():
+    boolean {
+    return (
+      this.babyAgeDays !==
+        null &&
+      this.babyAgeDays >=
+        150
+    );
+  }
 
 
   ngOnInit(): void {
@@ -155,6 +170,19 @@ export class BabyComponent
   }
 
 
+  openBabyRecipes(): void {
+    void this.router.navigate(
+      ['/recipes'],
+      {
+        queryParams: {
+          tab:
+            'baby',
+        },
+      },
+    );
+  }
+
+
   private loadBabyProfile():
     void {
     const dob =
@@ -163,6 +191,9 @@ export class BabyComponent
       );
 
     if (!dob) {
+      this.babyAgeDays =
+        null;
+
       return;
     }
 
@@ -176,6 +207,9 @@ export class BabyComponent
         date.getTime(),
       )
     ) {
+      this.babyAgeDays =
+        null;
+
       return;
     }
 
@@ -219,6 +253,9 @@ export class BabyComponent
           86_400_000,
         ),
       );
+
+    this.babyAgeDays =
+      days;
 
     if (days === 0) {
       this.babyAgeText =

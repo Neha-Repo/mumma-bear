@@ -302,7 +302,11 @@
       </button>
 
 
-      <div class="feature-card upcoming">
+      <button
+        type="button"
+        class="feature-card"
+        (click)="openBabyRecipes()"
+      >
 
         <span
           class="feature-symbol"
@@ -321,17 +325,22 @@
           </strong>
 
           <p>
-            Stage-aware meal ideas when
-            baby is ready.
+            @if (babyRecipesReady) {
+              Stage-aware food ideas
+              for {{ babyName }}.
+            } @else {
+              We'll bring food ideas
+              forward closer to solids.
+            }
           </p>
 
         </div>
 
-        <span class="coming">
-          Coming soon
+        <span class="arrow">
+          ›
         </span>
 
-      </div>
+      </button>
 
     </section>
 

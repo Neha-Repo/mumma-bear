@@ -1,0 +1,167 @@
+<div class="detail-page">
+
+  <main class="detail-shell">
+
+    <header class="top-bar">
+
+      <button
+        type="button"
+        class="back-button"
+        (click)="goBack()"
+      >
+        Back
+      </button>
+
+      <span>
+        Recipe
+      </span>
+
+    </header>
+
+
+    @if (recipe) {
+
+      <article>
+
+        <div class="hero-image">
+
+          <img
+            [src]="recipe.image"
+            [alt]="recipe.imageAlt"
+          />
+
+        </div>
+
+
+        <header class="recipe-header">
+
+          <span class="time-pill">
+            {{ recipe.time }}
+          </span>
+
+          <h1>
+            {{ recipe.title }}
+          </h1>
+
+          <p>
+            {{ recipe.description }}
+          </p>
+
+        </header>
+
+
+        <section class="content-card">
+
+          <h2>
+            What you need
+          </h2>
+
+          <ul>
+
+            @for (
+              ingredient
+              of recipe.ingredients;
+              track ingredient
+            ) {
+
+              <li>
+                {{ ingredient }}
+              </li>
+
+            }
+
+          </ul>
+
+        </section>
+
+
+        <section class="content-card">
+
+          <h2>
+            How to make it
+          </h2>
+
+          <ol>
+
+            @for (
+              step
+              of recipe.steps;
+              track $index
+            ) {
+
+              <li>
+
+                <span>
+                  {{ $index + 1 }}
+                </span>
+
+                <p>
+                  {{ step }}
+                </p>
+
+              </li>
+
+            }
+
+          </ol>
+
+        </section>
+
+
+        @if (
+          recipe.safetyNote
+        ) {
+
+          <section class="safety-note">
+
+            <strong>
+              For Baby
+            </strong>
+
+            <p>
+              {{
+                recipe.safetyNote
+              }}
+            </p>
+
+          </section>
+
+        }
+
+
+        <button
+          type="button"
+          class="done-button"
+          (click)="goBack()"
+        >
+          Done
+        </button>
+
+      </article>
+
+    } @else {
+
+      <section class="missing-card">
+
+        <h1>
+          Recipe not found
+        </h1>
+
+        <p>
+          This recipe isn't available.
+        </p>
+
+        <button
+          type="button"
+          (click)="goToRecipes()"
+        >
+          Back to recipes
+        </button>
+
+      </section>
+
+    }
+
+  </main>
+
+</div>

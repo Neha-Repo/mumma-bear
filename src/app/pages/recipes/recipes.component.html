@@ -1,0 +1,455 @@
+<div class="recipes-page">
+
+  <main class="recipes-shell">
+
+    <header class="top-bar">
+
+      <button
+        type="button"
+        class="back-button"
+        (click)="goBack()"
+      >
+        Back
+      </button>
+
+      <strong>
+        Recipes
+      </strong>
+
+      <span
+        aria-hidden="true"
+      ></span>
+
+    </header>
+
+
+    <section class="intro">
+
+      <div class="intro-copy">
+
+        <p>
+          Food made simpler
+        </p>
+
+        <h1>
+          What could work right now?
+        </h1>
+
+        <span>
+          Quick ideas for you and
+          age-aware ideas for
+          {{ babyName }}.
+        </span>
+
+      </div>
+
+
+      <div
+        class="intro-art"
+        aria-hidden="true"
+      >
+        <img
+          src="assets/images/recipes/recipes-hero.webp"
+          alt=""
+        />
+      </div>
+
+    </section>
+
+
+    <div
+      class="tabs"
+      role="tablist"
+      aria-label="Recipe type"
+    >
+
+      <button
+        type="button"
+        role="tab"
+        [class.active]="
+          activeTab === 'mum'
+        "
+        [attr.aria-selected]="
+          activeTab === 'mum'
+        "
+        (click)="selectTab('mum')"
+      >
+        For Mum
+      </button>
+
+      <button
+        type="button"
+        role="tab"
+        [class.active]="
+          activeTab === 'baby'
+        "
+        [attr.aria-selected]="
+          activeTab === 'baby'
+        "
+        (click)="selectTab('baby')"
+      >
+        For {{ babyName }}
+      </button>
+
+    </div>
+
+
+    @if (
+      activeTab === 'mum'
+    ) {
+
+      <section class="section">
+
+        <div class="section-heading">
+
+          <div>
+            <p>
+              Quick right now
+            </p>
+
+            <h2>
+              Minimal effort
+            </h2>
+          </div>
+
+          <span>
+            10 minutes or less
+          </span>
+
+        </div>
+
+
+        <div class="recipe-list">
+
+          @for (
+            recipe of quickMumRecipes;
+            track recipe.id
+          ) {
+
+            <button
+              type="button"
+              class="recipe-card"
+              (click)="
+                openRecipe(
+                  recipe
+                )
+              "
+            >
+
+              <img
+                [src]="recipe.image"
+                [alt]="recipe.imageAlt"
+              />
+
+              <div
+                class="recipe-copy"
+              >
+
+                <div
+                  class="recipe-title-row"
+                >
+
+                  <strong>
+                    {{ recipe.title }}
+                  </strong>
+
+                  <span>
+                    {{ recipe.time }}
+                  </span>
+
+                </div>
+
+                <p>
+                  {{
+                    recipe.description
+                  }}
+                </p>
+
+              </div>
+
+            </button>
+
+          }
+
+        </div>
+
+      </section>
+
+
+      @if (
+        moreMumRecipes.length >
+        0
+      ) {
+
+        <section class="section">
+
+          <div class="section-heading">
+
+            <div>
+              <p>
+                More ideas
+              </p>
+
+              <h2>
+                Still simple
+              </h2>
+            </div>
+
+          </div>
+
+
+          <div class="recipe-list">
+
+            @for (
+              recipe
+              of moreMumRecipes;
+              track recipe.id
+            ) {
+
+              <button
+                type="button"
+                class="recipe-card"
+                (click)="
+                  openRecipe(
+                    recipe
+                  )
+                "
+              >
+
+                <img
+                  [src]="recipe.image"
+                  [alt]="
+                    recipe.imageAlt
+                  "
+                />
+
+                <div
+                  class="recipe-copy"
+                >
+
+                  <div
+                    class="recipe-title-row"
+                  >
+
+                    <strong>
+                      {{
+                        recipe.title
+                      }}
+                    </strong>
+
+                    <span>
+                      {{
+                        recipe.time
+                      }}
+                    </span>
+
+                  </div>
+
+                  <p>
+                    {{
+                      recipe.description
+                    }}
+                  </p>
+
+                </div>
+
+              </button>
+
+            }
+
+          </div>
+
+        </section>
+
+      }
+
+    }
+
+
+    @if (
+      activeTab === 'baby'
+    ) {
+
+      @if (
+        babyAgeDays === null
+      ) {
+
+        <section
+          class="stage-card"
+        >
+
+          <img
+            src="assets/images/icons/baby-food-icon.webp"
+            alt=""
+            aria-hidden="true"
+          />
+
+          <div>
+
+            <p>
+              Baby recipes
+            </p>
+
+            <h2>
+              We'll keep this
+              age-aware
+            </h2>
+
+            <span>
+              Add {{ babyName }}'s
+              date of birth in their
+              profile so Mumma Bear
+              can show food ideas at
+              the right stage.
+            </span>
+
+          </div>
+
+        </section>
+
+      } @else if (
+        !babyRecipesReady
+      ) {
+
+        <section
+          class="stage-card"
+        >
+
+          <img
+            src="assets/images/icons/baby-food-icon.webp"
+            alt=""
+            aria-hidden="true"
+          />
+
+          <div>
+
+            <p>
+              Not needed yet
+            </p>
+
+            <h2>
+              We'll bring these
+              forward closer to
+              solids
+            </h2>
+
+            <span>
+              You don't need to sort
+              through future recipes
+              now. They'll appear
+              here automatically when
+              they become more
+              relevant for
+              {{ babyName }}.
+            </span>
+
+          </div>
+
+        </section>
+
+      } @else {
+
+        <section class="section">
+
+          <div class="section-heading">
+
+            <div>
+
+              <p>
+                Useful around now
+              </p>
+
+              <h2>
+                Ideas for
+                {{ babyName }}
+              </h2>
+
+            </div>
+
+          </div>
+
+
+          <div
+            class="baby-note"
+          >
+            These are practical food
+            ideas rather than a
+            feeding-readiness
+            assessment. Follow your
+            health professional's
+            advice about starting
+            solids, allergies and
+            suitable textures.
+          </div>
+
+
+          <div class="recipe-list">
+
+            @for (
+              recipe
+              of babyRecipes;
+              track recipe.id
+            ) {
+
+              <button
+                type="button"
+                class="recipe-card"
+                (click)="
+                  openRecipe(
+                    recipe
+                  )
+                "
+              >
+
+                <img
+                  [src]="recipe.image"
+                  [alt]="
+                    recipe.imageAlt
+                  "
+                />
+
+                <div
+                  class="recipe-copy"
+                >
+
+                  <div
+                    class="recipe-title-row"
+                  >
+
+                    <strong>
+                      {{
+                        recipe.title
+                      }}
+                    </strong>
+
+                    <span>
+                      {{
+                        recipe.time
+                      }}
+                    </span>
+
+                  </div>
+
+                  <p>
+                    {{
+                      recipe.description
+                    }}
+                  </p>
+
+                </div>
+
+              </button>
+
+            }
+
+          </div>
+
+        </section>
+
+      }
+
+    }
+
+  </main>
+
+</div>

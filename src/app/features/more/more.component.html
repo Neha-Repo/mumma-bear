@@ -87,7 +87,11 @@
       </button>
 
 
-      <div class="menu-card upcoming">
+      <button
+        type="button"
+        class="menu-card"
+        (click)="openRecipes()"
+      >
         <span
           class="menu-symbol"
           aria-hidden="true"
@@ -108,10 +112,10 @@
           </p>
         </div>
 
-        <span class="coming">
-          Coming soon
+        <span class="arrow">
+          ›
         </span>
-      </div>
+      </button>
 
 
       <button

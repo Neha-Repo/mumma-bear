@@ -87,6 +87,19 @@ export class MeComponent
   }
 
 
+  openRecipes(): void {
+    void this.router.navigate(
+      ['/recipes'],
+      {
+        queryParams: {
+          tab:
+            'mum',
+        },
+      },
+    );
+  }
+
+
   private loadRecovery():
     void {
     const stored =

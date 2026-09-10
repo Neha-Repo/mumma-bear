@@ -19,10 +19,8 @@ import {
     './more.component.scss',
 })
 export class MoreComponent {
-
   private readonly router =
     inject(Router);
-
 
   openAppointments(): void {
     void this.router.navigate(
@@ -30,18 +28,21 @@ export class MoreComponent {
     );
   }
 
-
   openPumpedMilk(): void {
     void this.router.navigate(
       ['/pumped-milk'],
     );
   }
 
+  openRecipes(): void {
+    void this.router.navigate(
+      ['/recipes'],
+    );
+  }
 
   openShowMeHow(): void {
     void this.router.navigate(
       ['/show-me-how'],
     );
   }
-
 }

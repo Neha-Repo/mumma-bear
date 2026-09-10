@@ -245,6 +245,28 @@ export const routes: Routes = [
   },
 
   {
+    path: 'recipes',
+    loadComponent: () =>
+      import(
+        './pages/recipes/recipes.component'
+      ).then(
+        (m) =>
+          m.RecipesComponent,
+      ),
+  },
+
+  {
+    path: 'recipes/:recipeId',
+    loadComponent: () =>
+      import(
+        './pages/recipe-detail/recipe-detail.component'
+      ).then(
+        (m) =>
+          m.RecipeDetailComponent,
+      ),
+  },
+
+  {
     path: 'show-me-how',
     loadComponent: () =>
       import(
