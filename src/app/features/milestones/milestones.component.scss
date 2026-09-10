@@ -1,0 +1,370 @@
+:host {
+  display: block;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+button {
+  font: inherit;
+}
+
+.milestones-page {
+  min-height: 100vh;
+  min-height: 100dvh;
+
+  background:
+    var(--mumma-bg);
+
+  color:
+    var(--mumma-text);
+}
+
+.milestones-shell {
+  width: 100%;
+  max-width: 500px;
+
+  margin: 0 auto;
+
+  padding:
+    24px
+    18px
+    48px;
+}
+
+.page-header {
+  display: flex;
+
+  align-items: center;
+
+  gap: 13px;
+
+  margin-bottom: 22px;
+}
+
+.back-button {
+  width: 44px;
+  height: 44px;
+
+  flex:
+    0
+    0
+    44px;
+
+  border:
+    1px solid
+    var(--mumma-line);
+
+  border-radius: 14px;
+
+  background: #ffffff;
+
+  color:
+    var(--mumma-primary);
+
+  font-size: 28px;
+  line-height: 1;
+
+  cursor: pointer;
+}
+
+.page-header p {
+  margin:
+    0
+    0
+    3px;
+
+  color:
+    var(--mumma-primary);
+
+  font-size: 11px;
+  font-weight: 800;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.08em;
+}
+
+.page-header h1 {
+  margin: 0;
+
+  font-size: 25px;
+}
+
+.notice-card,
+.age-card,
+.reassurance-card,
+.concern-card {
+  padding: 18px;
+
+  border-radius: 19px;
+
+  background: #ffffff;
+
+  border:
+    1px solid
+    rgba(
+      201,
+      143,
+      151,
+      0.28
+    );
+}
+
+.notice-card {
+  margin-bottom: 20px;
+}
+
+.notice-card strong,
+.reassurance-card strong,
+.concern-card strong {
+  display: block;
+
+  font-size: 14px;
+}
+
+.notice-card p,
+.reassurance-card p,
+.concern-card p {
+  margin:
+    6px
+    0
+    0;
+
+  color:
+    var(--mumma-text-soft);
+
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+.age-card {
+  margin-bottom: 28px;
+
+  box-shadow:
+    0
+    8px
+    22px
+    var(--mumma-shadow);
+}
+
+.age-card > span {
+  display: block;
+
+  margin-bottom: 5px;
+
+  color:
+    var(--mumma-primary);
+
+  font-size: 12px;
+  font-weight: 750;
+}
+
+.age-card h2 {
+  margin: 0;
+
+  font-size: 23px;
+}
+
+.age-card small {
+  display: block;
+
+  margin-top: 4px;
+
+  color:
+    var(--mumma-text-soft);
+
+  font-size: 11px;
+}
+
+.age-card p {
+  margin:
+    14px
+    0
+    0;
+
+  color:
+    var(--mumma-text-soft);
+
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.section {
+  margin-bottom: 20px;
+}
+
+.section-heading {
+  margin-bottom: 13px;
+}
+
+.section-heading h2 {
+  margin:
+    0
+    0
+    4px;
+
+  font-size: 19px;
+}
+
+.section-heading p {
+  margin: 0;
+
+  color:
+    var(--mumma-text-soft);
+
+  font-size: 12px;
+}
+
+.preview-list {
+  display: grid;
+
+  gap: 10px;
+}
+
+.preview-card {
+  min-height: 86px;
+
+  padding: 14px;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 12px;
+
+  border:
+    1px solid
+    rgba(
+      201,
+      143,
+      151,
+      0.3
+    );
+
+  border-radius: 17px;
+
+  background: #ffffff;
+}
+
+.preview-mark {
+  width: 43px;
+  height: 43px;
+
+  flex:
+    0
+    0
+    43px;
+
+  border-radius: 14px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  background:
+    var(--mumma-surface);
+
+  color:
+    var(--mumma-primary);
+
+  font-size: 13px;
+  font-weight: 850;
+}
+
+.preview-card div {
+  min-width: 0;
+}
+
+.preview-card strong {
+  display: block;
+
+  font-size: 14px;
+}
+
+.preview-card p {
+  margin:
+    4px
+    0
+    0;
+
+  color:
+    var(--mumma-text-soft);
+
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.detail-button {
+  width: 100%;
+
+  min-height: 74px;
+
+  margin:
+    3px
+    0
+    13px;
+
+  padding:
+    13px
+    15px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content:
+    space-between;
+
+  gap: 12px;
+
+  border: 0;
+
+  border-radius: 17px;
+
+  background:
+    var(--mumma-primary);
+
+  color: #ffffff;
+
+  text-align: left;
+
+  cursor: pointer;
+}
+
+.detail-button div {
+  min-width: 0;
+}
+
+.detail-button strong {
+  display: block;
+
+  font-size: 14px;
+}
+
+.detail-button span:not(.arrow) {
+  display: block;
+
+  margin-top: 3px;
+
+  font-size: 11px;
+
+  opacity: 0.88;
+}
+
+.arrow {
+  font-size: 26px;
+}
+
+.reassurance-card {
+  margin-bottom: 10px;
+
+  background:
+    var(--mumma-surface);
+}
+
+.concern-card {
+  margin-bottom: 10px;
+}

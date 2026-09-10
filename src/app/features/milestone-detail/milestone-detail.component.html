@@ -1,0 +1,132 @@
+<div class="detail-page">
+
+  <main class="detail-shell">
+
+    <header class="page-header">
+
+      <button
+        type="button"
+        class="back-button"
+        aria-label="Back to Around this age"
+        (click)="goBack()"
+      >
+        ‹
+      </button>
+
+      <div>
+
+        <p>
+          Around this age
+        </p>
+
+        <h1>
+          {{ babyName }}
+        </h1>
+
+      </div>
+
+    </header>
+
+
+    @if (stage) {
+
+      <section class="intro-card">
+
+        <span>
+          Development
+        </span>
+
+        <h2>
+          {{ stage.title }}
+        </h2>
+
+        <p>
+          {{ stage.subtitle }}
+        </p>
+
+      </section>
+
+
+      <section class="gentle-note">
+
+        <strong>
+          Notice, don't score
+        </strong>
+
+        <p>
+          You do not need to mark these
+          off. They are simply examples
+          of things you may notice around
+          this stage.
+        </p>
+
+      </section>
+
+
+      <div class="group-list">
+
+        @for (
+          group of stage.groups;
+          track group.title
+        ) {
+
+          <section class="group-card">
+
+            <h2>
+              {{ group.title }}
+            </h2>
+
+            <div class="item-list">
+
+              @for (
+                item of group.items;
+                track item
+              ) {
+
+                <div class="milestone-item">
+
+                  <span
+                    aria-hidden="true"
+                  >
+                    ·
+                  </span>
+
+                  <p>
+                    {{ item }}
+                  </p>
+
+                </div>
+
+              }
+
+            </div>
+
+          </section>
+
+        }
+
+      </div>
+
+
+      <section class="help-card">
+
+        <strong>
+          Trust what you notice
+        </strong>
+
+        <p>
+          If {{ babyName }} loses a skill
+          they previously had, or
+          something about their
+          development worries you, talk
+          with their healthcare
+          professional.
+        </p>
+
+      </section>
+
+    }
+
+  </main>
+
+</div>

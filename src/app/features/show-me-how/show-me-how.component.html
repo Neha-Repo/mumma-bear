@@ -1,0 +1,213 @@
+<div class="guides-page">
+
+  <main class="guides-shell">
+
+    <header class="page-header">
+
+      <button
+        type="button"
+        class="back-button"
+        aria-label="Back to More"
+        (click)="goBack()"
+      >
+        ‹
+      </button>
+
+      <div>
+        <p>
+          Guides
+        </p>
+
+        <h1>
+          Show Me How
+        </h1>
+
+        @if (babyAgeText) {
+          <span>
+            For {{ babyName }},
+            {{ babyAgeText }}
+          </span>
+        }
+      </div>
+
+    </header>
+
+
+    <section class="intro-card">
+
+      <div
+        class="intro-illustration"
+        aria-hidden="true"
+      >
+        <img
+          src="assets/images/icons/show-me-how-icon.webp"
+          alt=""
+        />
+      </div>
+
+      <div>
+        <strong>
+          Quick visual help
+        </strong>
+
+        <p>
+          Open a guide and see the
+          important steps without
+          searching through a long
+          article.
+        </p>
+      </div>
+
+    </section>
+
+
+    <section class="section">
+
+      <div class="section-heading">
+        <div>
+          <h2>
+            Useful right now
+          </h2>
+
+          <p>
+            Chosen automatically for
+            {{ babyName }}.
+          </p>
+        </div>
+      </div>
+
+
+      <div class="guide-grid">
+
+        @for (
+          guide of relevantGuides;
+          track guide.id
+        ) {
+
+          <button
+            type="button"
+            class="guide-card"
+            (click)="openGuide(guide)"
+          >
+            <span
+              class="guide-image"
+              aria-hidden="true"
+            >
+              <img
+                [src]="guide.image"
+                alt=""
+              />
+            </span>
+
+            <div>
+              <small>
+                {{ guide.category }}
+              </small>
+
+              <strong>
+                {{ guide.title }}
+              </strong>
+
+              <p>
+                {{ guide.description }}
+              </p>
+            </div>
+
+            <span
+              class="arrow"
+              aria-hidden="true"
+            >
+              ›
+            </span>
+          </button>
+
+        }
+
+      </div>
+
+    </section>
+
+
+    @if (moreGuides.length > 0) {
+
+      <section class="section">
+
+        <div class="section-heading">
+          <div>
+            <h2>
+              More guides
+            </h2>
+
+            <p>
+              Here when you need them.
+            </p>
+          </div>
+        </div>
+
+
+        <div class="compact-list">
+
+          @for (
+            guide of moreGuides;
+            track guide.id
+          ) {
+
+            <button
+              type="button"
+              class="compact-card"
+              (click)="openGuide(guide)"
+            >
+              <span
+                class="compact-image"
+                aria-hidden="true"
+              >
+                <img
+                  [src]="guide.image"
+                  alt=""
+                />
+              </span>
+
+              <div>
+                <strong>
+                  {{ guide.title }}
+                </strong>
+
+                <span>
+                  {{ guide.category }}
+                </span>
+              </div>
+
+              <span
+                class="arrow"
+                aria-hidden="true"
+              >
+                ›
+              </span>
+            </button>
+
+          }
+
+        </div>
+
+      </section>
+
+    }
+
+
+    <section class="footer-note">
+
+      <strong>
+        Made for quick moments
+      </strong>
+
+      <p>
+        Short steps, simple pictures and
+        only the information you need to
+        get started.
+      </p>
+
+    </section>
+
+  </main>
+
+</div>

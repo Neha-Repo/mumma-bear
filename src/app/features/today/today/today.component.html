@@ -3,8 +3,15 @@
 
     <section class="top-section">
       <div class="mom-row">
-        <div class="avatar mom-avatar">
-          👩
+
+        <div
+          class="avatar"
+          aria-hidden="true"
+        >
+          <img
+            src="assets/images/icons/mumma-avatar.webp"
+            alt=""
+          />
         </div>
 
         <div class="mom-copy">
@@ -13,14 +20,29 @@
           </h1>
         </div>
 
-        <span class="top-icon">
-          🔔
+        <span
+          class="top-icon"
+          aria-hidden="true"
+        >
+          <img
+            src="assets/images/icons/reminder-icon.webp"
+            alt=""
+          />
         </span>
+
       </div>
 
+
       <div class="baby-row">
-        <div class="avatar baby-avatar">
-          👶
+
+        <div
+          class="avatar"
+          aria-hidden="true"
+        >
+          <img
+            src="assets/images/icons/baby-avatar.webp"
+            alt=""
+          />
         </div>
 
         <div>
@@ -33,6 +55,7 @@
             {{ babyWeekDayText }}
           </p>
         </div>
+
       </div>
     </section>
 
@@ -52,14 +75,23 @@
           (click)="goToPump()"
           (keydown)="onLastPumpKeydown($event)"
         >
+
           <div class="mini-card-title">
-            <span class="mini-card-icon">
-              💧
+
+            <span
+              class="mini-card-icon"
+              aria-hidden="true"
+            >
+              <img
+                src="assets/images/icons/pumped-milk-icon.webp"
+                alt=""
+              />
             </span>
 
             <p>
               Last pump
             </p>
+
           </div>
 
           @if (lastPump) {
@@ -95,6 +127,7 @@
             </span>
 
           }
+
         </div>
 
 
@@ -106,14 +139,23 @@
           (click)="goToAppointments()"
           (keydown)="onNextAppointmentKeydown($event)"
         >
+
           <div class="mini-card-title">
-            <span class="mini-card-icon">
-              📅
+
+            <span
+              class="mini-card-icon"
+              aria-hidden="true"
+            >
+              <img
+                src="assets/images/icons/appointment-icon.webp"
+                alt=""
+              />
             </span>
 
             <p>
               Next up
             </p>
+
           </div>
 
           @if (nextAppointment) {
@@ -154,6 +196,7 @@
             </span>
 
           }
+
         </div>
 
       </div>
@@ -161,12 +204,10 @@
 
 
     <section class="care-card">
-      <div class="care-copy">
-        <h3>
-          <span class="care-heart">
-            ♥
-          </span>
 
+      <div class="care-copy">
+
+        <h3>
           Take care, Mama
         </h3>
 
@@ -177,6 +218,7 @@
         <p>
           Rest when baby sleeps.
         </p>
+
       </div>
 
       <div class="care-image">
@@ -185,6 +227,7 @@
           alt="Mom holding baby"
         />
       </div>
+
     </section>
 
 
@@ -200,22 +243,21 @@
           type="button"
           (click)="goToPump()"
         >
+
           <span
             class="quick-icon"
             aria-hidden="true"
           >
-            <svg viewBox="0 0 24 24">
-              <path d="M9 3h6v4H9z"></path>
-              <path d="M10 7h4v3"></path>
-              <path d="M8 10h8v3H8z"></path>
-              <path d="M9 13h6v7H9z"></path>
-              <path d="M15 11h2c1.5 0 3 1.2 3 3v2"></path>
-            </svg>
+            <img
+              src="assets/images/icons/pumped-milk-icon.webp"
+              alt=""
+            />
           </span>
 
           <span>
             Pump
           </span>
+
         </button>
 
 
@@ -223,13 +265,21 @@
           type="button"
           (click)="goToFeed()"
         >
-          <span class="quick-icon">
-            🍼
+
+          <span
+            class="quick-icon"
+            aria-hidden="true"
+          >
+            <img
+              src="assets/images/icons/feeding-icon.webp"
+              alt=""
+            />
           </span>
 
           <span>
             Feed baby
           </span>
+
         </button>
 
 
@@ -237,13 +287,21 @@
           type="button"
           (click)="goToDiaper()"
         >
-          <span class="quick-icon">
-            👶
+
+          <span
+            class="quick-icon"
+            aria-hidden="true"
+          >
+            <img
+              src="assets/images/icons/diaper-icon.webp"
+              alt=""
+            />
           </span>
 
           <span>
             Diaper
           </span>
+
         </button>
 
 
@@ -251,13 +309,21 @@
           type="button"
           (click)="goToSleep()"
         >
-          <span class="quick-icon">
-            🌙
+
+          <span
+            class="quick-icon"
+            aria-hidden="true"
+          >
+            <img
+              src="assets/images/icons/sleep-icon.webp"
+              alt=""
+            />
           </span>
 
           <span>
             Sleep
           </span>
+
         </button>
 
       </div>
@@ -284,7 +350,10 @@
           </p>
         </div>
 
-        <span class="arrow-icon">
+        <span
+          class="arrow-icon"
+          aria-hidden="true"
+        >
           →
         </span>
 

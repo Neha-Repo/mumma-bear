@@ -71,6 +71,7 @@ interface Reminder {
 interface AppointmentReminderView {
   id: string;
   appointmentId: string;
+  kind: AppointmentKind;
   title: string;
   forWho: AppointmentOwner;
   reminderText: string;
@@ -327,6 +328,9 @@ export class AppointmentsComponent
 
           appointmentId:
             appointment.id,
+
+          kind:
+            appointment.kind,
 
           title:
             appointment.title,

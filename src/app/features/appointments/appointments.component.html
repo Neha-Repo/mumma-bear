@@ -1,9 +1,7 @@
 <div class="appointments-page">
-
   <div class="appointments-shell">
 
     <header class="page-header">
-
       <button
         type="button"
         class="back-button"
@@ -13,9 +11,7 @@
         ‹
       </button>
 
-      <h1>
-        Appointments
-      </h1>
+      <h1>Appointments</h1>
 
       <button
         type="button"
@@ -25,7 +21,6 @@
       >
         +
       </button>
-
     </header>
 
 
@@ -33,66 +28,38 @@
       class="section-tabs"
       aria-label="Appointment sections"
     >
-
       <button
         type="button"
-        [class.active]="
-          activeTab ===
-          'appointments'
-        "
-        (click)="
-          selectTab(
-            'appointments'
-          )
-        "
+        [class.active]="activeTab === 'appointments'"
+        (click)="selectTab('appointments')"
       >
         Appointments
       </button>
 
       <button
         type="button"
-        [class.active]="
-          activeTab ===
-          'vaccinations'
-        "
-        (click)="
-          selectTab(
-            'vaccinations'
-          )
-        "
+        [class.active]="activeTab === 'vaccinations'"
+        (click)="selectTab('vaccinations')"
       >
         Vaccinations
       </button>
 
       <button
         type="button"
-        [class.active]="
-          activeTab ===
-          'reminders'
-        "
-        (click)="
-          selectTab(
-            'reminders'
-          )
-        "
+        [class.active]="activeTab === 'reminders'"
+        (click)="selectTab('reminders')"
       >
         Reminders
       </button>
-
     </nav>
 
 
-    @if (
-      activeTab ===
-      'appointments'
-    ) {
+    @if (activeTab === 'appointments') {
 
       <section class="content-section">
 
         <div class="section-heading">
-          <h2>
-            Upcoming
-          </h2>
+          <h2>Upcoming</h2>
 
           <button
             type="button"
@@ -103,16 +70,12 @@
         </div>
 
 
-        @if (
-          upcomingAppointments.length >
-          0
-        ) {
+        @if (upcomingAppointments.length > 0) {
 
           <div class="card-list">
 
             @for (
-              appointment
-              of upcomingAppointments;
+              appointment of upcomingAppointments;
               track appointment.id
             ) {
 
@@ -120,42 +83,24 @@
                 class="event-card"
                 role="button"
                 tabindex="0"
-                (click)="
-                  editAppointment(
-                    appointment
-                  )
-                "
-                (keydown.enter)="
-                  editAppointment(
-                    appointment
-                  )
-                "
+                (click)="editAppointment(appointment)"
+                (keydown.enter)="editAppointment(appointment)"
               >
-
                 <div
-                  class="event-symbol mama"
-                  [class.baby]="
-                    appointment.forWho ===
-                    'baby'
-                  "
+                  class="event-symbol"
                   aria-hidden="true"
                 >
-                  {{
-                    appointment.forWho ===
-                    'baby'
-                      ? 'B'
-                      : 'M'
-                  }}
+                  <img
+                    src="assets/images/icons/appointment-icon.webp"
+                    alt=""
+                  />
                 </div>
-
 
                 <div class="event-copy">
 
                   <div class="event-title-row">
                     <strong>
-                      {{
-                        appointment.title
-                      }}
+                      {{ appointment.title }}
                     </strong>
 
                     <span class="chevron">
@@ -165,88 +110,52 @@
 
                   <span>
                     For
-                    {{
-                      getOwnerLabel(
-                        appointment.forWho
-                      )
-                    }}
+                    {{ getOwnerLabel(appointment.forWho) }}
                   </span>
 
                   <span>
-                    {{
-                      getDateLabel(
-                        appointment
-                      )
-                    }}
+                    {{ getDateLabel(appointment) }}
                     •
-                    {{
-                      getTimeLabel(
-                        appointment.time
-                      )
-                    }}
+                    {{ getTimeLabel(appointment.time) }}
                   </span>
 
-                  @if (
-                    appointment.location
-                  ) {
+                  @if (appointment.location) {
                     <span>
-                      {{
-                        appointment.location
-                      }}
+                      {{ appointment.location }}
                     </span>
                   }
 
                   @if (
-                    appointment.prepareItems
-                      .length > 0
+                    appointment.prepareItems.length > 0
                   ) {
-
                     <div class="prepare-preview">
-                      <strong>
-                        Prepare
-                      </strong>
+                      <strong>Prepare</strong>
 
                       <span>
-                        {{
-                          appointment
-                            .prepareItems[0]
-                        }}
+                        {{ appointment.prepareItems[0] }}
 
                         @if (
-                          appointment
-                            .prepareItems
-                            .length >
-                          1
+                          appointment.prepareItems.length > 1
                         ) {
                           +
                           {{
-                            appointment
-                              .prepareItems
-                              .length -
-                            1
+                            appointment.prepareItems.length - 1
                           }}
                           more
                         }
                       </span>
                     </div>
-
                   }
 
                   <button
                     type="button"
                     class="small-action"
-                    (click)="
-                      markCompleted(
-                        appointment,
-                        $event
-                      )
-                    "
+                    (click)="markCompleted(appointment, $event)"
                   >
                     Mark complete
                   </button>
 
                 </div>
-
               </article>
 
             }
@@ -277,22 +186,15 @@
         }
 
 
-        @if (
-          pastAppointments.length >
-          0
-        ) {
+        @if (pastAppointments.length > 0) {
 
           <div class="past-section">
-
-            <h2>
-              Past
-            </h2>
+            <h2>Past</h2>
 
             <div class="card-list">
 
               @for (
-                appointment
-                of pastAppointments;
+                appointment of pastAppointments;
                 track appointment.id
               ) {
 
@@ -300,18 +202,9 @@
                   class="event-card past"
                   role="button"
                   tabindex="0"
-                  (click)="
-                    editAppointment(
-                      appointment
-                    )
-                  "
-                  (keydown.enter)="
-                    editAppointment(
-                      appointment
-                    )
-                  "
+                  (click)="editAppointment(appointment)"
+                  (keydown.enter)="editAppointment(appointment)"
                 >
-
                   <div
                     class="event-symbol completed"
                     aria-hidden="true"
@@ -322,55 +215,34 @@
                   <div class="event-copy">
 
                     <strong>
-                      {{
-                        appointment.title
-                      }}
+                      {{ appointment.title }}
                     </strong>
 
                     <span>
                       For
-                      {{
-                        getOwnerLabel(
-                          appointment.forWho
-                        )
-                      }}
+                      {{ getOwnerLabel(appointment.forWho) }}
                     </span>
 
                     <span>
-                      {{
-                        getDateLabel(
-                          appointment
-                        )
-                      }}
+                      {{ getDateLabel(appointment) }}
                       •
-                      {{
-                        getTimeLabel(
-                          appointment.time
-                        )
-                      }}
+                      {{ getTimeLabel(appointment.time) }}
                     </span>
 
                     <button
                       type="button"
                       class="small-action"
-                      (click)="
-                        restoreAppointment(
-                          appointment,
-                          $event
-                        )
-                      "
+                      (click)="restoreAppointment(appointment, $event)"
                     >
                       Restore
                     </button>
 
                   </div>
-
                 </article>
 
               }
 
             </div>
-
           </div>
 
         }
@@ -380,10 +252,7 @@
     }
 
 
-    @if (
-      activeTab ===
-      'vaccinations'
-    ) {
+    @if (activeTab === 'vaccinations') {
 
       <section class="content-section">
 
@@ -409,16 +278,12 @@
         </div>
 
 
-        @if (
-          upcomingVaccinations.length >
-          0
-        ) {
+        @if (upcomingVaccinations.length > 0) {
 
           <div class="card-list">
 
             @for (
-              vaccination
-              of upcomingVaccinations;
+              vaccination of upcomingVaccinations;
               track vaccination.id
             ) {
 
@@ -426,32 +291,24 @@
                 class="event-card"
                 role="button"
                 tabindex="0"
-                (click)="
-                  editAppointment(
-                    vaccination
-                  )
-                "
-                (keydown.enter)="
-                  editAppointment(
-                    vaccination
-                  )
-                "
+                (click)="editAppointment(vaccination)"
+                (keydown.enter)="editAppointment(vaccination)"
               >
-
                 <div
                   class="event-symbol vaccination"
                   aria-hidden="true"
                 >
-                  V
+                  <img
+                    src="assets/images/icons/vaccination-icon.webp"
+                    alt=""
+                  />
                 </div>
 
                 <div class="event-copy">
 
                   <div class="event-title-row">
                     <strong>
-                      {{
-                        vaccination.title
-                      }}
+                      {{ vaccination.title }}
                     </strong>
 
                     <span class="chevron">
@@ -460,61 +317,35 @@
                   </div>
 
                   <span>
-                    {{
-                      getDateLabel(
-                        vaccination
-                      )
-                    }}
+                    {{ getDateLabel(vaccination) }}
                     •
-                    {{
-                      getTimeLabel(
-                        vaccination.time
-                      )
-                    }}
+                    {{ getTimeLabel(vaccination.time) }}
                   </span>
 
-                  @if (
-                    vaccination.location
-                  ) {
+                  @if (vaccination.location) {
                     <span>
-                      {{
-                        vaccination.location
-                      }}
+                      {{ vaccination.location }}
                     </span>
                   }
 
-
                   @if (
-                    vaccination
-                      .reminderOffset !==
-                    'none'
+                    vaccination.reminderOffset !== 'none'
                   ) {
-
                     <div class="status-row due">
                       Reminder
                       {{
-                        vaccination
-                          .reminderOffset ===
-                        '1-day'
+                        vaccination.reminderOffset === '1-day'
                           ? '1 day before'
-                          : vaccination
-                              .reminderOffset ===
-                            '2-hours'
+                          : vaccination.reminderOffset === '2-hours'
                             ? '2 hours before'
                             : '1 week before'
                       }}
                     </div>
-
                   }
 
-
                   @if (
-                    vaccination
-                      .prepareItems
-                      .length >
-                    0
+                    vaccination.prepareItems.length > 0
                   ) {
-
                     <div class="prepare-card">
 
                       <strong>
@@ -522,9 +353,7 @@
                       </strong>
 
                       @for (
-                        item
-                        of vaccination
-                          .prepareItems;
+                        item of vaccination.prepareItems;
                         track item
                       ) {
                         <span>
@@ -533,25 +362,17 @@
                       }
 
                     </div>
-
                   }
-
 
                   <button
                     type="button"
                     class="small-action"
-                    (click)="
-                      markCompleted(
-                        vaccination,
-                        $event
-                      )
-                    "
+                    (click)="markCompleted(vaccination, $event)"
                   >
                     Mark complete
                   </button>
 
                 </div>
-
               </article>
 
             }
@@ -582,13 +403,9 @@
         }
 
 
-        @if (
-          pastVaccinations.length >
-          0
-        ) {
+        @if (pastVaccinations.length > 0) {
 
           <div class="past-section">
-
             <h2>
               Previous
             </h2>
@@ -596,8 +413,7 @@
             <div class="card-list">
 
               @for (
-                vaccination
-                of pastVaccinations;
+                vaccination of pastVaccinations;
                 track vaccination.id
               ) {
 
@@ -605,18 +421,9 @@
                   class="event-card past"
                   role="button"
                   tabindex="0"
-                  (click)="
-                    editAppointment(
-                      vaccination
-                    )
-                  "
-                  (keydown.enter)="
-                    editAppointment(
-                      vaccination
-                    )
-                  "
+                  (click)="editAppointment(vaccination)"
+                  (keydown.enter)="editAppointment(vaccination)"
                 >
-
                   <div
                     class="event-symbol completed"
                     aria-hidden="true"
@@ -625,33 +432,23 @@
                   </div>
 
                   <div class="event-copy">
-
                     <strong>
-                      {{
-                        vaccination.title
-                      }}
+                      {{ vaccination.title }}
                     </strong>
 
                     <span>
-                      {{
-                        getDateLabel(
-                          vaccination
-                        )
-                      }}
+                      {{ getDateLabel(vaccination) }}
                     </span>
 
                     <span class="status-row success">
                       Completed
                     </span>
-
                   </div>
-
                 </article>
 
               }
 
             </div>
-
           </div>
 
         }
@@ -661,10 +458,7 @@
     }
 
 
-    @if (
-      activeTab ===
-      'reminders'
-    ) {
+    @if (activeTab === 'reminders') {
 
       <section class="content-section">
 
@@ -704,9 +498,7 @@
                 type="text"
                 maxlength="80"
                 placeholder="e.g. Give baby vitamin D"
-                [(ngModel)]="
-                  reminderTitle
-                "
+                [(ngModel)]="reminderTitle"
               />
             </label>
 
@@ -719,28 +511,16 @@
 
               <button
                 type="button"
-                [class.selected]="
-                  reminderForWho ===
-                  'mama'
-                "
-                (click)="
-                  reminderForWho =
-                    'mama'
-                "
+                [class.selected]="reminderForWho === 'mama'"
+                (click)="reminderForWho = 'mama'"
               >
                 Mama
               </button>
 
               <button
                 type="button"
-                [class.selected]="
-                  reminderForWho ===
-                  'baby'
-                "
-                (click)="
-                  reminderForWho =
-                    'baby'
-                "
+                [class.selected]="reminderForWho === 'baby'"
+                (click)="reminderForWho = 'baby'"
               >
                 Baby
               </button>
@@ -755,9 +535,7 @@
 
                 <input
                   type="date"
-                  [(ngModel)]="
-                    reminderDate
-                  "
+                  [(ngModel)]="reminderDate"
                 />
               </label>
 
@@ -766,9 +544,7 @@
 
                 <input
                   type="time"
-                  [(ngModel)]="
-                    reminderTime
-                  "
+                  [(ngModel)]="reminderTime"
                 />
               </label>
 
@@ -783,42 +559,24 @@
 
               <button
                 type="button"
-                [class.selected]="
-                  reminderRepeat ===
-                  'once'
-                "
-                (click)="
-                  reminderRepeat =
-                    'once'
-                "
+                [class.selected]="reminderRepeat === 'once'"
+                (click)="reminderRepeat = 'once'"
               >
                 Once
               </button>
 
               <button
                 type="button"
-                [class.selected]="
-                  reminderRepeat ===
-                  'daily'
-                "
-                (click)="
-                  reminderRepeat =
-                    'daily'
-                "
+                [class.selected]="reminderRepeat === 'daily'"
+                (click)="reminderRepeat = 'daily'"
               >
                 Daily
               </button>
 
               <button
                 type="button"
-                [class.selected]="
-                  reminderRepeat ===
-                  'weekly'
-                "
-                (click)="
-                  reminderRepeat =
-                    'weekly'
-                "
+                [class.selected]="reminderRepeat === 'weekly'"
+                (click)="reminderRepeat = 'weekly'"
               >
                 Weekly
               </button>
@@ -831,9 +589,7 @@
               <button
                 type="button"
                 class="cancel"
-                (click)="
-                  cancelReminderForm()
-                "
+                (click)="cancelReminderForm()"
               >
                 Cancel
               </button>
@@ -841,12 +597,8 @@
               <button
                 type="button"
                 class="save"
-                [disabled]="
-                  !reminderTitle.trim()
-                "
-                (click)="
-                  saveReminder()
-                "
+                [disabled]="!reminderTitle.trim()"
+                (click)="saveReminder()"
               >
                 Save reminder
               </button>
@@ -858,10 +610,7 @@
         }
 
 
-        @if (
-          appointmentReminders.length >
-          0
-        ) {
+        @if (appointmentReminders.length > 0) {
 
           <div class="reminder-group">
 
@@ -872,8 +621,7 @@
             <div class="card-list">
 
               @for (
-                reminder
-                of appointmentReminders;
+                reminder of appointmentReminders;
                 track reminder.id
               ) {
 
@@ -881,9 +629,19 @@
 
                   <div
                     class="reminder-symbol"
+                    [class.vaccination]="
+                      reminder.kind === 'vaccination'
+                    "
                     aria-hidden="true"
                   >
-                    A
+                    <img
+                      [src]="
+                        reminder.kind === 'vaccination'
+                          ? 'assets/images/icons/vaccination-icon.webp'
+                          : 'assets/images/icons/appointment-icon.webp'
+                      "
+                      alt=""
+                    />
                   </div>
 
                   <div class="reminder-copy">
@@ -893,15 +651,11 @@
                     </strong>
 
                     <span>
-                      {{
-                        reminder.reminderText
-                      }}
+                      {{ reminder.reminderText }}
                     </span>
 
                     <span>
-                      {{
-                        reminder.appointmentDate
-                      }}
+                      {{ reminder.appointmentDate }}
                       •
                       {{
                         getTimeLabel(
@@ -936,10 +690,7 @@
         }
 
 
-        @if (
-          activeCustomReminders.length >
-          0
-        ) {
+        @if (activeCustomReminders.length > 0) {
 
           <div class="reminder-group">
 
@@ -950,8 +701,7 @@
             <div class="card-list">
 
               @for (
-                reminder
-                of activeCustomReminders;
+                reminder of activeCustomReminders;
                 track reminder.id
               ) {
 
@@ -961,79 +711,53 @@
                     class="reminder-symbol custom"
                     aria-hidden="true"
                   >
-                    R
+                    <img
+                      src="assets/images/icons/reminder-icon.webp"
+                      alt=""
+                    />
                   </div>
 
                   <div class="reminder-copy">
 
                     <strong>
-                      {{
-                        reminder.title
-                      }}
+                      {{ reminder.title }}
                     </strong>
 
                     <span>
                       For
-                      {{
-                        getOwnerLabel(
-                          reminder.forWho
-                        )
-                      }}
+                      {{ getOwnerLabel(reminder.forWho) }}
                     </span>
 
                     <span>
-                      {{
-                        getReminderDateLabel(
-                          reminder
-                        )
-                      }}
+                      {{ getReminderDateLabel(reminder) }}
                       •
-                      {{
-                        getTimeLabel(
-                          reminder.time
-                        )
-                      }}
+                      {{ getTimeLabel(reminder.time) }}
                     </span>
 
                     <small>
-                      {{
-                        getRepeatLabel(
-                          reminder.repeat
-                        )
-                      }}
+                      {{ getRepeatLabel(reminder.repeat) }}
                     </small>
 
                     <button
                       type="button"
                       class="delete-reminder"
-                      (click)="
-                        deleteReminder(
-                          reminder
-                        )
-                      "
+                      (click)="deleteReminder(reminder)"
                     >
                       Delete
                     </button>
 
                   </div>
 
-
                   <button
                     type="button"
                     class="toggle"
-                    [class.enabled]="
-                      reminder.enabled
-                    "
+                    [class.enabled]="reminder.enabled"
                     [attr.aria-label]="
                       reminder.enabled
                         ? 'Turn reminder off'
                         : 'Turn reminder on'
                     "
-                    (click)="
-                      toggleReminder(
-                        reminder
-                      )
-                    "
+                    (click)="toggleReminder(reminder)"
                   >
                     <span></span>
                   </button>
@@ -1050,10 +774,8 @@
 
 
         @if (
-          appointmentReminders.length ===
-            0 &&
-          activeCustomReminders.length ===
-            0 &&
+          appointmentReminders.length === 0 &&
+          activeCustomReminders.length === 0 &&
           !showReminderForm
         ) {
 
@@ -1084,7 +806,5 @@
 
   </div>
 
-
   <app-bottom-nav></app-bottom-nav>
-
 </div>

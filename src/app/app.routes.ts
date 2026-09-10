@@ -135,6 +135,28 @@ export const routes: Routes = [
   },
 
   {
+    path: 'baby/milestones',
+    loadComponent: () =>
+      import(
+        './features/milestones/milestones.component'
+      ).then(
+        (m) =>
+          m.MilestonesComponent,
+      ),
+  },
+
+  {
+    path: 'baby/milestones/:stage',
+    loadComponent: () =>
+      import(
+        './features/milestone-detail/milestone-detail.component'
+      ).then(
+        (m) =>
+          m.MilestoneDetailComponent,
+      ),
+  },
+
+  {
     path: 'baby/growth',
     loadComponent: () =>
       import(
@@ -219,6 +241,28 @@ export const routes: Routes = [
       ).then(
         (m) =>
           m.MoreComponent,
+      ),
+  },
+
+  {
+    path: 'show-me-how',
+    loadComponent: () =>
+      import(
+        './features/show-me-how/show-me-how.component'
+      ).then(
+        (m) =>
+          m.ShowMeHowComponent,
+      ),
+  },
+
+  {
+    path: 'show-me-how/:guideId',
+    loadComponent: () =>
+      import(
+        './features/show-me-how-detail/show-me-how-detail.component'
+      ).then(
+        (m) =>
+          m.ShowMeHowDetailComponent,
       ),
   },
 

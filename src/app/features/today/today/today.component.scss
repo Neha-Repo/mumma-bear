@@ -2,8 +2,18 @@
   display: block;
 }
 
+* {
+  box-sizing: border-box;
+}
+
 .today-page {
   --background:
+    var(--mumma-bg);
+
+  min-height: 100vh;
+  min-height: 100dvh;
+
+  background:
     var(--mumma-bg);
 }
 
@@ -86,26 +96,47 @@
 
   border-radius: 50%;
 
-  background:
-    var(--mumma-surface);
-
   border:
     1px solid
     var(--mumma-line);
+
+  background:
+    var(--mumma-surface);
+
+  overflow: hidden;
+}
+
+.avatar img {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+}
+
+.top-icon {
+  width: 42px;
+  height: 42px;
+
+  flex:
+    0
+    0
+    42px;
 
   display: flex;
 
   align-items: center;
   justify-content: center;
-
-  font-size: 28px;
 }
 
-.top-icon {
-  font-size: 26px;
+.top-icon img {
+  display: block;
 
-  color:
-    var(--mumma-text);
+  width: 38px;
+  height: 38px;
+
+  object-fit: contain;
 }
 
 .glance-card,
@@ -180,6 +211,8 @@
   flex-direction: column;
 
   gap: 7px;
+
+  cursor: pointer;
 }
 
 .mini-card p,
@@ -216,7 +249,27 @@
 }
 
 .mini-card-icon {
-  font-size: 18px;
+  width: 30px;
+  height: 30px;
+
+  flex:
+    0
+    0
+    30px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+}
+
+.mini-card-icon img {
+  display: block;
+
+  width: 30px;
+  height: 30px;
+
+  object-fit: contain;
 }
 
 .care-card {
@@ -261,6 +314,33 @@
     var(--mumma-text-soft);
 }
 
+.care-copy {
+  min-width: 0;
+
+  flex: 1;
+}
+
+.care-image {
+  width: 105px;
+
+  flex:
+    0
+    0
+    105px;
+}
+
+.care-image img {
+  display: block;
+
+  width: 100%;
+
+  height: 100px;
+
+  object-fit: cover;
+
+  border-radius: 18px;
+}
+
 .quick-section {
   margin-bottom: 28px;
 }
@@ -278,6 +358,8 @@
 }
 
 .quick-grid button {
+  min-width: 0;
+
   border: 0;
 
   background:
@@ -295,28 +377,42 @@
   align-items: center;
 
   gap: 8px;
+
+  cursor: pointer;
 }
 
-.quick-grid ion-icon {
+.quick-grid button > span:last-child {
+  font-size: 13px;
+
+  text-align: center;
+}
+
+.quick-icon {
   width: 58px;
   height: 58px;
 
-  padding: 13px;
+  flex:
+    0
+    0
+    58px;
 
   border-radius: 18px;
 
-  background:
-    var(--mumma-surface);
+  display: flex;
 
-  color:
-    var(--mumma-primary);
+  align-items: center;
+  justify-content: center;
 
-  box-sizing:
-    border-box;
+  overflow: hidden;
 }
 
-.quick-grid span {
-  font-size: 13px;
+.quick-icon img {
+  display: block;
+
+  width: 58px;
+  height: 58px;
+
+  object-fit: cover;
 }
 
 .baby-today-section {
@@ -356,16 +452,16 @@
   line-height: 1.4;
 }
 
-.baby-tip-card ion-icon {
+.arrow-icon {
   flex:
     0
     0
     auto;
 
-  font-size: 24px;
-
   color:
     var(--mumma-primary);
+
+  font-size: 24px;
 }
 
 @media (
@@ -384,69 +480,16 @@
   .quick-grid {
     gap: 8px;
   }
-}
 
-.care-heart {
-  color:
-    var(--mumma-primary);
+  .quick-icon {
+    width: 52px;
+    height: 52px;
 
-  font-size: 18px;
+    flex-basis: 52px;
+  }
 
-  margin-right: 4px;
-}
-
-.care-image {
-  width: 105px;
-
-  flex:
-    0
-    0
-    105px;
-}
-
-.care-image img {
-  display: block;
-
-  width: 100%;
-
-  height: 100px;
-
-  object-fit: cover;
-
-  border-radius: 18px;
-}
-
-.quick-icon {
-  width: 58px;
-  height: 58px;
-
-  border-radius: 18px;
-
-  background:
-    var(--mumma-surface);
-
-  color:
-    var(--mumma-primary);
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-}
-
-.quick-icon svg {
-  width: 28px;
-  height: 28px;
-
-  fill: none;
-
-  stroke:
-    currentColor;
-
-  stroke-width: 1.8;
-
-  stroke-linecap: round;
-
-  stroke-linejoin: round;
+  .quick-icon img {
+    width: 52px;
+    height: 52px;
+  }
 }

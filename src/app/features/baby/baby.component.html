@@ -29,7 +29,10 @@
         class="profile-mark"
         aria-hidden="true"
       >
-        B
+        <img
+          src="assets/images/icons/baby-avatar.webp"
+          alt=""
+        />
       </div>
 
     </header>
@@ -97,10 +100,13 @@
         >
 
           <span
-            class="letter-icon"
+            class="history-icon"
             aria-hidden="true"
           >
-            F
+            <img
+              src="assets/images/icons/feeding-icon.webp"
+              alt=""
+            />
           </span>
 
           <strong>
@@ -121,10 +127,13 @@
         >
 
           <span
-            class="letter-icon"
+            class="history-icon"
             aria-hidden="true"
           >
-            D
+            <img
+              src="assets/images/icons/diaper-icon.webp"
+              alt=""
+            />
           </span>
 
           <strong>
@@ -145,10 +154,13 @@
         >
 
           <span
-            class="letter-icon"
+            class="history-icon"
             aria-hidden="true"
           >
-            S
+            <img
+              src="assets/images/icons/sleep-icon.webp"
+              alt=""
+            />
           </span>
 
           <strong>
@@ -184,7 +196,10 @@
           class="feature-symbol"
           aria-hidden="true"
         >
-          V
+          <img
+            src="assets/images/icons/vaccination-icon.webp"
+            alt=""
+          />
         </span>
 
         <div>
@@ -217,7 +232,10 @@
           class="feature-symbol"
           aria-hidden="true"
         >
-          G
+          <img
+            src="assets/images/icons/growth-icon.webp"
+            alt=""
+          />
         </span>
 
         <div>
@@ -248,33 +266,40 @@
       </h2>
 
 
-      <div class="feature-card upcoming">
+      <button
+        type="button"
+        class="feature-card"
+        (click)="openMilestones()"
+      >
 
         <span
           class="feature-symbol"
           aria-hidden="true"
         >
-          M
+          <img
+            src="assets/images/icons/development-icon.webp"
+            alt=""
+          />
         </span>
 
         <div>
 
           <strong>
-            Milestones
+            Around this age
           </strong>
 
           <p>
-            Track new skills and
-            development.
+            Gentle development guidance
+            for {{ babyName }} right now.
           </p>
 
         </div>
 
-        <span class="coming">
-          Coming soon
+        <span class="arrow">
+          ›
         </span>
 
-      </div>
+      </button>
 
 
       <div class="feature-card upcoming">
@@ -283,7 +308,10 @@
           class="feature-symbol"
           aria-hidden="true"
         >
-          R
+          <img
+            src="assets/images/icons/baby-food-icon.webp"
+            alt=""
+          />
         </span>
 
         <div>

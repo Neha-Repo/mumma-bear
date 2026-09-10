@@ -1,0 +1,198 @@
+<div class="milestones-page">
+
+  <main class="milestones-shell">
+
+    <header class="page-header">
+
+      <button
+        type="button"
+        class="back-button"
+        aria-label="Back to Baby"
+        (click)="goBack()"
+      >
+        ‹
+      </button>
+
+      <div>
+
+        <p>
+          Baby
+        </p>
+
+        <h1>
+          Around this age
+        </h1>
+
+      </div>
+
+    </header>
+
+
+    @if (!hasDob) {
+
+      <section class="notice-card">
+
+        <strong>
+          Baby's age isn't available yet
+        </strong>
+
+        <p>
+          Add a date of birth in Baby's
+          profile so Mumma Bear can show
+          the right stage automatically.
+        </p>
+
+      </section>
+
+    }
+
+
+    @if (currentStage) {
+
+      <section class="age-card">
+
+        <span>
+          {{ babyName }}
+        </span>
+
+        <h2>
+          {{ currentStage.title }}
+        </h2>
+
+        @if (babyAgeText) {
+
+          <small>
+            {{ babyAgeText }}
+          </small>
+
+        }
+
+        <p>
+          {{ currentStage.intro }}
+        </p>
+
+      </section>
+
+
+      <section class="section">
+
+        <div class="section-heading">
+
+          <div>
+
+            <h2>
+              Things you may notice
+            </h2>
+
+            <p>
+              A few gentle things to look
+              out for — not a checklist.
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <div class="preview-list">
+
+          @for (
+            item of currentStage.previews;
+            track item.title
+          ) {
+
+            <article class="preview-card">
+
+              <span
+                class="preview-mark"
+                aria-hidden="true"
+              >
+                {{ item.title.charAt(0) }}
+              </span>
+
+              <div>
+
+                <strong>
+                  {{ item.title }}
+                </strong>
+
+                <p>
+                  {{ item.text }}
+                </p>
+
+              </div>
+
+            </article>
+
+          }
+
+        </div>
+
+      </section>
+
+
+      <button
+        type="button"
+        class="detail-button"
+        (click)="openDetails()"
+      >
+
+        <div>
+
+          <strong>
+            See more around this age
+          </strong>
+
+          <span>
+            More examples, grouped simply.
+          </span>
+
+        </div>
+
+        <span
+          class="arrow"
+          aria-hidden="true"
+        >
+          ›
+        </span>
+
+      </button>
+
+
+      <section class="reassurance-card">
+
+        <strong>
+          No score. No race.
+        </strong>
+
+        <p>
+          Babies develop at different
+          rates. These are things you may
+          notice around this stage, not
+          tasks Mum needs to complete.
+        </p>
+
+      </section>
+
+
+      <section class="concern-card">
+
+        <strong>
+          Something worrying you?
+        </strong>
+
+        <p>
+          If {{ babyName }} has lost a
+          skill they previously had, or
+          you are worried about their
+          development, bring it up with
+          their healthcare professional.
+        </p>
+
+      </section>
+
+    }
+
+  </main>
+
+</div>

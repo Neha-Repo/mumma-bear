@@ -148,6 +148,13 @@ export class BabyComponent
   }
 
 
+  openMilestones(): void {
+    void this.router.navigate(
+      ['/baby/milestones'],
+    );
+  }
+
+
   private loadBabyProfile():
     void {
     const dob =

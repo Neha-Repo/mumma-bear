@@ -19,6 +19,7 @@ import {
     './more.component.scss',
 })
 export class MoreComponent {
+
   private readonly router =
     inject(Router);
 
@@ -35,4 +36,12 @@ export class MoreComponent {
       ['/pumped-milk'],
     );
   }
+
+
+  openShowMeHow(): void {
+    void this.router.navigate(
+      ['/show-me-how'],
+    );
+  }
+
 }

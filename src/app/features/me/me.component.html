@@ -1,4 +1,5 @@
 <div class="me-page">
+
   <main class="me-shell">
 
     <header class="page-header">
@@ -21,7 +22,10 @@
         class="profile-mark"
         aria-hidden="true"
       >
-        M
+        <img
+          src="assets/images/icons/mumma-avatar.webp"
+          alt=""
+        />
       </div>
 
     </header>
@@ -29,8 +33,14 @@
 
     <section class="care-card">
 
-      <span class="heart">
-        ♥
+      <span
+        class="care-icon"
+        aria-hidden="true"
+      >
+        <img
+          src="assets/images/icons/self-care-icon.webp"
+          alt=""
+        />
       </span>
 
       <div>
@@ -64,7 +74,10 @@
           class="feature-symbol"
           aria-hidden="true"
         >
-          R
+          <img
+            src="assets/images/icons/recovery-icon.webp"
+            alt=""
+          />
         </span>
 
         <div>
@@ -74,6 +87,7 @@
 
           <p>
             {{ latestRecoveryDate }}
+
             @if (
               recoveryCheckIns > 0
             ) {
@@ -95,43 +109,20 @@
       </button>
 
 
-      <div class="feature-card upcoming">
-
-        <span
-          class="feature-symbol"
-          aria-hidden="true"
-        >
-          H
-        </span>
-
-        <div>
-          <strong>
-            Postpartum health
-          </strong>
-
-          <p>
-            Symptoms, wellbeing and
-            health guidance.
-          </p>
-        </div>
-
-        <span class="coming">
-          Coming soon
-        </span>
-
-      </div>
-
-
       <button
         type="button"
         class="feature-card"
         (click)="openAppointments()"
       >
+
         <span
           class="feature-symbol"
           aria-hidden="true"
         >
-          A
+          <img
+            src="assets/images/icons/appointment-icon.webp"
+            alt=""
+          />
         </span>
 
         <div>
@@ -148,6 +139,7 @@
         <span class="arrow">
           ›
         </span>
+
       </button>
 
     </section>
@@ -159,13 +151,17 @@
         Take care
       </h2>
 
+
       <div class="feature-card upcoming">
 
         <span
           class="feature-symbol"
           aria-hidden="true"
         >
-          S
+          <img
+            src="assets/images/icons/self-care-icon.webp"
+            alt=""
+          />
         </span>
 
         <div>
@@ -192,7 +188,10 @@
           class="feature-symbol"
           aria-hidden="true"
         >
-          F
+          <img
+            src="assets/images/icons/mum-food-icon.webp"
+            alt=""
+          />
         </span>
 
         <div>
@@ -219,7 +218,10 @@
           class="feature-symbol"
           aria-hidden="true"
         >
-          L
+          <img
+            src="assets/images/icons/history-icon.webp"
+            alt=""
+          />
         </span>
 
         <div>
@@ -244,4 +246,5 @@
   </main>
 
   <app-bottom-nav></app-bottom-nav>
+
 </div>

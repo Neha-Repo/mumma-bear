@@ -102,38 +102,45 @@
 }
 
 .nav-icon {
-  width: 25px;
-  height: 25px;
+  width: 34px;
+  height: 30px;
+
+  padding: 3px;
 
   display: flex;
 
   align-items: center;
   justify-content: center;
+
+  border-radius: 12px;
+
+  transition:
+    background 0.16s ease,
+    opacity 0.16s ease,
+    transform 0.16s ease;
 }
 
-.nav-icon svg {
-  width: 23px;
-  height: 23px;
+.nav-icon img {
+  width: 24px;
+  height: 24px;
 
-  fill: none;
+  display: block;
 
-  stroke:
-    currentColor;
+  object-fit: contain;
 
-  stroke-width: 1.7;
-
-  stroke-linecap: round;
-
-  stroke-linejoin: round;
+  opacity: 0.68;
 }
 
 .bottom-nav button.active
 .nav-icon {
-  width: 34px;
-  height: 30px;
-
-  border-radius: 12px;
-
   background:
     var(--mumma-surface);
+
+  transform:
+    translateY(-1px);
+}
+
+.bottom-nav button.active
+.nav-icon img {
+  opacity: 1;
 }

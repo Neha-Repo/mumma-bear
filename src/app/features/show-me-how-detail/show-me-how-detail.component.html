@@ -1,0 +1,140 @@
+<div class="guide-page">
+
+  <main class="guide-shell">
+
+    <header class="page-header">
+
+      <button
+        type="button"
+        class="back-button"
+        aria-label="Back to Show Me How"
+        (click)="goBack()"
+      >
+        ‹
+      </button>
+
+      <div>
+        <p>
+          Show Me How
+        </p>
+
+        @if (guide) {
+          <h1>
+            {{ guide.title }}
+          </h1>
+        }
+      </div>
+
+    </header>
+
+
+    @if (guide) {
+
+      <section class="hero-card">
+
+        <div class="illustration">
+          <img
+            [src]="guide.image"
+            [alt]="guide.imageAlt"
+          />
+        </div>
+
+
+        <span class="category">
+          {{ guide.category }}
+        </span>
+
+        <h2>
+          {{ guide.title }}
+        </h2>
+
+        <p class="intro">
+          {{ guide.intro }}
+        </p>
+
+      </section>
+
+
+      <section class="steps-section">
+
+        <div class="section-heading">
+
+          <span>
+            Quick guide
+          </span>
+
+          <h2>
+            What to do
+          </h2>
+
+        </div>
+
+
+        <div class="steps">
+
+          @for (
+            step of guide.steps;
+            track step.title;
+            let index = $index
+          ) {
+
+            <article class="step-card">
+
+              <span class="step-number">
+                {{ index + 1 }}
+              </span>
+
+              <div>
+                <strong>
+                  {{ step.title }}
+                </strong>
+
+                <p>
+                  {{ step.text }}
+                </p>
+              </div>
+
+            </article>
+
+          }
+
+        </div>
+
+      </section>
+
+
+      <section class="note-card">
+
+        <div
+          class="note-mark"
+          aria-hidden="true"
+        >
+          i
+        </div>
+
+        <div>
+          <strong>
+            {{ guide.noteTitle }}
+          </strong>
+
+          <p>
+            {{ guide.note }}
+          </p>
+        </div>
+
+      </section>
+
+
+      <button
+        type="button"
+        class="done-button"
+        (click)="goBack()"
+      >
+        Done
+      </button>
+
+    }
+
+  </main>
+
+</div>
